@@ -1,0 +1,173 @@
+name: Build
+on:
+  - push
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  JOBS: 3
+  CFLAGS: -Os -fomit-frame-pointer
+  LDFLAGS: -Wl,--as-needed
+
+jobs:
+  njs:
+    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.DEBUG && '-debug' || '' }}-x86_64
+    runs-on: ubuntu-latest
+    container:
+      image: docker://alpine:3.12
+    strategy:
+      matrix:
+        NJS_VERSION:
+          - 0.5.0
+        DEBUG:
+          - true
+          - false
+    steps:
+      - name: Checkout njs repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/njs
+          ref: ${{ matrix.NJS_VERSION }}
+          path: njs
+
+      - name: Update apk indexes
+        run: apk update
+
+      - name: Install dependencies
+        run: apk add build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
+
+      - name: Build njs
+        run: |
+          cd njs
+          ./configure --cc-opt="$CFLAGS" --ld-opt="$LDFLAGS" --debug=${{ matrix.debug && 'YES' || 'NO' }}
+          NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
+          make libnjs
+          cc -o build/njs $NJS_CFLAGS -static -Isrc -Ibuild -Injs src/njs_shell.c build/libnjs.a -lm -lpcre -ledit -lncursesw
+          ${{ matrix.debug }} || strip build/njs
+          mv build/njs build/njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64
+
+      - name: Upload njs binary to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: njs/build/njs-*
+
+  nginx:
+    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64
+    runs-on: ubuntu-latest
+    container:
+      image: docker://alpine:3.12
+    env:
+      NJS_VERSION: 0.5.0
+      NGX_DEVEL_KIT_VERSION: 0.3.1
+      ECHO_MODULE_VERSION: 0.62
+      HEADERS_MORE_MODULE_VERSION: 0.33
+      SET_MISC_MODULE_VERSION: 0.32
+    strategy:
+      matrix:
+        NGINX_VERSION:
+          - 1.18.0
+          - 1.19.5
+    steps:
+      - name: Checkout nginx repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/nginx
+          ref: release-${{ matrix.NGINX_VERSION }}
+          path: nginx
+
+      - name: Checkout njs repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/njs
+          ref: ${{ env.NJS_VERSION }}
+          path: njs
+
+      - name: Checkout ngx_devel_kit repository
+        uses: actions/checkout@v2
+        with:
+          repository: simpl/ngx_devel_kit
+          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
+          path: ngx_devel_kit
+
+      - name: Checkout echo-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/echo-nginx-module
+          ref: v${{ env.ECHO_MODULE_VERSION }}
+          path: echo-nginx-module
+
+      - name: Checkout headers-more-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/headers-more-nginx-module
+          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
+          path: headers-more-nginx-module
+
+      - name: Checkout set-misc-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/set-misc-nginx-module
+          ref: v${{ env.SET_MISC_MODULE_VERSION }}
+          path: set-misc-nginx-module
+
+      - name: Update apk indexes
+        run: apk update
+
+      - name: Install dependencies
+        run: apk add build-base linux-headers pcre-dev zlib-dev zlib-static
+
+      - name: Build nginx
+        run: |
+          cd nginx
+          ./auto/configure \
+              --prefix="." \
+              --sbin-path="nginx" \
+              --pid-path="tmp/nginx.pid" \
+              --lock-path="tmp/nginx.lock" \
+              --http-client-body-temp-path="tmp/client_body" \
+              --http-proxy-temp-path="tmp/proxy" \
+              --user=nginx \
+              --group=nginx \
+              --with-ld-opt="-static" \
+              --with-debug \
+              --with-threads \
+              --with-file-aio \
+              --with-http_auth_request_module \
+              --with-http_secure_link_module \
+              --without-http_gzip_module \
+              --without-http_ssi_module \
+              --without-http_mirror_module \
+              --without-http_geo_module \
+              --without-http_split_clients_module \
+              --without-http_fastcgi_module \
+              --without-http_uwsgi_module \
+              --without-http_scgi_module \
+              --without-http_grpc_module \
+              --without-http_memcached_module \
+              --add-module="../njs/nginx" \
+              --add-module="../ngx_devel_kit" \
+              --add-module="../echo-nginx-module" \
+              --add-module="../headers-more-nginx-module" \
+              --add-module="../set-misc-nginx-module"
+          make
+          strip objs/nginx
+          mv objs/nginx objs/nginx-${{ matrix.NGINX_VERSION }}-x86_64
+
+      - name: Upload nginx binary to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: nginx/objs/nginx-*
+
+  upload:
+    needs: [njs, nginx]
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            artifact/*

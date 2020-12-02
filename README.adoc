@@ -1,0 +1,6 @@
+= nginx and njs static binaries
+:gh-name: jirutka/nginx-binaries
+
+This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system).
+
+You can find the binaries in https://github.com/{gh-name}/releases[Releases] under _Assets_.
