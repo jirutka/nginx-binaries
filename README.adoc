@@ -1,6 +1,58 @@
 = nginx and njs static binaries
 :gh-name: jirutka/nginx-binaries
+:alpine-branch: 3.12
+:nginx-docs-uri: http://nginx.org/en/docs/
 
 This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system).
 
 You can find the binaries in https://github.com/{gh-name}/releases[Releases] under _Assets_.
+
+
+== nginx
+
+nginx binary is statically linked against https://www.musl-libc.org[musl libc], openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+It’s compiled with debug mode, threads and aio.
+
+
+=== Included Modules
+
+*Built-In Modules:*
+
+* {nginx-docs-uri}/http/ngx_http_access_module.html[ngx_http_access_module]
+* {nginx-docs-uri}/http/ngx_http_auth_basic_module.html[ngx_http_auth_basic_module]
+* {nginx-docs-uri}/http/ngx_http_auth_request_module.html[ngx_http_auth_request_module]
+* {nginx-docs-uri}/http/ngx_http_autoindex_module.html[ngx_http_autoindex_module]
+* {nginx-docs-uri}/http/ngx_http_browser_module.html[ngx_http_browser_module]
+* {nginx-docs-uri}/http/ngx_http_charset_module.html[ngx_http_charset_module]
+* {nginx-docs-uri}/http/ngx_http_empty_gif_module.html[ngx_http_empty_gif_module]
+* {nginx-docs-uri}/http/ngx_http_gzip_module.html[ngx_http_gzip_module]
+* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module]
+* {nginx-docs-uri}/http/ngx_http_limit_conn_module.html[ngx_http_limit_conn_module]
+* {nginx-docs-uri}/http/ngx_http_limit_req_module.html[ngx_http_limit_req_module]
+* {nginx-docs-uri}/http/ngx_http_map_module.html[ngx_http_map_module]
+* {nginx-docs-uri}/http/ngx_http_proxy_module.html[ngx_http_proxy_module]
+* {nginx-docs-uri}/http/ngx_http_realip_module.html[ngx_http_realip_module]
+* {nginx-docs-uri}/http/ngx_http_referer_module.html[ngx_http_referer_module]
+* {nginx-docs-uri}/http/ngx_http_rewrite_module.html[ngx_http_rewrite_module]
+* {nginx-docs-uri}/http/ngx_http_secure_link_module.html[ngx_http_secure_link_module]
+* {nginx-docs-uri}/http/ngx_http_ssl_module.html[ngx_http_ssl_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_hash_module.html[ngx_http_upstream_hash_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_ip_hash_module.html[ngx_http_upstream_ip_hash_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_keepalive_module.html[ngx_http_upstream_keepalive_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_least_conn_module.html[ngx_http_upstream_least_conn_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_random_module.html[ngx_http_upstream_random_module]
+* {nginx-docs-uri}/http/ngx_http_upstream_zone_module.html[ngx_http_upstream_zone_module]
+* {nginx-docs-uri}/http/ngx_http_userid_module.html[ngx_http_userid_module]
+* {nginx-docs-uri}/http/ngx_http_v2_module.html[ngx_http_v2_module]
+
+*3rd Party Modules:*
+
+* https://github.com/openresty/echo-nginx-module[echo-nginx-module]
+* https://github.com/openresty/headers-more-nginx-module[headers-more-nginx-module]
+* https://github.com/vision5/ngx_devel_kit[ngx_devel_kit]
+* https://github.com/openresty/set-misc-nginx-module[set-misc-nginx-module]
+
+
+== njs
+
+njs binary is statically linked against https://www.musl-libc.org[musl libc], libedit and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
