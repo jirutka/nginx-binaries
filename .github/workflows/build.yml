@@ -136,7 +136,6 @@ jobs:
               --with-http_realip_module \
               --with-http_auth_request_module \
               --with-http_secure_link_module \
-              --without-http_gzip_module \
               --without-http_ssi_module \
               --without-http_mirror_module \
               --without-http_geo_module \
