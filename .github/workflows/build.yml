@@ -113,7 +113,7 @@ jobs:
         run: apk update
 
       - name: Install dependencies
-        run: apk add build-base linux-headers pcre-dev zlib-dev zlib-static
+        run: apk add build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
 
       - name: Build nginx
         run: |
@@ -131,6 +131,9 @@ jobs:
               --with-debug \
               --with-threads \
               --with-file-aio \
+              --with-http_ssl_module \
+              --with-http_v2_module \
+              --with-http_realip_module \
               --with-http_auth_request_module \
               --with-http_secure_link_module \
               --without-http_gzip_module \
