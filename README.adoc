@@ -5,7 +5,7 @@
 
 This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system).
 
-You can find the binaries in https://github.com/{gh-name}/releases[Releases] under _Assets_.
+You can find the binaries at https://jirutka.github.io/nginx-binaries/ or in the https://github.com/{gh-name}/tree/binaries[binaries] branch.
 
 
 == nginx
