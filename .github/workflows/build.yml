@@ -121,10 +121,11 @@ jobs:
           ./auto/configure \
               --prefix="." \
               --sbin-path="nginx" \
-              --pid-path="tmp/nginx.pid" \
-              --lock-path="tmp/nginx.lock" \
-              --http-client-body-temp-path="tmp/client_body" \
-              --http-proxy-temp-path="tmp/proxy" \
+              --conf-path="nginx.conf" \
+              --pid-path="nginx.pid" \
+              --lock-path="nginx.lock" \
+              --http-client-body-temp-path="client_body_temp" \
+              --http-proxy-temp-path="proxy_temp" \
               --user=nginx \
               --group=nginx \
               --with-ld-opt="-static" \
