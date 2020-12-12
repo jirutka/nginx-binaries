@@ -1,0 +1,99 @@
+#!/usr/bin/env node
+const { execSync: exec } = require('child_process')
+const process = require('process')
+const fs = require('fs')
+
+
+/**
+ * @param {string} filename
+ */
+const filterFiles = (filename) =>
+  !filename.startsWith('index.') &&
+  !filename.startsWith('.') &&
+  !filename.endsWith('.sha1')
+
+/**
+ * @param {string} filename
+ */
+const readFileSha1 = (filename) =>
+  fs.readFileSync(`${filename}.sha1`, 'utf8').split(' ', 1)[0]
+
+/**
+ * @param {string} filename
+ */
+const fileLastModifiedDate = (filename) => {
+  const gitDate = exec(
+    `git log -1 --format="%ad" --date=iso-strict-local -- '${filename}'`,
+    { encoding: 'utf8', env: { TZ: 'GMT' } },
+  ).trim()
+
+  // gitDate is an empty string for new files.
+  const date = gitDate ? new Date(gitDate) : fs.statSync(filename).ctime
+
+  return date.toISOString().slice(0, -5) + 'Z'
+}
+
+/**
+ * @param {string} filename
+ */
+const parseBinaryName = (filename) => {
+  const [name, version, ...rest] = filename.split('-')
+  const [os, arch, ...variant] = rest.reverse()
+
+  return {
+    name,
+    version,
+    variant: variant.length > 0 ? variant.join('-') : undefined,
+    arch,
+    os,
+    filename,
+  }
+}
+
+const generateIndex = () => fs.readdirSync('.')
+  .filter(filterFiles)
+  .map(filename => ({
+    ...parseBinaryName(filename),
+    date: fileLastModifiedDate(filename),
+    size: fs.statSync(filename).size,
+    integrity: `sha1-${readFileSha1(filename)}`,
+  }))
+
+/**
+ * @param {Array<object>} array
+ */
+const stringifyAsCsv = (array) => {
+  if (array.length < 1) return ''
+
+  return [
+    Object.keys(array[0]).join(','),
+    ...array.map(item => Object.values(item).join(','))
+  ].join('\n')
+}
+
+
+const argv = process.argv.slice(2)
+
+if (argv[0] === '-h' || argv[0] === '--help') {
+  console.log('Usage: generate-index [--json | --csv] [dirpath]')
+  process.exit(0)
+}
+const format = argv[0] && argv[0].startsWith('--') ? argv.shift().slice(2) : 'json'
+
+if (argv[0]) {
+  process.chdir(argv[0])
+}
+
+const index = generateIndex()
+
+switch (format) {
+  case 'json':
+    console.log(JSON.stringify({ contents: index }, null, 2))
+    break
+  case 'csv':
+    console.log(stringifyAsCsv(index))
+    break
+  default:
+    console.error(`Unsupported format: ${format}`)
+    process.exit(2)
+}

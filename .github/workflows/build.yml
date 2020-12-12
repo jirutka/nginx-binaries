@@ -181,36 +181,48 @@ jobs:
       image: docker://alpine:3.12
     steps:
       - name: Install dependencies
-        run: apk add -U git tree
+        run: apk add -U git nodejs tree
+
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          path: master
 
       - name: Checkout binaries branch
         uses: actions/checkout@v2
         with:
           ref: binaries
+          path: binaries
 
       - name: Download and unpack all workflow run artifacts
         uses: actions/download-artifact@v2
-        with:
-          path: ~/download
 
       - name: Move downloaded binaries into repository
         run: |
-          mv ~/download/artifact/* .
-          ls -lah
+          mv artifact/* binaries/
+          ls -lah binaries/
+
+      - name: Generate index.json
+        run: ./master/scripts/generate-index --json binaries/ > binaries/index.json
+
+      - name: Generate index.csv
+        run: ./master/scripts/generate-index --csv binaries/ > binaries/index.csv
+
+      - name: Generate index.html
+        working-directory: binaries
+        run: tree -hv -H . -o index.html .
 
       - name: Check if there are any changes
         id: has_changes
+        working-directory: binaries
         run: |
           git status || exit 1
           test -n "$(git status --porcelain)" && result=yes || result=no
           echo ::set-output name=result::$result
 
-      - name: Generate index.html
-        if: steps.has_changes.outputs.result == 'yes'
-        run: tree -hv -H . -o index.html .
-
       - name: Commit changes
         if: steps.has_changes.outputs.result == 'yes'
+        working-directory: binaries
         run: |
           git config --local user.email "github-actions@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -219,4 +231,5 @@ jobs:
 
       - name: Push changes back to origin
         if: steps.has_changes.outputs.result == 'yes'
+        working-directory: binaries
         run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git binaries
