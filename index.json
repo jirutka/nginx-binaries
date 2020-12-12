@@ -7,7 +7,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.18.0-x86_64-linux",
-      "date": "2020-12-12T19:41:40Z",
+      "date": "2020-12-12T16:26:40Z",
       "size": 5002968,
       "integrity": "sha1-7437746736a85a6dca897c38729eddad3571f622"
     },
@@ -18,7 +18,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.19.5-x86_64-linux",
-      "date": "2020-12-12T19:41:40Z",
+      "date": "2020-12-12T16:26:40Z",
       "size": 5020312,
       "integrity": "sha1-9750bb569ff12f60879e3f22216da96352eec6ff"
     },
@@ -29,7 +29,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "njs-0.5.0-debug-x86_64-linux",
-      "date": "2020-12-12T19:41:40Z",
+      "date": "2020-12-12T21:18:40Z",
       "size": 5495976,
       "integrity": "sha1-20f957c8266f655047ac18439308bbf72a915ddb"
     },
@@ -40,7 +40,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "njs-0.5.0-x86_64-linux",
-      "date": "2020-12-12T19:41:40Z",
+      "date": "2020-12-12T16:26:40Z",
       "size": 1305040,
       "integrity": "sha1-7336b675b26bd67fdda3db18c66fa7f64691e280"
     }
