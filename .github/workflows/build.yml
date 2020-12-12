@@ -198,10 +198,19 @@ jobs:
           mv ~/download/artifact/* .
           ls -lah
 
+      - name: Check if there are any changes
+        id: has_changes
+        run: |
+          git status || exit 1
+          test -n "$(git status --porcelain)" && result=yes || result=no
+          echo ::set-output name=result::$result
+
       - name: Generate index.html
+        if: steps.has_changes.outputs.result == 'yes'
         run: tree -hv -H . -o index.html .
 
       - name: Commit changes
+        if: steps.has_changes.outputs.result == 'yes'
         run: |
           git config --local user.email "github-actions@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -209,4 +218,5 @@ jobs:
           git commit -m "Built from ${{ github.sha }}"
 
       - name: Push changes back to origin
+        if: steps.has_changes.outputs.result == 'yes'
         run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git binaries
