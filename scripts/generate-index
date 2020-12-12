@@ -43,7 +43,7 @@ const parseBinaryName = (filename) => {
   return {
     name,
     version,
-    variant: variant.length > 0 ? variant.join('-') : undefined,
+    variant: variant.join('-'),
     arch,
     os,
     filename,
