@@ -43,12 +43,18 @@ jobs:
           make libnjs
           cc -o build/njs $NJS_CFLAGS -static -Isrc -Ibuild -Injs src/njs_shell.c build/libnjs.a -lm -lpcre -ledit -lncursesw
           ${{ matrix.debug }} || strip build/njs
-          mv build/njs build/njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64
+
+      - name: Rename binary and generate checksum
+        run: |
+          BIN_NAME=njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64
+          install -D njs/build/njs artifact/$BIN_NAME
+          cd artifact/
+          sha1sum $BIN_NAME > $BIN_NAME.sha1
 
       - name: Upload njs binary to artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: njs/build/njs-*
+          path: artifact/*
 
   nginx:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64
@@ -153,12 +159,18 @@ jobs:
               --add-module="../set-misc-nginx-module"
           make
           strip objs/nginx
-          mv objs/nginx objs/nginx-${{ matrix.NGINX_VERSION }}-x86_64
+
+      - name: Rename binary and generate checksum
+        run: |
+          BIN_NAME=nginx-${{ matrix.NGINX_VERSION }}-x86_64
+          install -D nginx/objs/nginx artifact/$BIN_NAME
+          cd artifact/
+          sha1sum $BIN_NAME > $BIN_NAME.sha1
 
       - name: Upload nginx binary to artifacts
         uses: actions/upload-artifact@v2
         with:
-          path: nginx/objs/nginx-*
+          path: artifact/*
 
   upload:
     needs: [njs, nginx]
