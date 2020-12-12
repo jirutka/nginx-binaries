@@ -173,17 +173,40 @@ jobs:
           path: artifact/*
 
   upload:
+    name: Upload binaries
     needs: [njs, nginx]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    container:
+      image: docker://alpine:3.12
     steps:
-      - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v2
+      - name: Install dependencies
+        run: apk add -U git tree
 
-      - name: Deploy binaries to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Checkout binaries branch
+        uses: actions/checkout@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          keep_files: true
-          publish_branch: binaries
-          publish_dir: ./artifact
+          ref: binaries
+
+      - name: Download and unpack all workflow run artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: ~/download
+
+      - name: Move downloaded binaries into repository
+        run: |
+          mv ~/download/artifact/* .
+          ls -lah
+
+      - name: Generate index.html
+        run: tree -hv -H . -o index.html .
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add --all
+          git commit -m "Built from ${{ github.sha }}"
+
+      - name: Push changes back to origin
+        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git binaries
