@@ -1,12 +1,53 @@
 = nginx and njs static binaries
+:npm-name: nginx-binaries
 :gh-name: jirutka/nginx-binaries
 :alpine-branch: 3.12
 :nginx-docs-uri: http://nginx.org/en/docs/
 
-This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system).
+ifdef::env-github[]
+image:https://github.com/{gh-name}/workflows/binaries/badge.svg[Binaries Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22binaries%22]
+endif::env-github[]
+
+This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system) and a JS library for downloading these binaries.
 
 You can find the binaries at https://jirutka.github.io/nginx-binaries/ or in the https://github.com/{gh-name}/tree/binaries[binaries] branch.
 
+
+== JS Library
+
+ifdef::env-github[]
+image:https://github.com/{gh-name}/workflows/js/badge.svg[JS Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22js%22]
+image:https://img.shields.io/npm/v/{npm-name}.svg[npm Version, link="https://www.npmjs.org/package/{npm-name}"]
+endif::env-github[]
+
+
+=== Installation
+
+[source, sh, subs="+attributes"]
+----
+# using npm:
+npm install --save-dev {npm-name}
+# or using yarn:
+yarn add --dev {npm-name}
+----
+
+
+=== Usage
+
+[source, js, subs="+attributes"]
+----
+import { NginxFetcher, NjsFetcher } from '{npm-name}'
+
+const nginx = NginxFetcher()
+
+await nginx.versions({ version: '^1.18.0' })  // => ['1.18.0', '1.19.5']
+await nginx.download({ version: '1.18.x' }, '.tmp/')  // => '.tmp/nginx-1.18.0-x86_64-linux'
+----
+
+See https://github.com/Download/anylogger[anylogger] for information about setting up logging.
+
+
+ifndef::npm-readme[]
 
 == nginx
 
@@ -56,3 +97,5 @@ It’s compiled with debug mode, threads and aio.
 == njs
 
 njs binary is statically linked against https://www.musl-libc.org[musl libc], libedit and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+
+endif::npm-readme[]

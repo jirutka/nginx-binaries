@@ -1,0 +1,36 @@
+name: js
+on:
+  - push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: yarn build
+
+  publish:
+    name: Publish on npmjs
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install asciidoctor and pandoc
+        run: sudo apt-get install asciidoctor pandoc
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - run: yarn install
+
+      - name: Set up .npmrc file
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

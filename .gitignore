@@ -1,0 +1,6 @@
+/.vscode/
+/lib/
+node_modules/
+package-lock.json
+README.md
+*.log
