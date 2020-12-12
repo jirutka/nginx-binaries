@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "asciidoctor -b docbook -a npm-readme -a gh-branch=v$npm_package_version -o - README.adoc | pandoc -f docbook -t gfm --base-header-level 2 -o README.md"
+    "prepublishOnly": "yarn build && asciidoctor -b docbook -a npm-readme -a gh-branch=v$npm_package_version -o - README.adoc | pandoc -f docbook -t gfm --base-header-level 2 -o README.md"
   },
   "dependencies": {
     "anylogger": "^1.0.9",
