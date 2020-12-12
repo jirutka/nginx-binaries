@@ -1,0 +1,45 @@
+{
+  "contents": [
+    {
+      "name": "nginx",
+      "version": "1.18.0",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "nginx-1.18.0-x86_64-linux",
+      "date": "2020-12-12T16:26:39Z",
+      "size": 5002968,
+      "integrity": "sha1-7437746736a85a6dca897c38729eddad3571f622"
+    },
+    {
+      "name": "nginx",
+      "version": "1.19.5",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "nginx-1.19.5-x86_64-linux",
+      "date": "2020-12-12T16:26:39Z",
+      "size": 5020312,
+      "integrity": "sha1-9750bb569ff12f60879e3f22216da96352eec6ff"
+    },
+    {
+      "name": "njs",
+      "version": "0.5.0",
+      "variant": "debug",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "njs-0.5.0-debug-x86_64-linux",
+      "date": "2020-12-12T16:26:39Z",
+      "size": 5495960,
+      "integrity": "sha1-6fc7d0990c8a8c2757f55efe944bcb6958b829a2"
+    },
+    {
+      "name": "njs",
+      "version": "0.5.0",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "njs-0.5.0-x86_64-linux",
+      "date": "2020-12-12T16:26:39Z",
+      "size": 1305040,
+      "integrity": "sha1-7336b675b26bd67fdda3db18c66fa7f64691e280"
+    }
+  ]
+}
