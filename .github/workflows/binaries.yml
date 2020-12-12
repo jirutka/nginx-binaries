@@ -195,6 +195,9 @@ jobs:
         with:
           ref: binaries
           path: binaries
+          # FIXME: We have to fetch full history to get the last modification date
+          # of each file. This is suboptimal, we have to find a better way.
+          fetch-depth: 0
 
       - name: Download and unpack all workflow run artifacts
         uses: actions/download-artifact@v2
