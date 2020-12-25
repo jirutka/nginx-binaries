@@ -51,20 +51,17 @@ export interface Specifier {
   arch?: Arch
 }
 
-export interface Options {
+export interface Fetcher {
   /**
    * URL of the repository with binaries.
    * @default https://jirutka.github.io/nginx-binaries
    */
-  repoUrl?: string
+  repoUrl: string
   /**
    * Fetch response timeout in milliseconds.
    * @default 10000
    */
-  timeout?: number
-}
-
-export interface Fetcher {
+  timeout: number
   /**
    * Downloads the specified binary into `destDir` and returns its path.
    *
@@ -91,7 +88,7 @@ export interface Fetcher {
   versions: (spec?: Specifier) => Promise<string[]>
 }
 
-const defaultOptions: Required<Options> = {
+const defaults = {
   repoUrl: 'https://jirutka.github.io/nginx-binaries',
   timeout: 10_000,
 }
@@ -208,20 +205,27 @@ function findBySpec (index: IndexFile, name: string, spec: Specifier): IndexEntr
     .sort((a, b) => semver.rcompare(a.version, b.version))
 }
 
-function createFetcher (name: string, opts: Options = {}): Fetcher {
-  const { repoUrl, timeout } = { ...defaultOptions, ...opts }
-  const indexUrl = `${repoUrl}/index.json`
+function createFetcher (name: string): Fetcher {
+  let { repoUrl, timeout } = defaults
+  let index: IndexFile | undefined
 
-  let index: IndexFile
-
+  const fetchIndex = async () => {
+    return await fetchJson(`${repoUrl}/index.json`, { timeout }) as IndexFile
+  }
   const search = async (spec: Specifier = {}): Promise<IndexEntry[]> => {
-    index ??= await fetchJson(indexUrl, { timeout }) as IndexFile
+    index ??= await fetchIndex()
     return findBySpec(index, name, spec)
   }
 
   return {
-    download: async (spec, destDir) => {
-      index ??= await fetchJson(indexUrl, { timeout }) as IndexFile
+    set repoUrl (url) { repoUrl = url; index = undefined },
+    get repoUrl () { return repoUrl },
+
+    set timeout (msec) { timeout = msec },
+    get timeout () { return timeout },
+
+    async download (spec, destDir) {
+      index ??= await fetchIndex()
 
       const file = findBySpec(index, name, spec)[0]
       if (!file) {
@@ -229,22 +233,22 @@ function createFetcher (name: string, opts: Options = {}): Fetcher {
       }
       return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
     },
-    search,
-    variants: async (spec) => {
+    async variants (spec) {
       return (await search(spec)).map(x => x.variant)
     },
-    versions: async (spec) => {
+    async versions (spec) {
       return (await search(spec)).map(x => x.version)
     },
+    search,
   }
 }
 
 /**
  * Creates a Fetcher that provides **nginx** binary.
  */
-export const NginxFetcher = createFetcher.bind(null, 'nginx')
+export const NginxFetcher = createFetcher('nginx')
 
 /**
  * Creates a Fetcher that provides **njs** binary.
  */
-export const NjsFetcher = createFetcher.bind(null, 'njs')
+export const NjsFetcher = createFetcher('njs')
