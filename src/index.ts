@@ -1,9 +1,9 @@
 import AnyLogger from 'anylogger'
-import process from 'process'
 import semver from 'semver'
 
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
+import { hostArch, hostOs } from './internal/host'
 
 
 const log = AnyLogger('nginx-binaries')
@@ -12,15 +12,6 @@ const defaults = {
   repoUrl: 'https://jirutka.github.io/nginx-binaries',
   timeout: 10_000,
 }
-
-const hostArch = ({
-  arm: 'armv7',
-  arm64: 'aarch64',
-  x32: 'x86',
-  x64: 'x86_64',
-} as Record<string, string>)[process.arch] || process.arch
-
-const hostOs = process.platform
 
 const defaultSpec: Omit<Required<Specifier>, 'version'> = {
   arch: hostArch as any,
