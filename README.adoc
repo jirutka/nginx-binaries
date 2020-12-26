@@ -18,6 +18,7 @@ You can find the binaries at https://jirutka.github.io/nginx-binaries/ or in the
 ifdef::env-github[]
 image:https://github.com/{gh-name}/workflows/js/badge.svg[JS Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22js%22]
 image:https://img.shields.io/npm/v/{npm-name}.svg[npm Version, link="https://www.npmjs.org/package/{npm-name}"]
+image:https://badgen.net/bundlephobia/dependency-count/{npm-name}[Dependency Count, link="https://bundlephobia.com/result?p={npm-name}"]
 endif::env-github[]
 
 
