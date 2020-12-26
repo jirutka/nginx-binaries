@@ -9,7 +9,7 @@
       "filename": "nginx-1.18.0-x86_64-linux",
       "date": "2020-12-12T23:45:32Z",
       "size": 5002968,
-      "integrity": "sha1-f43ac9b94d6e948b5096b62224d311da86e29767"
+      "integrity": "sha1-06d78a79277ba5466f3c0b70092ee486eb7a8692"
     },
     {
       "name": "nginx",
@@ -20,7 +20,7 @@
       "filename": "nginx-1.19.5-x86_64-linux",
       "date": "2020-12-12T23:45:32Z",
       "size": 5020312,
-      "integrity": "sha1-a2031337f4b3fd6e3a5ace66da80eff6106d0e96"
+      "integrity": "sha1-745570620cf47a9230aefee5b5cab0e81066cabc"
     },
     {
       "name": "njs",
