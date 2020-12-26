@@ -1,20 +1,32 @@
-import logger from 'anylogger'
-import crypto from 'crypto'
-import { promises as fs, createReadStream, createWriteStream } from 'fs'
-import nodeFetch, { FetchError, RequestInfo, RequestInit, Response } from 'node-fetch'
-import { basename, join as joinPath } from 'path'
+import AnyLogger from 'anylogger'
 import process from 'process'
 import semver from 'semver'
-import stream from 'stream'
-import { promisify } from 'util'
+
+import { downloadFile } from './internal/downloadFile'
+import { fetchJson } from './internal/fetch'
 
 
-interface IndexFile {
-  contents: IndexEntry[]
+const log = AnyLogger('nginx-binaries')
+
+const defaults = {
+  repoUrl: 'https://jirutka.github.io/nginx-binaries',
+  timeout: 10_000,
 }
 
-type OS = 'linux'  // TODO: add more
-type Arch = 'x86_64'  // TODO: add more
+const hostArch = ({
+  arm: 'armv7',
+  arm64: 'aarch64',
+  x32: 'x86',
+  x64: 'x86_64',
+} as Record<string, string>)[process.arch] || process.arch
+
+const hostOs = process.platform
+
+const defaultSpec: Omit<Required<Specifier>, 'version'> = {
+  arch: hostArch as any,
+  os: hostOs as any,
+  variant: '',
+}
 
 export interface IndexEntry {
   name: string
@@ -27,6 +39,13 @@ export interface IndexEntry {
   size: number
   integrity: string
 }
+
+interface IndexFile {
+  contents: IndexEntry[]
+}
+
+type OS = 'linux'  // TODO: add more
+type Arch = 'x86_64'  // TODO: add more
 
 export interface Specifier {
   /**
@@ -88,112 +107,21 @@ export interface Downloader {
   versions: (spec?: Specifier) => Promise<string[]>
 }
 
-const defaults = {
-  repoUrl: 'https://jirutka.github.io/nginx-binaries',
-  timeout: 10_000,
-}
-
-const streamPipeline = promisify(stream.pipeline)
-const log = logger('nginx-binaries')
-
-const hostArch = ({
-  arm: 'armv7',
-  arm64: 'aarch64',
-  x32: 'x86',
-  x64: 'x86_64',
-} as Record<string, string>)[process.arch] || process.arch
-
-const hostOs = process.platform
-
-const defaultSpec: Omit<Required<Specifier>, 'version'> = {
-  arch: hostArch as any,
-  os: hostOs as any,
-  variant: '',
-}
-
-const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
-
-function splitIntegrityValue (integrity: string): [algorithm: string, value: string] {
-  const [alg, value] = integrity.split('-', 2)
-  if (!alg || !value) {
-    throw RangeError(`Invalid integrity value: ${integrity}`)
-  }
-  return [alg, value]
-}
-
-async function isFileWithChecksum (filepath: string, integrity: string): Promise<boolean> {
-  const [hashAlg, expectedHash] = splitIntegrityValue(integrity)
-  const hash = crypto.createHash(hashAlg)
-
-  try {
-    await streamPipeline(createReadStream(filepath), hash)
-    return hash.digest('hex') === expectedHash
-
-  } catch (err) {
-    if (err.code === 'ENOENT' || err.code === 'EISDIR') {
-      return false
-    }
-    throw err
-  }
-}
-
-async function fetch (url: RequestInfo, init?: RequestInit): Promise<Response> {
-  const resp = await nodeFetch(url, init)
-  if (resp.status !== 200) {
-    throw new FetchError(`Unexpected response for ${url}: ${resp.status} ${resp.statusText}`, 'invalid-response')
-  }
-  return resp
-}
-
-async function downloadFile (url: string, integrity: string, destDir: string, fetchOpts?: RequestInit): Promise<string> {
-  const filename = basename(url)
-  const filepath = joinPath(destDir, filename)
-
-  if (await isFileWithChecksum(filepath, integrity)) {
-    log.debug(`File ${filepath} already exists`)
-    return filepath
-  }
-
-  const [hashAlg, expectedHash] = splitIntegrityValue(integrity)
-  const hash = crypto.createHash(hashAlg)
-
-  log.info(`Downloading ${url}...`)
-
-  await fs.mkdir(destDir, { recursive: true })
-
-  const resp = await fetch(url, fetchOpts)
-
-  await streamPipeline(
-    resp.body.on('data', chunk => hash.update(chunk)),
-    createWriteStream(filepath, { flags: 'w', mode: 0o0755 }),
-  )
-
-  if (hash.digest('hex') !== expectedHash) {
-    throw Error(`File ${filename} is corrupted, ${hashAlg} checksum doesn't match!`)
-  }
-  log.debug(`File was saved in ${filepath}`)
-
-  return filepath
-}
-
-async function fetchJson (url: string, opts: RequestInit): Promise<object> {
-  log.debug(`Fetching ${url}...`)
-
-  const resp = await fetch(url, opts)
-  return await resp.json()
-}
 
 const formatSpec = (spec: Specifier) => JSON.stringify(spec)
   .replace(/"/g, '')
   .replace(/,/g, ', ')
   .replace(/:/g, ': ')
 
-const specFilter = (spec: Specifier) => (meta: IndexEntry) => {
-  const isSatisfied = (key: keyof Specifier) => spec[key] === undefined
-    || (key === 'version' ? semver.satisfies(meta[key], spec[key]!) : spec[key] === meta[key])
+const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
 
-  return objKeys(spec).every(isSatisfied)
-}
+const specFilter = (spec: Specifier) => (meta: IndexEntry) => objKeys(spec).every(key => {
+  return spec[key] === undefined || (
+    key === 'version'
+    ? semver.satisfies(meta[key], spec[key]!)
+    : spec[key] === meta[key]
+  )
+})
 
 function findBySpec (index: IndexFile, name: string, spec: Specifier): IndexEntry[] {
   const fullSpec = { ...defaultSpec, ...spec }
@@ -210,6 +138,7 @@ function createDownloader (name: string): Downloader {
   let index: IndexFile | undefined
 
   const fetchIndex = async () => {
+    log.debug(`Fetching ${repoUrl}/index.json...`)
     return await fetchJson(`${repoUrl}/index.json`, { timeout }) as IndexFile
   }
   const search = async (spec: Specifier = {}): Promise<IndexEntry[]> => {
