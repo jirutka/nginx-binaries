@@ -1,0 +1,81 @@
+{
+  "contents": [
+    {
+      "name": "nginx",
+      "version": "1.18.0",
+      "variant": "",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "nginx-1.18.0-x86_64-linux",
+      "date": "2020-10-12T03:01:00Z",
+      "size": 8744,
+      "integrity": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+    },
+    {
+      "name": "nginx",
+      "version": "1.18.0",
+      "variant": "",
+      "arch": "aarch64",
+      "os": "linux",
+      "filename": "nginx-1.18.0-aarch64-linux",
+      "date": "2020-10-12T03:01:00Z",
+      "size": 1324,
+      "integrity": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+    },
+    {
+      "name": "nginx",
+      "version": "1.18.0",
+      "variant": "",
+      "arch": "x86_64",
+      "os": "darwin",
+      "filename": "nginx-1.18.0-x86_64-darwin",
+      "date": "2020-10-12T03:01:00Z",
+      "size": 1324,
+      "integrity": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+    },
+    {
+      "name": "nginx",
+      "version": "1.19.5",
+      "variant": "",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "nginx-1.19.5-x86_64-linux",
+      "date": "2020-12-12T23:45:32Z",
+      "size": 12832,
+      "integrity": "sha1-011338ae2cc8c4251d1e238e246f9bf303696ba5"
+    },
+    {
+      "name": "nginx",
+      "version": "1.19.5",
+      "variant": "",
+      "arch": "aarch64",
+      "os": "linux",
+      "filename": "nginx-1.19.5-aarch64-linux",
+      "date": "2020-12-12T23:45:32Z",
+      "size": 1234,
+      "integrity": "sha1-011338ae2cc8c4251d1e238e246f9bf303696ba5"
+    },
+    {
+      "name": "njs",
+      "version": "0.5.0",
+      "variant": "debug",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "njs-0.5.0-debug-x86_64-linux",
+      "date": "2020-12-12T21:18:40Z",
+      "size": 5495976,
+      "integrity": "sha1-20f957c8266f655047ac18439308bbf72a915ddb"
+    },
+    {
+      "name": "njs",
+      "version": "0.5.0",
+      "variant": "",
+      "arch": "x86_64",
+      "os": "linux",
+      "filename": "njs-0.5.0-x86_64-linux",
+      "date": "2020-12-12T16:26:40Z",
+      "size": 1305040,
+      "integrity": "sha1-7336b675b26bd67fdda3db18c66fa7f64691e280"
+    }
+  ]
+}

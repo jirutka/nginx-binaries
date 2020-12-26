@@ -24,7 +24,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "tsc --noEmit",
-    "prepublishOnly": "yarn build && asciidoctor -b docbook -a npm-readme -a gh-branch=v$npm_package_version -o - README.adoc | pandoc -f docbook -t gfm --base-header-level 2 -o README.md"
+    "prepublishOnly": "yarn build && asciidoctor -b docbook -a npm-readme -a gh-branch=v$npm_package_version -o - README.adoc | pandoc -f docbook -t gfm --base-header-level 2 -o README.md",
+    "test": "mocha"
   },
   "dependencies": {
     "anylogger": "^1.0.9",
@@ -32,10 +33,20 @@
     "semver": "^7.3.4"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/finalhandler": "^1.1.0",
+    "@types/mocha": "^8.2.0",
     "@types/node-fetch": "^2.5.7",
     "@types/semver": "^7.3.4",
+    "@types/serve-static": "^1.13.8",
     "anylogger-debug": "^1.0.3",
+    "chai": "^4.2.0",
     "debug": "^4.3.1",
+    "finalhandler": "^1.1.2",
+    "get-port": "^5.1.1",
+    "mocha": "^8.2.1",
+    "serve-static": "^1.14.1",
+    "ts-node": "^9.1.1",
     "typescript": "~4.1.3"
   }
 }
