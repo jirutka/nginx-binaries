@@ -7,7 +7,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.18.0-x86_64-linux",
-      "date": "2020-12-12T23:45:32Z",
+      "date": "2020-12-26T18:01:15Z",
       "size": 5002968,
       "integrity": "sha1-06d78a79277ba5466f3c0b70092ee486eb7a8692"
     },
@@ -18,7 +18,7 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.19.5-x86_64-linux",
-      "date": "2020-12-12T23:45:32Z",
+      "date": "2020-12-26T18:01:15Z",
       "size": 5020312,
       "integrity": "sha1-745570620cf47a9230aefee5b5cab0e81066cabc"
     },
