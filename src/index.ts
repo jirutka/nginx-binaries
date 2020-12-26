@@ -51,7 +51,7 @@ export interface Specifier {
   arch?: Arch
 }
 
-export interface Fetcher {
+export interface Downloader {
   /**
    * URL of the repository with binaries.
    * @default https://jirutka.github.io/nginx-binaries
@@ -205,7 +205,7 @@ function findBySpec (index: IndexFile, name: string, spec: Specifier): IndexEntr
     .sort((a, b) => semver.rcompare(a.version, b.version))
 }
 
-function createFetcher (name: string): Fetcher {
+function createDownloader (name: string): Downloader {
   let { repoUrl, timeout } = defaults
   let index: IndexFile | undefined
 
@@ -246,9 +246,9 @@ function createFetcher (name: string): Fetcher {
 /**
  * Creates a Fetcher that provides **nginx** binary.
  */
-export const NginxFetcher = createFetcher('nginx')
+export const NginxBinary = createDownloader('nginx')
 
 /**
  * Creates a Fetcher that provides **njs** binary.
  */
-export const NjsFetcher = createFetcher('njs')
+export const NjsBinary = createDownloader('njs')

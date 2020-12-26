@@ -36,13 +36,13 @@ yarn add --dev {npm-name}
 
 [source, js, subs="+attributes"]
 ----
-import { NginxFetcher, NjsFetcher } from '{npm-name}'
+import { NginxBinary, NjsBinary } from '{npm-name}'
 
-await NginxFetcher.versions({ version: '^1.18.0' })  // => ['1.18.0', '1.19.5']
-await NginxFetcher.download({ version: '1.18.x' }, '.tmp/')  // => '.tmp/nginx-1.18.0-x86_64-linux'
+await NginxBinary.versions({ version: '^1.18.0' })  // => ['1.18.0', '1.19.5']
+await NginxBinary.download({ version: '1.18.x' }, '.tmp/')  // => '.tmp/nginx-1.18.0-x86_64-linux'
 
-await NjsFetcher.versions({ version: '^0.4.4' })  // => ['0.5.0']
-await NjsFetcher.download({ version: '^0.4.4', variant: 'debug' })  // => '.tmp/njs-0.5.0-debug-x86_64-linux'
+await NjsBinary.versions({ version: '^0.4.4' })  // => ['0.5.0']
+await NjsBinary.download({ version: '^0.4.4', variant: 'debug' })  // => '.tmp/njs-0.5.0-debug-x86_64-linux'
 ----
 
 See https://github.com/Download/anylogger[anylogger] for information about setting up logging.
