@@ -80,42 +80,41 @@ jobs:
         with:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
-          path: nginx
 
       - name: Checkout njs repository
         uses: actions/checkout@v2
         with:
           repository: nginx/njs
           ref: ${{ env.NJS_VERSION }}
-          path: njs
+          path: njs-${{ env.NJS_VERSION }}
 
       - name: Checkout ngx_devel_kit repository
         uses: actions/checkout@v2
         with:
           repository: simpl/ngx_devel_kit
           ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit
+          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
 
       - name: Checkout echo-nginx-module repository
         uses: actions/checkout@v2
         with:
           repository: openresty/echo-nginx-module
           ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module
+          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
 
       - name: Checkout headers-more-nginx-module repository
         uses: actions/checkout@v2
         with:
           repository: openresty/headers-more-nginx-module
           ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module
+          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
 
       - name: Checkout set-misc-nginx-module repository
         uses: actions/checkout@v2
         with:
           repository: openresty/set-misc-nginx-module
           ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module
+          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
 
       - name: Update apk indexes
         run: apk update
@@ -125,7 +124,6 @@ jobs:
 
       - name: Build nginx
         run: |
-          cd nginx
           ./auto/configure \
               --prefix="." \
               --sbin-path="nginx" \
@@ -156,18 +154,18 @@ jobs:
               --without-http_scgi_module \
               --without-http_grpc_module \
               --without-http_memcached_module \
-              --add-module="../njs/nginx" \
-              --add-module="../ngx_devel_kit" \
-              --add-module="../echo-nginx-module" \
-              --add-module="../headers-more-nginx-module" \
-              --add-module="../set-misc-nginx-module"
+              --add-module="njs-${{ env.NJS_VERSION }}/nginx" \
+              --add-module="ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}" \
+              --add-module="echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}" \
+              --add-module="headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}" \
+              --add-module="set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}"
           make
           strip objs/nginx
 
       - name: Rename binary and generate checksum
         run: |
           BIN_NAME=nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
-          install -D nginx/objs/nginx artifact/$BIN_NAME
+          install -D objs/nginx artifact/$BIN_NAME
           cd artifact/
           sha1sum $BIN_NAME > $BIN_NAME.sha1
 
