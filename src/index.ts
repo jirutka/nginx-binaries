@@ -163,10 +163,10 @@ function createDownloader (name: string): Downloader {
       return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
     },
     async variants (spec) {
-      return (await search(spec)).map(x => x.variant)
+      return [...new Set((await search(spec)).map(x => x.variant))]
     },
     async versions (spec) {
-      return (await search(spec)).map(x => x.version)
+      return [...new Set((await search(spec)).map(x => x.version))]
     },
     search,
   }
