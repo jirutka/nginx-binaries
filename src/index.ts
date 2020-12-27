@@ -13,7 +13,7 @@ const defaults = {
   timeout: 10_000,
 }
 
-const defaultSpec: Omit<Required<Specifier>, 'version'> = {
+const defaultQuery: Omit<Required<Query>, 'version'> = {
   arch: hostArch as any,
   os: hostOs as any,
   variant: '',
@@ -38,7 +38,7 @@ interface IndexFile {
 type OS = 'linux'  // TODO: add more
 type Arch = 'x86_64'  // TODO: add more
 
-export interface Specifier {
+export interface Query {
   /**
    * Specify required version as exact version number or a SemVer version range.
    *
@@ -83,44 +83,44 @@ export interface Downloader {
    *
    * @throws `RangeError` if no matching binary is found.
    */
-  download: (spec: Specifier, destDir: string) => Promise<string>
+  download: (query: Query, destDir: string) => Promise<string>
   /**
-   * Returns metadata of available binaries that match the specifier.
+   * Returns metadata of available binaries that match the query.
    */
-  search: (spec: Specifier) => Promise<IndexEntry[]>
+  search: (query: Query) => Promise<IndexEntry[]>
   /**
-   * Returns all the available variants matching the specifier.
+   * Returns all the available variants matching the query.
    */
-  variants: (spec?: Specifier) => Promise<string[]>
+  variants: (query?: Query) => Promise<string[]>
   /**
-   * Returns all the available versions matching the specifier.
+   * Returns all the available versions matching the query.
    */
-  versions: (spec?: Specifier) => Promise<string[]>
+  versions: (query?: Query) => Promise<string[]>
 }
 
 
-const formatSpec = (spec: Specifier) => JSON.stringify(spec)
+const formatQuery = (query: Query) => JSON.stringify(query)
   .replace(/"/g, '')
   .replace(/,/g, ', ')
   .replace(/:/g, ': ')
 
 const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
 
-const specFilter = (spec: Specifier) => (meta: IndexEntry) => objKeys(spec).every(key => {
-  return spec[key] === undefined || (
+const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every(key => {
+  return query[key] === undefined || (
     key === 'version'
-    ? semver.satisfies(meta[key], spec[key]!)
-    : spec[key] === meta[key]
+    ? semver.satisfies(meta[key], query[key]!)
+    : query[key] === meta[key]
   )
 })
 
-function findBySpec (index: IndexFile, name: string, spec: Specifier): IndexEntry[] {
-  const fullSpec = { ...defaultSpec, ...spec }
+function queryIndex (index: IndexFile, name: string, query: Query): IndexEntry[] {
+  const fullQuery = { ...defaultQuery, ...query }
 
-  log.debug(`Looking for ${name} binary matching ${formatSpec(fullSpec)}`)
+  log.debug(`Looking for ${name} binary matching ${formatQuery(fullQuery)}`)
   return index.contents
     .filter(x => x.name === name)
-    .filter(specFilter(fullSpec))
+    .filter(queryFilter(fullQuery))
     .sort((a, b) => semver.rcompare(a.version, b.version))
 }
 
@@ -132,9 +132,9 @@ function createDownloader (name: string): Downloader {
     log.debug(`Fetching ${repoUrl}/index.json...`)
     return await fetchJson(`${repoUrl}/index.json`, { timeout }) as IndexFile
   }
-  const search = async (spec: Specifier = {}): Promise<IndexEntry[]> => {
+  const search = async (query: Query = {}): Promise<IndexEntry[]> => {
     index ??= await fetchIndex()
-    return findBySpec(index, name, spec)
+    return queryIndex(index, name, query)
   }
 
   return {
@@ -144,20 +144,20 @@ function createDownloader (name: string): Downloader {
     set timeout (msec) { timeout = msec },
     get timeout () { return timeout },
 
-    async download (spec, destDir) {
+    async download (query, destDir) {
       index ??= await fetchIndex()
 
-      const file = findBySpec(index, name, spec)[0]
+      const file = queryIndex(index, name, query)[0]
       if (!file) {
-        throw RangeError(`No ${name} binary found for ${formatSpec({ ...defaultSpec, ...spec })}`)
+        throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
       return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
     },
-    async variants (spec) {
-      return [...new Set((await search(spec)).map(x => x.variant))]
+    async variants (query) {
+      return [...new Set((await search(query)).map(x => x.variant))]
     },
-    async versions (spec) {
-      return [...new Set((await search(spec)).map(x => x.version))]
+    async versions (query) {
+      return [...new Set((await search(query)).map(x => x.version))]
     },
     search,
   }
