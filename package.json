@@ -22,7 +22,7 @@
     "src"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && rimraf lib/internal/*.d.ts*",
     "clean": "rimraf lib/ node_modules/.cache/",
     "lint": "tsc --noEmit",
     "prepublishOnly": "yarn build && asciidoctor -b docbook -a npm-readme -a gh-branch=v$npm_package_version -o - README.adoc | pandoc -f docbook -t gfm --base-header-level 2 -o README.md",
