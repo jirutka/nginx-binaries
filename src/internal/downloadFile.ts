@@ -1,6 +1,6 @@
 import AnyLogger from 'anylogger'
 import crypto from 'crypto'
-import { promises as FS, createReadStream, createWriteStream } from 'fs'
+import { createReadStream, createWriteStream, mkdirSync as mkdir } from 'fs'
 import { RequestInit } from 'node-fetch'
 import { basename, join as joinPath } from 'path'
 import stream from 'stream'
@@ -32,7 +32,7 @@ export async function downloadFile (
 
   log.info(`Downloading ${url}...`)
 
-  await FS.mkdir(destDir, { recursive: true })
+  mkdir(destDir, { recursive: true })
 
   const resp = await fetch(url, fetchOpts)
 
