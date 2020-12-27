@@ -7,12 +7,12 @@ import { basename } from 'path'
 
 import { createStaticServer, isFile, readJson } from './helpers'
 import { IndexEntry, NginxBinary } from '../src'
-import * as archName from '../src/internal/archName'
+import { normalizeArch } from '../src/internal/archName'
 import { getCacheDir } from '../src/internal/cacheDir'
 
 
 const fixtureRepoPath = `${__dirname}/fixtures/repo`
-const hostArch = archName.normalize(OS.arch())
+const hostArch = normalizeArch(OS.arch())
 const hostOs = OS.platform()
 
 const server = createStaticServer(fixtureRepoPath)

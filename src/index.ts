@@ -1,8 +1,8 @@
 import AnyLogger from 'anylogger'
-import * as OS from 'os'
+import OS from 'os'
 import semver from 'semver'
 
-import * as ArchName from './internal/archName'
+import { normalizeArch } from './internal/archName'
 import { getCacheDir } from './internal/cacheDir'
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
@@ -16,7 +16,7 @@ const defaults = {
 }
 
 const defaultQuery: Omit<Required<Query>, 'version'> = {
-  arch: ArchName.normalize(OS.arch()) as any,
+  arch: normalizeArch(OS.arch()) as any,
   os: OS.platform() as any,
   variant: '',
 }
@@ -116,7 +116,7 @@ const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
 const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every(key => {
   return query[key] === undefined ? false
     : key === 'version' ? semver.satisfies(meta[key], query[key]!)
-    : key === 'arch' ? ArchName.normalize(query[key]!) === meta[key]
+    : key === 'arch' ? normalizeArch(query[key]!) === meta[key]
     : query[key] === meta[key]
 })
 

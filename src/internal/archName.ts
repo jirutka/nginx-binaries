@@ -9,4 +9,4 @@ const mapping = {
 /**
  * Normalizes the given architecture name to an Alpine architecture name.
  */
-export const normalize = (arch: string): string => mapping[arch] || arch
+export const normalizeArch = (arch: string): string => mapping[arch] || arch
