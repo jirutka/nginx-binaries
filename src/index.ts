@@ -3,6 +3,7 @@ import * as OS from 'os'
 import semver from 'semver'
 
 import * as ArchName from './internal/archName'
+import { getCacheDir } from './internal/cacheDir'
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
 
@@ -82,9 +83,14 @@ export interface Downloader {
    * If multiple versions satisfies the version range, the one with highest
    * version number is selected.
    *
-   * @throws `RangeError` if no matching binary is found.
+   * @param query A query that specifies what binary to download.
+   * @param destDir A path to a directory where to store the downloaded binary.
+   *   Defaults to `.cache/nginx-binaries/` in the nearest writable `node_modules`
+   *   directory or `nginx-binaries/` in the system-preferred temp directory.
+   * @return Path to the downloaded binary on the filesystem.
+   * @throws {RangeError} if no matching binary is found.
    */
-  download: (query: Query, destDir: string) => Promise<string>
+  download: (query: Query, destDir?: string) => Promise<string>
   /**
    * Returns metadata of available binaries that match the query.
    */
@@ -151,6 +157,7 @@ function createDownloader (name: string): Downloader {
       if (!file) {
         throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
+      destDir ??= getCacheDir('nginx-binaries')
       return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
     },
     async variants (query) {

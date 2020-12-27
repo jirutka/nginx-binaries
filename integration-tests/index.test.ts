@@ -5,37 +5,36 @@ import { after, before, test } from 'mocha'
 import * as OS from 'os'
 import { basename } from 'path'
 
-import { createStaticServer, isFile, mktempd, readJson } from './helpers'
+import { createStaticServer, isFile, readJson } from './helpers'
 import { IndexEntry, NginxBinary } from '../src'
-import * as ArchName from '../src/internal/archName'
+import * as archName from '../src/internal/archName'
+import { getCacheDir } from '../src/internal/cacheDir'
 
 
 const fixtureRepoPath = `${__dirname}/fixtures/repo`
-const hostArch = ArchName.normalize(OS.arch())
+const hostArch = archName.normalize(OS.arch())
 const hostOs = OS.platform()
 
 const server = createStaticServer(fixtureRepoPath)
-let tempDir: string
 
 before(async () => {
   const host = '127.0.0.1'
   const port = await getPort({ host })
 
   server.listen(port, host)
-  tempDir = mktempd('nginx-binaries')
 
   NginxBinary.repoUrl = `http://${host}:${port}/`
 })
 
 after(() => {
   server.close()
-  FS.rmSync(tempDir, { force: true, recursive: true })
+  FS.rmSync(getCacheDir('nginx-binaries'), { force: true, recursive: true })
 })
 
 describe('NginxBinary', () => {
 
   test('.download', async () => {
-    const result = await NginxBinary.download({ version: '1.18.0', os: 'linux', arch: 'x86_64' }, tempDir)
+    const result = await NginxBinary.download({ version: '1.18.0', os: 'linux', arch: 'x86_64' })
 
     assert(isFile(result), 'Expected the returned path to be a file.')
 
