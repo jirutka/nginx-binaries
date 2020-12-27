@@ -1,9 +1,10 @@
 import AnyLogger from 'anylogger'
+import * as OS from 'os'
 import semver from 'semver'
 
+import * as ArchName from './internal/archName'
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
-import { hostArch, hostOs } from './internal/host'
 
 
 const log = AnyLogger('nginx-binaries')
@@ -14,8 +15,8 @@ const defaults = {
 }
 
 const defaultQuery: Omit<Required<Query>, 'version'> = {
-  arch: hostArch as any,
-  os: hostOs as any,
+  arch: ArchName.normalize(OS.arch()) as any,
+  os: OS.platform() as any,
   variant: '',
 }
 
@@ -36,7 +37,7 @@ interface IndexFile {
 }
 
 type OS = 'linux'  // TODO: add more
-type Arch = 'x86_64'  // TODO: add more
+type Arch = 'x86_64' | 'x64'  // TODO: add more
 
 export interface Query {
   /**
@@ -107,11 +108,10 @@ const formatQuery = (query: Query) => JSON.stringify(query)
 const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
 
 const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every(key => {
-  return query[key] === undefined || (
-    key === 'version'
-    ? semver.satisfies(meta[key], query[key]!)
+  return query[key] === undefined ? false
+    : key === 'version' ? semver.satisfies(meta[key], query[key]!)
+    : key === 'arch' ? ArchName.normalize(query[key]!) === meta[key]
     : query[key] === meta[key]
-  )
 })
 
 function queryIndex (index: IndexFile, name: string, query: Query): IndexEntry[] {

@@ -2,14 +2,18 @@ import { assert } from 'chai'
 import FS from 'fs'
 import getPort from 'get-port'
 import { after, before, test } from 'mocha'
+import * as OS from 'os'
 import { basename } from 'path'
 
 import { createStaticServer, isFile, mktempd, readJson } from './helpers'
 import { IndexEntry, NginxBinary } from '../src'
-import { hostArch, hostOs } from '../src/internal/host'
+import * as ArchName from '../src/internal/archName'
 
 
 const fixtureRepoPath = `${__dirname}/fixtures/repo`
+const hostArch = ArchName.normalize(OS.arch())
+const hostOs = OS.platform()
+
 const server = createStaticServer(fixtureRepoPath)
 let tempDir: string
 
