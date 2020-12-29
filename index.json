@@ -7,7 +7,7 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.18.0-x86_64-darwin",
-      "date": "2020-12-29T19:00:40Z",
+      "date": "2020-12-29T19:00:41Z",
       "size": 4183272,
       "integrity": "sha1-c71b0cc64ed79c710d1f672633831cfd65a7467b"
     },
@@ -29,7 +29,7 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.19.5-x86_64-darwin",
-      "date": "2020-12-29T19:00:40Z",
+      "date": "2020-12-29T19:00:41Z",
       "size": 4200016,
       "integrity": "sha1-17167387d1d5eedd04b61e9b29a8a7da1b521938"
     },
@@ -51,9 +51,9 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.0-debug-x86_64-darwin",
-      "date": "2020-12-29T19:00:40Z",
-      "size": 1449880,
-      "integrity": "sha1-f2d2b63b0270198df05bfda295e5b8b4bdca028c"
+      "date": "2020-12-29T19:00:41Z",
+      "size": 1449640,
+      "integrity": "sha1-196bc363ecaad92613bbbd9b1be66698f8bea967"
     },
     {
       "name": "njs",
@@ -63,8 +63,8 @@
       "os": "linux",
       "filename": "njs-0.5.0-debug-x86_64-linux",
       "date": "2020-12-12T21:18:40Z",
-      "size": 5495976,
-      "integrity": "sha1-20f957c8266f655047ac18439308bbf72a915ddb"
+      "size": 5495960,
+      "integrity": "sha1-62c862b44391a9fea8e399696141f61a0b4ea278"
     },
     {
       "name": "njs",
@@ -73,7 +73,7 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.0-x86_64-darwin",
-      "date": "2020-12-29T19:00:40Z",
+      "date": "2020-12-29T19:00:41Z",
       "size": 1204624,
       "integrity": "sha1-369815f632c72391f97d53d84fd3c612e762974b"
     },
