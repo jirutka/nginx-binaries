@@ -37,7 +37,7 @@ interface IndexFile {
   contents: IndexEntry[]
 }
 
-type OS = 'linux'  // TODO: add more
+type OS = 'linux' | 'darwin'  // TODO: add windows
 type Arch = 'x86_64' | 'x64'  // TODO: add more
 
 export interface Query {

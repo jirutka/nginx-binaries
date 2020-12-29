@@ -8,10 +8,16 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
   CFLAGS: -Os -fomit-frame-pointer
-  LDFLAGS: -Wl,--as-needed
+  LINUX_LDFLAGS: -Wl,--as-needed
+  # Versions of nginx modules
+  NJS_VERSION: 0.5.0
+  NGX_DEVEL_KIT_VERSION: 0.3.1
+  ECHO_MODULE_VERSION: 0.62
+  HEADERS_MORE_MODULE_VERSION: 0.33
+  SET_MISC_MODULE_VERSION: 0.32
 
 jobs:
-  njs:
+  njs-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.DEBUG && '-debug' || '' }}-x86_64-linux
     runs-on: ubuntu-latest
     container:
@@ -38,6 +44,9 @@ jobs:
         run: apk add build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
 
       - name: Build njs
+        env:
+          CFLAGS: ${{ env.CFLAGS }}
+          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
         run: |
           cd njs
           ./configure --cc-opt="$CFLAGS" --ld-opt="$LDFLAGS" --debug=${{ matrix.debug && 'YES' || 'NO' }}
@@ -49,7 +58,8 @@ jobs:
       - name: Rename binary and generate checksum
         run: |
           BIN_NAME=njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64-linux
-          install -D njs/build/njs artifact/$BIN_NAME
+          mkdir -p artifact/
+          install njs/build/njs artifact/$BIN_NAME
           cd artifact/
           sha1sum $BIN_NAME > $BIN_NAME.sha1
 
@@ -58,17 +68,61 @@ jobs:
         with:
           path: artifact/*
 
-  nginx:
+  njs-darwin:
+    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.DEBUG && '-debug' || '' }}-x86_64-darwin
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        NJS_VERSION:
+          - 0.5.0
+        DEBUG:
+          - true
+          - false
+    steps:
+      - name: Checkout njs repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/njs
+          ref: ${{ matrix.NJS_VERSION }}
+          path: njs
+
+      - name: Install dependencies
+        run: brew install libedit ncurses pcre
+
+      - name: Build njs
+        env:
+          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
+        run: |
+          cd njs
+          ./configure --cc-opt="$CFLAGS" --debug=${{ matrix.debug && 'YES' || 'NO' }}
+          NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
+          make libnjs
+          cc -o build/njs $NJS_CFLAGS -Isrc -Ibuild -Injs src/njs_shell.c \
+             build/libnjs.a \
+             /usr/local/opt/libedit/lib/libedit.a \
+             /usr/local/opt/ncurses/lib/libncursesw.a \
+             /usr/local/opt/pcre/lib/libpcre.a
+          otool -L build/njs
+          ${{ matrix.debug }} || strip build/njs
+
+      - name: Rename binary and generate checksum
+        run: |
+          BIN_NAME=njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64-darwin
+          mkdir -p artifact/
+          install njs/build/njs artifact/$BIN_NAME
+          cd artifact/
+          shasum $BIN_NAME > $BIN_NAME.sha1
+
+      - name: Upload njs binary to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: artifact/*
+
+  nginx-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
     runs-on: ubuntu-latest
     container:
       image: docker://alpine:3.12
-    env:
-      NJS_VERSION: 0.5.0
-      NGX_DEVEL_KIT_VERSION: 0.3.1
-      ECHO_MODULE_VERSION: 0.62
-      HEADERS_MORE_MODULE_VERSION: 0.33
-      SET_MISC_MODULE_VERSION: 0.32
     strategy:
       matrix:
         NGINX_VERSION:
@@ -123,6 +177,9 @@ jobs:
         run: apk add build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
 
       - name: Build nginx
+        env:
+          CFLAGS: ${{ env.CFLAGS }}
+          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
         run: |
           ./auto/configure \
               --prefix="." \
@@ -165,7 +222,8 @@ jobs:
       - name: Rename binary and generate checksum
         run: |
           BIN_NAME=nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
-          install -D objs/nginx artifact/$BIN_NAME
+          mkdir -p artifact/
+          install objs/nginx artifact/$BIN_NAME
           cd artifact/
           sha1sum $BIN_NAME > $BIN_NAME.sha1
 
@@ -174,9 +232,129 @@ jobs:
         with:
           path: artifact/*
 
+  nginx-darwin:
+    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        NGINX_VERSION:
+          - 1.18.0
+          - 1.19.5
+    steps:
+      - name: Checkout nginx repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/nginx
+          ref: release-${{ matrix.NGINX_VERSION }}
+
+      - name: Checkout njs repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/njs
+          ref: ${{ env.NJS_VERSION }}
+          path: njs-${{ env.NJS_VERSION }}
+
+      - name: Checkout ngx_devel_kit repository
+        uses: actions/checkout@v2
+        with:
+          repository: simpl/ngx_devel_kit
+          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
+          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
+
+      - name: Checkout echo-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/echo-nginx-module
+          ref: v${{ env.ECHO_MODULE_VERSION }}
+          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
+
+      - name: Checkout headers-more-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/headers-more-nginx-module
+          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
+          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
+
+      - name: Checkout set-misc-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/set-misc-nginx-module
+          ref: v${{ env.SET_MISC_MODULE_VERSION }}
+          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
+
+      - name: Install dependencies
+        run: brew install openssl@1.1 pcre zlib
+
+      - name: Build nginx
+        env:
+          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
+          LDFLAGS: -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
+        run: |
+          # cmake prefers dynamic libs and there's no option to change it, so
+          # we have to remove them to give it no other option than using static.
+          rm /usr/local/opt/openssl/lib/*.dylib
+          rm /usr/local/opt/pcre/lib/*.dylib
+          rm /usr/local/opt/zlib/lib/*.dylib
+          #
+          ./auto/configure \
+              --prefix="." \
+              --sbin-path="nginx" \
+              --conf-path="nginx.conf" \
+              --pid-path="nginx.pid" \
+              --lock-path="nginx.lock" \
+              --error-log-path=stderr \
+              --http-log-path=access.log \
+              --http-client-body-temp-path="client_body_temp" \
+              --http-proxy-temp-path="proxy_temp" \
+              --user=nginx \
+              --group=nginx \
+              --with-cc-opt="$CFLAGS" \
+              --with-ld-opt="$LDFLAGS" \
+              --with-debug \
+              --with-threads \
+              --with-http_ssl_module \
+              --with-http_v2_module \
+              --with-http_realip_module \
+              --with-http_auth_request_module \
+              --with-http_secure_link_module \
+              --without-http_ssi_module \
+              --without-http_mirror_module \
+              --without-http_geo_module \
+              --without-http_split_clients_module \
+              --without-http_fastcgi_module \
+              --without-http_uwsgi_module \
+              --without-http_scgi_module \
+              --without-http_grpc_module \
+              --without-http_memcached_module \
+              --add-module="njs-${{ env.NJS_VERSION }}/nginx" \
+              --add-module="ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}" \
+              --add-module="echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}" \
+              --add-module="headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}" \
+              --add-module="set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}"
+          make
+          otool -L objs/nginx
+          strip objs/nginx
+
+      - name: Rename binary and generate checksum
+        run: |
+          BIN_NAME=nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
+          mkdir -p artifact/
+          install objs/nginx artifact/$BIN_NAME
+          cd artifact/
+          shasum $BIN_NAME > $BIN_NAME.sha1
+
+      - name: Upload nginx binary to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: artifact/*
+
   upload:
     name: Upload binaries
-    needs: [njs, nginx]
+    needs:
+      - njs-linux
+      - njs-darwin
+      - nginx-linux
+      - nginx-darwin
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     container:
