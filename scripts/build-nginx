@@ -1,0 +1,75 @@
+#!/bin/sh
+set -eu
+
+configure() {
+	./auto/configure \
+		--prefix="." \
+		--sbin-path="nginx" \
+		--conf-path="nginx.conf" \
+		--pid-path="nginx.pid" \
+		--lock-path="nginx.lock" \
+		--error-log-path=stderr \
+		--http-log-path=access.log \
+		--http-client-body-temp-path="client_body_temp" \
+		--http-proxy-temp-path="proxy_temp" \
+		--user=nginx \
+		--group=nginx \
+		--with-cc-opt="$CFLAGS" \
+		--with-ld-opt="$LDFLAGS" \
+		--with-debug \
+		--with-threads \
+		--with-http_ssl_module \
+		--with-http_v2_module \
+		--with-http_realip_module \
+		--with-http_auth_request_module \
+		--with-http_secure_link_module \
+		--without-http_ssi_module \
+		--without-http_mirror_module \
+		--without-http_geo_module \
+		--without-http_split_clients_module \
+		--without-http_fastcgi_module \
+		--without-http_uwsgi_module \
+		--without-http_scgi_module \
+		--without-http_grpc_module \
+		--without-http_memcached_module \
+		--add-module="njs-$NJS_VERSION/nginx" \
+		--add-module="ngx_devel_kit-$NGX_DEVEL_KIT_VERSION" \
+		--add-module="echo-nginx-module-$ECHO_MODULE_VERSION" \
+		--add-module="headers-more-nginx-module-$HEADERS_MORE_MODULE_VERSION" \
+		--add-module="set-misc-nginx-module-$SET_MISC_MODULE_VERSION" \
+		"$@"
+}
+
+
+HOST_ARCH=$(uname -m)
+HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
+
+case "$HOST_OS" in
+	darwin) alias sha1sum='shasum -a1';;
+esac
+
+set -x  # log commands
+
+case "$HOST_OS" in
+	linux) configure --with-file-aio;;
+	darwin) configure;;
+esac
+
+make
+ls -lah objs
+strip objs/nginx
+file objs/nginx
+
+case "$HOST_OS" in
+	darwin) otool -L objs/nginx;;
+esac
+
+./objs/nginx -V
+
+BIN_NAME="nginx-$NGINX_VERSION-$HOST_ARCH-$HOST_OS"
+
+mkdir -p artifact/
+install objs/nginx artifact/$BIN_NAME
+
+cd artifact/
+sha1sum $BIN_NAME > $BIN_NAME.sha1
