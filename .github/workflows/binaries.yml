@@ -35,7 +35,6 @@ jobs:
         with:
           repository: nginx/njs
           ref: ${{ matrix.NJS_VERSION }}
-          path: njs
 
       - name: Update apk indexes
         run: apk update
@@ -48,7 +47,6 @@ jobs:
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
         run: |
-          cd njs
           ./configure --cc-opt="$CFLAGS" --ld-opt="$LDFLAGS" --debug=${{ matrix.debug && 'YES' || 'NO' }}
           NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
           make libnjs
@@ -57,13 +55,13 @@ jobs:
           ${{ matrix.debug }} || strip build/njs
 
       - name: Try to run binary
-        run: ./njs/build/njs -V
+        run: ./build/njs -V
 
       - name: Rename binary and generate checksum
         run: |
           BIN_NAME=njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64-linux
           mkdir -p artifact/
-          install njs/build/njs artifact/$BIN_NAME
+          install build/njs artifact/$BIN_NAME
           cd artifact/
           sha1sum $BIN_NAME > $BIN_NAME.sha1
 
@@ -88,7 +86,6 @@ jobs:
         with:
           repository: nginx/njs
           ref: ${{ matrix.NJS_VERSION }}
-          path: njs
 
       - name: Install dependencies
         run: brew install libedit ncurses pcre
@@ -97,7 +94,6 @@ jobs:
         env:
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
         run: |
-          cd njs
           ./configure --cc-opt="$CFLAGS" --debug=${{ matrix.debug && 'YES' || 'NO' }}
           NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
           make libnjs
@@ -110,13 +106,13 @@ jobs:
           ${{ matrix.debug }} || strip build/njs
 
       - name: Try to run binary
-        run: ./njs/build/njs -V
+        run: ./build/njs -V
 
       - name: Rename binary and generate checksum
         run: |
           BIN_NAME=njs-${{ matrix.NJS_VERSION }}${{ matrix.debug && '-debug' || '' }}-x86_64-darwin
           mkdir -p artifact/
-          install njs/build/njs artifact/$BIN_NAME
+          install build/njs artifact/$BIN_NAME
           cd artifact/
           shasum $BIN_NAME > $BIN_NAME.sha1
 
