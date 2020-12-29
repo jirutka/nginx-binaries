@@ -53,7 +53,11 @@ jobs:
           NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
           make libnjs
           cc -o build/njs $NJS_CFLAGS -static -Isrc -Ibuild -Injs src/njs_shell.c build/libnjs.a -lm -lpcre -ledit -lncursesw
+          file build/njs
           ${{ matrix.debug }} || strip build/njs
+
+      - name: Try to run binary
+        run: ./njs/build/njs -V
 
       - name: Rename binary and generate checksum
         run: |
@@ -104,6 +108,9 @@ jobs:
              /usr/local/opt/pcre/lib/libpcre.a
           otool -L build/njs
           ${{ matrix.debug }} || strip build/njs
+
+      - name: Try to run binary
+        run: ./njs/build/njs -V
 
       - name: Rename binary and generate checksum
         run: |
@@ -217,7 +224,11 @@ jobs:
               --add-module="headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}" \
               --add-module="set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}"
           make
+          file objs/nginx
           strip objs/nginx
+
+      - name: Try to run binary
+        run: ./objs/nginx -V
 
       - name: Rename binary and generate checksum
         run: |
@@ -334,6 +345,9 @@ jobs:
           make
           otool -L objs/nginx
           strip objs/nginx
+
+      - name: Try to run binary
+        run: ./objs/nginx -V
 
       - name: Rename binary and generate checksum
         run: |
