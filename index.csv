@@ -14,7 +14,7 @@ njs,0.5.0,,armv7l,linux,njs-0.5.0-armv7l-linux,2020-12-31T01:37:45Z,925572,sha1-
 njs,0.5.0,debug,aarch64,linux,njs-0.5.0-debug-aarch64-linux,2020-12-31T01:37:45Z,5707264,sha1-ba7a86c9da2549234ebea5226e15d7d021a5f62f
 njs,0.5.0,debug,armv7l,linux,njs-0.5.0-debug-armv7l-linux,2020-12-31T01:37:45Z,4672600,sha1-5605990803a2620f2eae5b5729a0d6a40f9c0544
 njs,0.5.0,debug,ppc64le,linux,njs-0.5.0-debug-ppc64le-linux,2020-12-31T01:37:45Z,5841488,sha1-cdd9d94591a6d4dfd379ef7d0d9468514a45e785
-njs,0.5.0,debug,x86_64,darwin,njs-0.5.0-debug-x86_64-darwin,2020-12-30T01:22:27Z,1449600,sha1-e8500265be0b73f2212418ffc120226e6f12b507
+njs,0.5.0,debug,x86_64,darwin,njs-0.5.0-debug-x86_64-darwin,2020-12-31T12:19:19Z,1449600,sha1-b282d2cf139d79035688561231abb9d72673bfea
 njs,0.5.0,debug,x86_64,linux,njs-0.5.0-debug-x86_64-linux,2020-12-29T19:23:01Z,5495960,sha1-62c862b44391a9fea8e399696141f61a0b4ea278
 njs,0.5.0,,ppc64le,linux,njs-0.5.0-ppc64le-linux,2020-12-31T01:37:45Z,1480048,sha1-2a235f58e026db0f2d0c843ccc47a0af870d4fe1
 njs,0.5.0,,x86_64,darwin,njs-0.5.0-x86_64-darwin,2020-12-30T01:22:27Z,1204608,sha1-2f677f4a245ca9910e2b2c11ef1e8a8d38f31a5f
