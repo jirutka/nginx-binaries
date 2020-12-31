@@ -16,7 +16,8 @@ const defaults = {
 }
 
 const defaultQuery: Omit<Required<Query>, 'version'> = {
-  arch: normalizeArch(OS.arch()) as any,
+  // macOS (darwin) on ARM can run x86_64 binaries.
+  arch: OS.platform() === 'darwin' ? 'x86_64' : normalizeArch(OS.arch()) as any,
   os: OS.platform() as any,
   variant: '',
 }
