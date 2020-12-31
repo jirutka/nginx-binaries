@@ -7,7 +7,7 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
-  CFLAGS: -Os -fomit-frame-pointer
+  CFLAGS: -Os -fomit-frame-pointer -pipe
   LINUX_LDFLAGS: -static -Wl,--as-needed
   # Versions of nginx modules
   NJS_VERSION: 0.5.0
