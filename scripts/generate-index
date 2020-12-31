@@ -36,7 +36,7 @@ const write = (dest, data) => dest
  * @param {string} filename
  */
 const parseBinaryName = (filename) => {
-  const [name, version, ...rest] = filename.split('-')
+  const [name, version, ...rest] = filename.replace(/\.exe$/, '').split('-')
   const [os, arch, ...variant] = rest.reverse()
 
   return {

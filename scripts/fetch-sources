@@ -1,0 +1,58 @@
+#!/bin/sh
+set -eu
+
+find_latest_version() {
+	local url=$1
+	local pattern=$2
+	local default=$3
+
+	local ver=$(curl -s "$url" | grep -ioP "$pattern" | sort -ruV | head -1)
+	if [ "$ver" ]; then
+		echo "Found $ver" >&2
+		echo "$ver"
+	else
+		echo "Failed to find latest version, using default: $default" >&2
+		echo "$default"
+	fi
+}
+
+upcase() {
+	echo "$1" | tr '[a-z]' '[A-Z]'
+}
+
+fetch() {
+	local name=$(basename "$1")
+	wget -c -nv "$1"
+	tar -xf "$name"
+	echo "$(upcase "$NAME")_DIR=${name%.tar.*}"
+}
+
+
+if [ $# -ne 1 ] || [ "$1" = '--help' ]; then
+	echo "Usage: $0 <openssl | pcre | zlib>" >&2
+	exit 2
+fi
+
+NAME="$1"
+
+case "$NAME" in
+	openssl)
+		url='https://www.openssl.org/source'
+		name=$(find_latest_version "$url/" 'openssl-1\.(\d+\.)+[a-z\d]+' 'openssl-1.1.1i')
+		fetch "$url/$name.tar.gz"
+	;;
+	pcre)
+		url='https://ftp.pcre.org/pub/pcre'
+		name=$(find_latest_version "$url/" 'pcre-(\d+\.)+\d+' 'pcre-8.44')
+		fetch "$url/$name.tar.bz2"
+	;;
+	zlib)
+		url='https://zlib.net'
+		name=$(find_latest_version "$url/" 'zlib-(\d+\.)+\d+' 'zlib-1.2.11')
+		fetch "$url/$name.tar.xz"
+	;;
+	*)
+		echo "Unknown name: $1" >&2
+		exit 2
+	;;
+esac
