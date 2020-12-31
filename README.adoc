@@ -1,4 +1,4 @@
-= nginx and njs static binaries
+= nginx and njs standalone binaries
 :npm-name: nginx-binaries
 :gh-name: jirutka/{npm-name}
 :alpine-branch: 3.12
