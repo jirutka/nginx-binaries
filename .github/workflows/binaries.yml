@@ -240,7 +240,7 @@ jobs:
         ARCH:
           - aarch64
           - armv7
-          - ppc64le
+          #- ppc64le  # it works but takes twice as long as the others
     steps:
       - name: Checkout nginx repository
         uses: actions/checkout@v2
