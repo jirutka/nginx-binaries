@@ -421,9 +421,6 @@ jobs:
         with:
           ref: binaries
           path: binaries
-          # FIXME: We have to fetch full history to get the last modification date
-          # of each file. This is suboptimal, we have to find a better way.
-          fetch-depth: 0
 
       - name: Download and unpack all workflow run artifacts
         uses: actions/download-artifact@v2
@@ -434,10 +431,10 @@ jobs:
           ls -lah binaries/
 
       - name: Generate index.json
-        run: ./master/scripts/generate-index --json binaries/ > binaries/index.json
+        run: ./master/scripts/generate-index --json binaries/ binaries/index.json
 
       - name: Generate index.csv
-        run: ./master/scripts/generate-index --csv binaries/ > binaries/index.csv
+        run: ./master/scripts/generate-index --csv binaries/ binaries/index.csv
 
       - name: Generate index.html
         working-directory: binaries
