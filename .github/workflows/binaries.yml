@@ -394,6 +394,101 @@ jobs:
         with:
           path: artifact/*
 
+  nginx-win32:
+    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-win32
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        NGINX_VERSION:
+          - 1.18.0
+          - 1.19.5
+    steps:
+      - name: Checkout nginx repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/nginx
+          ref: release-${{ matrix.NGINX_VERSION }}
+
+      - name: Checkout njs repository
+        uses: actions/checkout@v2
+        with:
+          repository: nginx/njs
+          ref: ${{ env.NJS_VERSION }}
+          path: njs-${{ env.NJS_VERSION }}
+
+      - name: Checkout ngx_devel_kit repository
+        uses: actions/checkout@v2
+        with:
+          repository: simpl/ngx_devel_kit
+          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
+          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
+
+      - name: Checkout echo-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/echo-nginx-module
+          ref: v${{ env.ECHO_MODULE_VERSION }}
+          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
+
+      - name: Checkout headers-more-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/headers-more-nginx-module
+          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
+          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
+
+      - name: Checkout set-misc-nginx-module repository
+        uses: actions/checkout@v2
+        with:
+          repository: openresty/set-misc-nginx-module
+          ref: v${{ env.SET_MISC_MODULE_VERSION }}
+          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
+
+      - name: Checkout myfreeer/nginx-build-msys2
+        uses: actions/checkout@v2
+        with:
+          repository: myfreeer/nginx-build-msys2
+          ref: ${{ matrix.NGINX_VERSION }}
+          path: msys2
+
+      - name: Checkout master branch
+        uses: actions/checkout@v2
+        with:
+          path: master
+
+      - name: Setup MSYS2 and install packages
+        uses: msys2/setup-msys2@v2
+        with:
+          update: false
+          install: base-devel mingw-w64-x86_64-toolchain
+
+      - name: Downloading dependencies
+        shell: msys2 {0}
+        run: |
+          ./master/scripts/fetch-sources openssl | tee -a $GITHUB_ENV
+          ./master/scripts/fetch-sources pcre | tee -a $GITHUB_ENV
+          ./master/scripts/fetch-sources zlib | tee -a $GITHUB_ENV
+
+      - name: Apply patches
+        shell: msys2 {0}
+        run: |
+          for i in msys2/nginx-*.patch; do
+            patch -p1 < $i
+          done
+
+      - name: Build nginx
+        shell: msys2 {0}
+        env:
+          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
+          # -DFD_SETSIZE=1024 is per official nginx win32 binary.
+          CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
+        run: ./master/scripts/build-nginx
+
+      - name: Upload nginx binary to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: artifact/*
+
   upload:
     name: Upload binaries
     needs:
@@ -403,6 +498,7 @@ jobs:
       - nginx-linux-x86_64
       - nginx-linux-multiarch
       - nginx-darwin
+      - nginx-win32
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     container:

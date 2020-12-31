@@ -14,10 +14,10 @@ configure() {
 		--http-proxy-temp-path="proxy_temp" \
 		--user=nginx \
 		--group=nginx \
-		--with-cc-opt="$CFLAGS" \
-		--with-ld-opt="$LDFLAGS" \
+		--with-cc="${CC:-cc}" \
+		--with-cc-opt="${CFLAGS:-}" \
+		--with-ld-opt="${LDFLAGS:-}" \
 		--with-debug \
-		--with-threads \
 		--with-http_ssl_module \
 		--with-http_v2_module \
 		--with-http_realip_module \
@@ -32,7 +32,6 @@ configure() {
 		--without-http_scgi_module \
 		--without-http_grpc_module \
 		--without-http_memcached_module \
-		--add-module="njs-$NJS_VERSION/nginx" \
 		--add-module="ngx_devel_kit-$NGX_DEVEL_KIT_VERSION" \
 		--add-module="echo-nginx-module-$ECHO_MODULE_VERSION" \
 		--add-module="headers-more-nginx-module-$HEADERS_MORE_MODULE_VERSION" \
@@ -43,33 +42,52 @@ configure() {
 
 HOST_ARCH=$(uname -m)
 HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
+EXEEXT=''
 
 case "$HOST_OS" in
 	darwin) alias sha1sum='shasum -a1';;
+	mingw*) HOST_OS='win32'; EXEEXT='.exe';;
 esac
 
 set -x  # log commands
 
+uname -a
+
 case "$HOST_OS" in
-	linux) configure --with-file-aio;;
-	darwin) configure;;
+	linux) configure \
+		--with-file-aio \
+		--with-threads \
+		--add-module="njs-$NJS_VERSION/nginx"
+	;;
+	macos) configure \
+		--with-threads \
+		--add-module="njs-$NJS_VERSION/nginx"
+	;;
+	win32) configure \
+		--with-openssl="$OPENSSL_DIR" \
+		--with-pcre="$PCRE_DIR" \
+		--with-zlib="$ZLIB_DIR" \
+		--with-openssl-opt='no-asm no-tests -D_WIN32_WINNT=0x0501'
+	;;
 esac
 
 make
+
 ls -lah objs
-strip objs/nginx
-file objs/nginx
+strip objs/nginx$EXEEXT
+file objs/nginx$EXEEXT
 
 case "$HOST_OS" in
-	darwin) otool -L objs/nginx;;
+	darwin) otool -L objs/nginx$EXEEXT;;
+	*) ldd objs/nginx$EXEEXT;;
 esac
 
-./objs/nginx -V
+./objs/nginx$EXEEXT -V
 
-BIN_NAME="nginx-$NGINX_VERSION-$HOST_ARCH-$HOST_OS"
+BIN_NAME="nginx-${NGINX_VERSION}-${HOST_ARCH}-${HOST_OS}${EXEEXT}"
 
 mkdir -p artifact/
-install objs/nginx artifact/$BIN_NAME
+install objs/nginx$EXEEXT artifact/$BIN_NAME
 
 cd artifact/
 sha1sum $BIN_NAME > $BIN_NAME.sha1
