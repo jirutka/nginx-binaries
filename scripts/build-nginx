@@ -71,7 +71,10 @@ case "$HOST_OS" in
 	;;
 esac
 
-make
+case "$HOST_OS" in
+	win32) nmake -f objs/Makefile;;
+	*) make;;
+esac
 
 ls -lah objs
 strip objs/nginx$EXEEXT

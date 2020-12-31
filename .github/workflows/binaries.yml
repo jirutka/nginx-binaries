@@ -17,390 +17,13 @@ env:
   SET_MISC_MODULE_VERSION: 0.32
 
 jobs:
-  njs-x86_64-linux:
-    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-linux
-    runs-on: ubuntu-latest
-    container:
-      image: docker://alpine:3.12
-    strategy:
-      matrix:
-        NJS_VERSION:
-          - 0.5.0
-        VARIANT:
-          - '-debug'
-          - ''
-    steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Install dependencies
-        run: apk add -U build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
-
-      - name: Build njs
-        env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
-          VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: ./master/scripts/build-njs
-
-      - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  njs-multi-linux:
-    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        NJS_VERSION:
-          - 0.5.0
-        VARIANT:
-          - '-debug'
-          - ''
-        ARCH:
-          - aarch64
-          - armv7
-          - ppc64le
-    steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Download alpine-chroot-install
-        run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.12.1/alpine-chroot-install
-          echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
-          chmod +x alpine-chroot-install
-
-      - name: Install latest Alpine for ${{ matrix.ARCH }}
-        run: |
-          sudo ./alpine-chroot-install \
-            -a ${{ matrix.ARCH }} \
-            -k 'VARIANT [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
-            -p 'build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static'
-          /alpine/enter-chroot uname -a
-
-      - name: Build njs
-        env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
-          VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: |
-          /alpine/enter-chroot -u $USER ./master/scripts/build-njs
-
-      - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  njs-x86_64-darwin:
-    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-darwin
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        NJS_VERSION:
-          - 0.5.0
-        VARIANT:
-          - '-debug'
-          - ''
-    steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Install dependencies
-        run: brew install libedit ncurses pcre
-
-      # cmake prefers dynamic libs and there's no option to change it, so
-      # we have to remove them to give it no other option than using static.
-      - name: Remove dylibs
-        run: |
-          rm /usr/local/opt/libedit/lib/*.dylib
-          rm /usr/local/opt/ncurses/lib/*.dylib
-          rm /usr/local/opt/pcre/lib/*.dylib
-
-      - name: Build njs
-        env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
-          VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
-          LDFLAGS: -L/usr/local/opt/libedit/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
-        run: ./master/scripts/build-njs
-
-      - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  nginx-x86_64-linux:
-    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
-    runs-on: ubuntu-latest
-    container:
-      image: docker://alpine:3.12
-    strategy:
-      matrix:
-        NGINX_VERSION:
-          - 1.18.0
-          - 1.19.5
-    steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
-
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Install dependencies
-        run: apk add -U build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
-
-      - name: Build nginx
-        env:
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: ./master/scripts/build-nginx
-
-      - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  nginx-multi-linux:
-    name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        NGINX_VERSION:
-          - 1.18.0
-          - 1.19.5
-        ARCH:
-          - aarch64
-          - armv7
-          #- ppc64le  # it works but takes twice as long as the others
-    steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
-
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Download alpine-chroot-install
-        run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.12.1/alpine-chroot-install
-          echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
-          chmod +x alpine-chroot-install
-
-      - name: Install latest Alpine for ${{ matrix.ARCH }}
-        run: |
-          sudo ./alpine-chroot-install \
-            -a ${{ matrix.ARCH }} \
-            -k 'VARIANT [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
-            -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
-          /alpine/enter-chroot uname -a
-
-      - name: Build nginx
-        env:
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
-          VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: |
-          /alpine/enter-chroot -u $USER ./master/scripts/build-nginx
-
-      - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  nginx-x86_64-darwin:
-    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        NGINX_VERSION:
-          - 1.18.0
-          - 1.19.5
-    steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
-
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Install dependencies
-        run: brew install openssl@1.1 pcre zlib
-
-      # cmake prefers dynamic libs and there's no option to change it, so
-      # we have to remove them to give it no other option than using static.
-      - name: Remove dylibs
-        run: |
-          rm /usr/local/opt/openssl/lib/*.dylib
-          rm /usr/local/opt/pcre/lib/*.dylib
-          rm /usr/local/opt/zlib/lib/*.dylib
-
-      - name: Build nginx
-        env:
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
-          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
-          LDFLAGS: -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
-        run: ./master/scripts/build-nginx
-
-      - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
-  nginx-x86_64-win32:
-    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-win32
+  nginx-msvc-x86_64-win32:
+    name: nginx-${{ matrix.NGINX_VERSION }}-msvc-x86_64-win32
     runs-on: windows-latest
     strategy:
       matrix:
         NGINX_VERSION:
-          - 1.18.0
+          #- 1.18.0
           - 1.19.5
     steps:
       - name: Checkout nginx repository
@@ -456,13 +79,24 @@ jobs:
         with:
           path: master
 
-      - name: Setup MSYS2 and install packages
+      - name: Setup MSYS2 and install tools
         uses: msys2/setup-msys2@v2
         with:
-          update: false
-          install: base-devel mingw-w64-x86_64-toolchain
+          install: file grep patch sed tar wget
 
-      - name: Downloading dependencies
+      - name: Setup Developer Command Prompt for Microsoft Visual C++
+        uses: ilammy/msvc-dev-cmd@v1
+
+      # perl.exe and link.exe from MSYS2 doesn't work here, we need to use
+      # '/c/Strawberry/perl/bin/perl' and '/c/Program Files (x86)/Microsoft Visual Studio/..../bin/HostX64/x64/link'.
+      # Manipulating with PATH didn't work, so we just remove these MSYS2 bins.
+      # See https://stackoverflow.com/a/22649559/2217862.
+      - name: Fix build environment
+        run: |
+          bash -c 'rm -f /usr/bin/link.exe /usr/bin/perl.exe'
+          bash -c 'which link; which perl'
+
+      - name: Download dependencies
         shell: msys2 {0}
         run: |
           ./master/scripts/fetch-sources openssl | tee -a $GITHUB_ENV
@@ -475,85 +109,26 @@ jobs:
           for i in msys2/nginx-*.patch; do
             patch -p1 < $i
           done
+          # Load auto/cc/msvc even when custom CFLAGS are provided.
+          #sed -i 's/^if test -n "$CFLAGS";/if false;/' auto/cc/conf
+          sed -i \
+            -e 's|$CFLAGS -O2|$CFLAGS /O1 -DFD_SETSIZE=1024|' \
+            -e 's/^if \[ -z "$NGX_WINE" \];/if false;/' \
+            -e '/CFLAGS="$CFLAGS -WX"/d' \
+            -e '/^CORE_DEPS=/d;/^[A-Z]_PCH/d;/ngx_pch.obj/d' \
+            auto/cc/msvc
+          sed -i \
+            -e 's/\bVC-WIN32\b/VC-WIN64A/' \
+            auto/lib/openssl/makefile.msvc
 
       - name: Build nginx
-        shell: msys2 {0}
         env:
           NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
-          # -DFD_SETSIZE=1024 is per official nginx win32 binary.
-          CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
-        run: ./master/scripts/build-nginx
+          CFLAGS: ''
+          CC: cl
+        run: bash ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
         uses: actions/upload-artifact@v2
         with:
           path: artifact/*
-
-  upload:
-    name: Upload binaries
-    needs:
-      - njs-x86_64-linux
-      - njs-multi-linux
-      - njs-x86_64-darwin
-      - nginx-x86_64-linux
-      - nginx-multi-linux
-      - nginx-x86_64-darwin
-      - nginx-x86_64-win32
-    if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    container:
-      image: docker://alpine:3.12
-    steps:
-      - name: Install dependencies
-        run: apk add -U git nodejs tree
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Checkout binaries branch
-        uses: actions/checkout@v2
-        with:
-          ref: binaries
-          path: binaries
-
-      - name: Download and unpack all workflow run artifacts
-        uses: actions/download-artifact@v2
-
-      - name: Move downloaded binaries into repository
-        run: |
-          mv artifact/* binaries/
-          ls -lah binaries/
-
-      - name: Generate index.json
-        run: ./master/scripts/generate-index --json binaries/ binaries/index.json
-
-      - name: Generate index.csv
-        run: ./master/scripts/generate-index --csv binaries/ binaries/index.csv
-
-      - name: Generate index.html
-        working-directory: binaries
-        run: tree -hv -H . -o index.html .
-
-      - name: Check if there are any changes
-        id: has_changes
-        working-directory: binaries
-        run: |
-          git status || exit 1
-          test -n "$(git status --porcelain)" && result=yes || result=no
-          echo ::set-output name=result::$result
-
-      - name: Commit changes
-        if: steps.has_changes.outputs.result == 'yes'
-        working-directory: binaries
-        run: |
-          git config --local user.email "github-actions@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add --all
-          git commit -m "Built from ${{ github.sha }}"
-
-      - name: Push changes back to origin
-        if: steps.has_changes.outputs.result == 'yes'
-        working-directory: binaries
-        run: git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git binaries
