@@ -39,7 +39,7 @@ interface IndexFile {
 }
 
 type OS = 'linux' | 'darwin'  // TODO: add windows
-type Arch = 'x86_64' | 'x64'  // TODO: add more
+type Arch = 'armv7' | 'arm' | 'aarch64' | 'arm64' | 'ppc64le' | 'x86_64' | 'x64'
 
 export interface Query {
   /**
