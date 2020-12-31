@@ -17,7 +17,7 @@ env:
   SET_MISC_MODULE_VERSION: 0.32
 
 jobs:
-  njs-linux-x86_64:
+  njs-x86_64-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-linux
     runs-on: ubuntu-latest
     container:
@@ -57,7 +57,7 @@ jobs:
         with:
           path: artifact/*
 
-  njs-linux-multiarch:
+  njs-multi-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
     runs-on: ubuntu-latest
     strategy:
@@ -111,7 +111,7 @@ jobs:
         with:
           path: artifact/*
 
-  njs-darwin:
+  njs-x86_64-darwin:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-darwin
     runs-on: macos-latest
     strategy:
@@ -157,7 +157,7 @@ jobs:
         with:
           path: artifact/*
 
-  nginx-linux-x86_64:
+  nginx-x86_64-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
     runs-on: ubuntu-latest
     container:
@@ -229,7 +229,7 @@ jobs:
         with:
           path: artifact/*
 
-  nginx-linux-multiarch:
+  nginx-multi-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
     runs-on: ubuntu-latest
     strategy:
@@ -316,7 +316,7 @@ jobs:
         with:
           path: artifact/*
 
-  nginx-darwin:
+  nginx-x86_64-darwin:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
     runs-on: macos-latest
     strategy:
@@ -394,7 +394,7 @@ jobs:
         with:
           path: artifact/*
 
-  nginx-win32:
+  nginx-x86_64-win32:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-win32
     runs-on: windows-latest
     strategy:
@@ -492,13 +492,13 @@ jobs:
   upload:
     name: Upload binaries
     needs:
-      - njs-linux-x86_64
-      - njs-linux-multiarch
-      - njs-darwin
-      - nginx-linux-x86_64
-      - nginx-linux-multiarch
-      - nginx-darwin
-      - nginx-win32
+      - njs-x86_64-linux
+      - njs-multi-linux
+      - njs-x86_64-darwin
+      - nginx-x86_64-linux
+      - nginx-multi-linux
+      - nginx-x86_64-darwin
+      - nginx-x86_64-win32
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     container:
