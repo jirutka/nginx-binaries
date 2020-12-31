@@ -1,6 +1,6 @@
 = nginx and njs static binaries
 :npm-name: nginx-binaries
-:gh-name: jirutka/nginx-binaries
+:gh-name: jirutka/{npm-name}
 :alpine-branch: 3.12
 :nginx-docs-uri: http://nginx.org/en/docs/
 
@@ -8,10 +8,44 @@ ifdef::env-github[]
 image:https://github.com/{gh-name}/workflows/binaries/badge.svg[Binaries Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22binaries%22]
 endif::env-github[]
 
-This project provides nginx and njs (NGINX JavaScript) compiled as fully static binaries for Linux (i.e. they will run on *any* Linux system) and minimal binaries for macOS and Windows x64.
-It also provides a JS library for downloading these binaries.
+This project provides standalone nginx and njs (NGINX JavaScript) binaries for *any* Linux system footnote:[nginx binaries are built as standalone static executables, so they works on every Linux system regardless of used libc.] (x86_64, aarch64, armv7, ppc64le), macOS (x86_64), and Windows (x86_64).
+It also provides a JS library for downloading these binaries (e.g. in integration tests).
 
 You can find the binaries at https://jirutka.github.io/nginx-binaries/ or in the https://github.com/{gh-name}/tree/binaries[binaries] branch.
+
+[cols=5]
+|===
+| Program | Version Range(s) | Variant(s) | OS | Architecture(s)
+
+.3+| nginx
+.3+| ~1.18.0 +
+~1.19.5
+.3+| _default_
+| Linux
+| x86_64 +
+aarch64 +
+armv7 +
+ppc64le
+
+| macOS
+| x86_64
+
+| Windows
+| x86_64 (x64)
+
+.3+| njs
+.2+| ^0.5.0
+.2+| _default_ +
+debug
+| Linux
+| x86_64 +
+aarch64 +
+armv7 +
+ppc64le
+
+| macOS
+| x86_64
+|===
 
 
 == JS Library
@@ -60,8 +94,14 @@ ifndef::npm-readme[]
 
 == nginx
 
-nginx binary is statically linked against https://www.musl-libc.org[musl libc], openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 It’s compiled with debug mode, threads and aio.
+
+*macOS* binary is statically linked with openssl, pcre and zlib from https://brew.sh[Homebrew].
+It’s compiled with debug mode, threads and aio.
+
+*Windows* binary is statically linked with latest openssl, pcre and zlib built from sources.
+It’s compiled with debug mode.
 
 
 === Included Modules
@@ -76,7 +116,7 @@ It’s compiled with debug mode, threads and aio.
 * {nginx-docs-uri}/http/ngx_http_charset_module.html[ngx_http_charset_module]
 * {nginx-docs-uri}/http/ngx_http_empty_gif_module.html[ngx_http_empty_gif_module]
 * {nginx-docs-uri}/http/ngx_http_gzip_module.html[ngx_http_gzip_module]
-* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module]
+* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module] (except Windows footnote:[njs is not supported on Windows, see https://github.com/nginx/njs/issues/320[nginx/njs#320]])
 * {nginx-docs-uri}/http/ngx_http_limit_conn_module.html[ngx_http_limit_conn_module]
 * {nginx-docs-uri}/http/ngx_http_limit_req_module.html[ngx_http_limit_req_module]
 * {nginx-docs-uri}/http/ngx_http_map_module.html[ngx_http_map_module]
@@ -105,6 +145,8 @@ It’s compiled with debug mode, threads and aio.
 
 == njs
 
-njs binary is statically linked against https://www.musl-libc.org[musl libc], libedit and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, ncurses and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+
+*macOS* binary is statically linked with libedit, ncurses and pcre from https://brew.sh[Homebrew].
 
 endif::npm-readme[]
