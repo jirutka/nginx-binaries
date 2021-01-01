@@ -9,9 +9,10 @@ image:https://github.com/{gh-name}/workflows/binaries/badge.svg[Binaries Workflo
 endif::env-github[]
 
 This project provides standalone nginx and njs (NGINX JavaScript) binaries for *any* Linux system footnote:[nginx binaries are built as standalone static executables, so they works on every Linux system regardless of used libc.] (x86_64, aarch64, armv7, ppc64le), macOS (x86_64), and Windows (x86_64).
-It also provides a JS library for downloading these binaries (e.g. in integration tests).
+It also provides a JS library for downloading these binaries (for use in integration tests).
 
-You can find the binaries at https://jirutka.github.io/nginx-binaries/ or in the https://github.com/{gh-name}/tree/binaries[binaries] branch.
+You can also download the binaries manually from https://jirutka.github.io/nginx-binaries/ or https://github.com/{gh-name}/tree/binaries[binaries] branch.
+They are built automatically and periodically using GitHub Actions (see link:.github/workflows/binaries.yml[config]).
 
 [cols=5]
 |===
