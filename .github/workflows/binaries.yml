@@ -9,12 +9,13 @@ env:
   JOBS: 3
   CFLAGS: -Os -fomit-frame-pointer -pipe
   LINUX_LDFLAGS: -static -Wl,--as-needed
-  # Versions of nginx modules
-  NJS_VERSION: 0.5.0
-  NGX_DEVEL_KIT_VERSION: 0.3.1
-  ECHO_MODULE_VERSION: 0.62
-  HEADERS_MORE_MODULE_VERSION: 0.33
-  SET_MISC_MODULE_VERSION: 0.32
+  # List of extra nginx modules to download.
+  NGINX_MODULES: >-
+    nginx/njs
+    vision5/ngx_devel_kit
+    openresty/echo-nginx-module
+    openresty/headers-more-nginx-module
+    openresty/set-misc-nginx-module
 
 jobs:
   njs-x86_64-linux:
@@ -174,48 +175,17 @@ jobs:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
 
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
       - name: Install dependencies
-        run: apk add -U build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
+        run: apk add -U build-base curl jq linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
+
+      - name: Download and extract nginx modules
+        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
+        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
 
       - name: Build nginx
         env:
@@ -248,45 +218,14 @@ jobs:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
 
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
+
+      - name: Download and extract nginx modules
+        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
+        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
 
       - name: Download alpine-chroot-install
         run: |
@@ -298,7 +237,7 @@ jobs:
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
-            -k 'VARIANT [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
+            -k 'VARIANT [A-Z_]*_DIR [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
             -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
           /alpine/enter-chroot uname -a
 
@@ -331,45 +270,14 @@ jobs:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
 
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
+
+      - name: Download and extract nginx modules
+        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
+        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
 
       - name: Install dependencies
         run: brew install openssl@1.1 pcre zlib
@@ -409,41 +317,6 @@ jobs:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
 
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ env.NJS_VERSION }}
-          path: njs-${{ env.NJS_VERSION }}
-
-      - name: Checkout ngx_devel_kit repository
-        uses: actions/checkout@v2
-        with:
-          repository: simpl/ngx_devel_kit
-          ref: v${{ env.NGX_DEVEL_KIT_VERSION }}
-          path: ngx_devel_kit-${{ env.NGX_DEVEL_KIT_VERSION }}
-
-      - name: Checkout echo-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/echo-nginx-module
-          ref: v${{ env.ECHO_MODULE_VERSION }}
-          path: echo-nginx-module-${{ env.ECHO_MODULE_VERSION }}
-
-      - name: Checkout headers-more-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/headers-more-nginx-module
-          ref: v${{ env.HEADERS_MORE_MODULE_VERSION }}
-          path: headers-more-nginx-module-${{ env.HEADERS_MORE_MODULE_VERSION }}
-
-      - name: Checkout set-misc-nginx-module repository
-        uses: actions/checkout@v2
-        with:
-          repository: openresty/set-misc-nginx-module
-          ref: v${{ env.SET_MISC_MODULE_VERSION }}
-          path: set-misc-nginx-module-${{ env.SET_MISC_MODULE_VERSION }}
-
       - name: Checkout myfreeer/nginx-build-msys2
         uses: actions/checkout@v2
         with:
@@ -460,14 +333,17 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           update: false
-          install: base-devel mingw-w64-x86_64-toolchain
+          install: base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-jq
 
-      - name: Downloading dependencies
+      - name: Download and extract libraries
         shell: msys2 {0}
-        run: |
-          ./master/scripts/fetch-sources openssl | tee -a $GITHUB_ENV
-          ./master/scripts/fetch-sources pcre | tee -a $GITHUB_ENV
-          ./master/scripts/fetch-sources zlib | tee -a $GITHUB_ENV
+        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each library.
+        run: ./master/scripts/fetch-sources openssl pcre zlib >> $GITHUB_ENV
+
+      - name: Download and extract nginx modules
+        shell: msys2 {0}
+        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
+        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
 
       - name: Apply patches
         shell: msys2 {0}
