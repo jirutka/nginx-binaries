@@ -45,38 +45,38 @@ download_tar() {
 }
 
 
-if [ $# -ne 1 ] || [ "$1" = '--help' ]; then
-	echo "Usage: $0 <proj-name>" >&2
+if [ $# -lt 1 ] || [ "$1" = '--help' ]; then
+	echo "Usage: $0 <proj-name> [<proj-name>...]" >&2
 	exit 2
 fi
 
-NAME="$1"
-name="$NAME"
+for name in "$@"; do
+	case "$name" in
+		openssl)
+			url='https://www.openssl.org/source'
+			ver=$(scrape_latest_version "$url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
+			download_tar "$url/$name-$ver.tar.gz"
+		;;
+		pcre)
+			url='https://ftp.pcre.org/pub/pcre'
+			ver=$(scrape_latest_version "$url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
+			download_tar "$url/$name-$ver.tar.bz2"
+		;;
+		zlib)
+			url='https://zlib.net'
+			ver=$(scrape_latest_version "$url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
+			download_tar "$url/$name-$ver.tar.xz"
+		;;
+		*)
+			tag=$(github_latest_version_tag "$name")
+			ver=${tag#v}
+			download_tar "https://github.com/$name/archive/$tag/${name#*/}-$ver.tar.gz"
+		;;
+	esac
 
-case "$NAME" in
-	openssl)
-		url='https://www.openssl.org/source'
-		ver=$(scrape_latest_version "$url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
-		download_tar "$url/$NAME-$ver.tar.gz"
-	;;
-	pcre)
-		url='https://ftp.pcre.org/pub/pcre'
-		ver=$(scrape_latest_version "$url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
-		download_tar "$url/$NAME-$ver.tar.bz2"
-	;;
-	zlib)
-		url='https://zlib.net'
-		ver=$(scrape_latest_version "$url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
-		download_tar "$url/$NAME-$ver.tar.xz"
-	;;
-	*)
-		name=${NAME#*/}
-		tag=$(github_latest_version_tag "$NAME")
-		ver=${tag#v}
-		download_tar "https://github.com/$NAME/archive/$tag/$name-$ver.tar.gz"
-	;;
-esac
+	name=${name#*/}
+	var_prefix=$(screaming_case "$name")
 
-var_prefix=$(screaming_case "$name")
-echo "${var_prefix}_DIR=$name-$ver"
-echo "${var_prefix}_VERSION=$ver"
+	echo "${var_prefix}_DIR=$name-$ver"
+	echo "${var_prefix}_VERSION=$ver"
+done
