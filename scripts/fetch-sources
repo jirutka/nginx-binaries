@@ -1,6 +1,13 @@
 #!/bin/sh
 set -eu
 
+if ( set -o pipefail 2>/dev/null ); then
+	set -o pipefail
+else
+	# dash shell (/bin/sh on Ubuntu) does not support pipefail.
+	exec bash "$0" "$@"
+fi
+
 scrape_latest_version() {
 	local url=$1
 	local pattern="s/.*$2.*/\1/p"
