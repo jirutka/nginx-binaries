@@ -25,10 +25,17 @@ scrape_latest_version() {
 github_latest_version_tag() {
 	local repo_slug="$1"
 	local tags_url="https://api.github.com/repos/$repo_slug/tags"
-	local filter='. | map(.name | select(test("^v?\\d+(\\.\\d+)+$"))) | max_by(sub("^v"; "") | split(".") | map(tonumber))'
 	local tag
 
-	if tag=$(curl -sS "$tags_url" | jq -er "$filter") && [ "$tag" ]; then
+	local jq_filter_tags='. | map(.name | select(test("^v?\\d+(\\.\\d+)+$")))'
+	local jq_latest='max_by(sub("^v"; "") | split(".") | map(tonumber))'
+
+	# XXX: Hack for https://github.com/openresty/headers-more-nginx-module/issues/117.
+	if [ "$repo_slug" = 'openresty/headers-more-nginx-module' ]; then
+		jq_filter_tags="$jq_filter_tags - [\"v0.261\"]"
+	fi
+
+	if tag=$(curl -sS "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
 		echo "$tag"
 	else
 		echo "ERROR: Failed to find $repo_slug latest version tag" >&2
