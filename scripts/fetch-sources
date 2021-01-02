@@ -8,7 +8,6 @@ scrape_latest_version() {
 	local ver
 
 	if ver=$(curl -sS "$url" | sed -En "$pattern" | sort -ruV | head -1) && [ "$ver" ]; then
-		echo "Found $name latest version: $ver" >&2
 		echo "$ver"
 	else
 		echo "ERROR: Failed to find $name latest version" >&2
@@ -23,7 +22,6 @@ github_latest_version_tag() {
 	local tag
 
 	if tag=$(curl -sS "$tags_url" | jq -er "$filter") && [ "$tag" ]; then
-		echo "Found ${repo_slug#*/} latest version tag: $tag" >&2
 		echo "$tag"
 	else
 		echo "ERROR: Failed to find $repo_slug latest version tag" >&2
@@ -33,6 +31,11 @@ github_latest_version_tag() {
 
 screaming_case() {
 	echo "$1" | tr '[a-z]-' '[A-Z]_'
+}
+
+echo2() {
+	echo "$*"
+	echo "$*" >&2
 }
 
 download_tar() {
@@ -77,6 +80,6 @@ for name in "$@"; do
 	name=${name#*/}
 	var_prefix=$(screaming_case "$name")
 
-	echo "${var_prefix}_DIR=$name-$ver"
-	echo "${var_prefix}_VERSION=$ver"
+	echo2 "${var_prefix}_DIR=$name-$ver"
+	echo2 "${var_prefix}_VERSION=$ver"
 done
