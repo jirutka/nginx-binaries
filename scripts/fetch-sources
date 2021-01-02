@@ -16,23 +16,39 @@ scrape_latest_version() {
 	fi
 }
 
-upcase() {
-	echo "$1" | tr '[a-z]' '[A-Z]'
+github_latest_version_tag() {
+	local repo_slug="$1"
+	local tags_url="https://api.github.com/repos/$repo_slug/tags"
+	local filter='. | map(.name | select(test("^v?\\d+(\\.\\d+)+$"))) | max_by(sub("^v"; "") | split(".") | map(tonumber))'
+	local tag
+
+	if tag=$(curl -sS "$tags_url" | jq -er "$filter") && [ "$tag" ]; then
+		echo "Found ${repo_slug#*/} latest version tag: $tag" >&2
+		echo "$tag"
+	else
+		echo "ERROR: Failed to find $repo_slug latest version tag" >&2
+		return 1
+	fi
+}
+
+screaming_case() {
+	echo "$1" | tr '[a-z]-' '[A-Z]_'
 }
 
 download_tar() {
 	local url="$1"
-	local name=$(basename "$url")
+	local name=$2
+	local filename=$(basename "$url")
 
 	echo "Downloading $url" >&2
 	wget -c -nv "$url"
-	tar -xf "$name"
-	echo "$(upcase "$NAME")_DIR=${name%.tar.*}"
+	tar -xf "$filename"
+	echo "$(screaming_case "$name")_DIR=${filename%.tar.*}"
 }
 
 
 if [ $# -ne 1 ] || [ "$1" = '--help' ]; then
-	echo "Usage: $0 <openssl | pcre | zlib>" >&2
+	echo "Usage: $0 <proj-name>" >&2
 	exit 2
 fi
 
@@ -42,20 +58,22 @@ case "$NAME" in
 	openssl)
 		url='https://www.openssl.org/source'
 		ver=$(scrape_latest_version "$url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
-		download_tar "$url/$NAME-$ver.tar.gz"
+		download_tar "$url/$NAME-$ver.tar.gz" "$NAME"
 	;;
 	pcre)
 		url='https://ftp.pcre.org/pub/pcre'
 		ver=$(scrape_latest_version "$url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
-		download_tar "$url/$NAME-$ver.tar.bz2"
+		download_tar "$url/$NAME-$ver.tar.bz2" "$NAME"
 	;;
 	zlib)
 		url='https://zlib.net'
 		ver=$(scrape_latest_version "$url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
-		download_tar "$url/$NAME-$ver.tar.xz"
+		download_tar "$url/$NAME-$ver.tar.xz" "$NAME"
 	;;
 	*)
-		echo "Unknown name: $1" >&2
-		exit 2
+		name=${NAME#*/}
+		tag=$(github_latest_version_tag "$NAME")
+		ver=${tag#v}
+		download_tar "https://github.com/$NAME/archive/$tag/$name-$ver.tar.gz"
 	;;
 esac
