@@ -40,7 +40,7 @@ download_tar() {
 	local filename=$(basename "$url")
 
 	echo "Downloading $url" >&2
-	wget -c -nv "$url"
+	curl -L -o "$filename" "$url"
 	tar -xf "$filename"
 }
 
