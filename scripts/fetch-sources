@@ -37,13 +37,11 @@ screaming_case() {
 
 download_tar() {
 	local url="$1"
-	local name=$2
 	local filename=$(basename "$url")
 
 	echo "Downloading $url" >&2
 	wget -c -nv "$url"
 	tar -xf "$filename"
-	echo "$(screaming_case "$name")_DIR=${filename%.tar.*}"
 }
 
 
@@ -53,22 +51,23 @@ if [ $# -ne 1 ] || [ "$1" = '--help' ]; then
 fi
 
 NAME="$1"
+name="$NAME"
 
 case "$NAME" in
 	openssl)
 		url='https://www.openssl.org/source'
 		ver=$(scrape_latest_version "$url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
-		download_tar "$url/$NAME-$ver.tar.gz" "$NAME"
+		download_tar "$url/$NAME-$ver.tar.gz"
 	;;
 	pcre)
 		url='https://ftp.pcre.org/pub/pcre'
 		ver=$(scrape_latest_version "$url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
-		download_tar "$url/$NAME-$ver.tar.bz2" "$NAME"
+		download_tar "$url/$NAME-$ver.tar.bz2"
 	;;
 	zlib)
 		url='https://zlib.net'
 		ver=$(scrape_latest_version "$url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
-		download_tar "$url/$NAME-$ver.tar.xz" "$NAME"
+		download_tar "$url/$NAME-$ver.tar.xz"
 	;;
 	*)
 		name=${NAME#*/}
@@ -77,3 +76,7 @@ case "$NAME" in
 		download_tar "https://github.com/$NAME/archive/$tag/$name-$ver.tar.gz"
 	;;
 esac
+
+var_prefix=$(screaming_case "$name")
+echo "${var_prefix}_DIR=$name-$ver"
+echo "${var_prefix}_VERSION=$ver"
