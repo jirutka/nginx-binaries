@@ -208,15 +208,12 @@ function createDownloader (name: string): Downloader {
     get cacheMaxAge () { return cacheMaxAge },
 
     async download (query, destDir) {
-      cacheDir ??= getCacheDir('nginx-binaries')
-      destDir ??= cacheDir
-
-      const index = await getIndex(repoUrl, cacheDir, timeout, cacheMaxAge)
-      const file = queryIndex(index, name, query)[0]
-      if (!file) {
+      const [entry, ] = await search(query)
+      if (!entry) {
         throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
-      return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
+      destDir ??= cacheDir!  //cacheDir is set after calling search()
+      return await downloadFile(`${repoUrl}/${entry.filename}`, entry.integrity, destDir, { timeout })
     },
     async variants (query) {
       return [...new Set((await search(query)).map(x => x.variant))]
