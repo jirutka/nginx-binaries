@@ -275,12 +275,12 @@ jobs:
         with:
           path: master
 
+      - name: Install dependencies
+        run: brew install jq openssl@1.1 pcre zlib
+
       - name: Download and extract nginx modules
         # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
         run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
-
-      - name: Install dependencies
-        run: brew install openssl@1.1 pcre zlib
 
       # cmake prefers dynamic libs and there's no option to change it, so
       # we have to remove them to give it no other option than using static.
