@@ -1,5 +1,8 @@
 import AnyLogger from 'anylogger'
+import FS from 'fs'
+import { FetchError } from 'node-fetch'
 import OS from 'os'
+import path from 'path'
 import semver from 'semver'
 
 import { normalizeArch } from './internal/archName'
@@ -11,8 +14,9 @@ import { fetchJson } from './internal/fetch'
 const log = AnyLogger('nginx-binaries')
 
 const defaults = {
+  cacheMaxAge: 8 * 60,  // minutes
   repoUrl: 'https://jirutka.github.io/nginx-binaries',
-  timeout: 10_000,
+  timeout: 10_000,  // milliseconds
 }
 
 const defaultQuery: Omit<Required<Query>, 'version'> = {
@@ -66,7 +70,23 @@ export interface Query {
 
 export interface Downloader {
   /**
+   * Maximum age in minutes for the cached repository index to be considered fresh.
+   * If the cached index is stale, the Downloader tries to refresh it before reading.
+   *
+   * Index file `index.json` is stored in directory `.cache/nginx-binaries/` inside
+   * the nearest writable `node_modules` directory or `nginx-binaries/` in the
+   * system-preferred temp directory.
+   *
+   * @default 480 (8 hours)
+   */
+  cacheMaxAge: number
+  /**
    * URL of the repository with binaries.
+   *
+   * **Caution:** After changing `repoUrl`, you should delete the old cached repository
+   * index (if exists) or disable index cache by setting `cacheMaxAge` to `0`.
+   * See `cacheMaxAge` for information about location of the cache.
+   *
    * @default https://jirutka.github.io/nginx-binaries
    */
   repoUrl: string
@@ -131,34 +151,71 @@ function queryIndex (index: IndexFile, name: string, query: Query): IndexEntry[]
     .sort((a, b) => semver.rcompare(a.version, b.version))
 }
 
-function createDownloader (name: string): Downloader {
-  let { repoUrl, timeout } = defaults
-  let index: IndexFile | undefined
+async function getIndex (
+  repoUrl: string,
+  cacheDir: string,
+  fetchTimeout: number,
+  cacheMaxAge: number,
+): Promise<IndexFile> {
+  const cachedIndexPath = path.join(cacheDir, 'index.json')
 
-  const fetchIndex = async () => {
-    log.debug(`Fetching ${repoUrl}/index.json...`)
-    return await fetchJson(`${repoUrl}/index.json`, { timeout }) as IndexFile
+  const readCachedIndex = () => JSON.parse(FS.readFileSync(cachedIndexPath, 'utf8')) as IndexFile
+
+  let isCached = false
+  try {
+    if (Date.now() - FS.statSync(cachedIndexPath).mtimeMs < cacheMaxAge * 60_000) {
+      log.debug(`Using cached index ${cachedIndexPath}`)
+      return readCachedIndex()
+    }
+    isCached = true
+  } catch {
+    // ignore
   }
+  try {
+    log.debug(`Fetching ${repoUrl}/index.json`)
+    const index = await fetchJson(`${repoUrl}/index.json`, { timeout: fetchTimeout }) as IndexFile
+    FS.writeFileSync(cachedIndexPath, JSON.stringify(index, null, 2))
+
+    return index
+
+  } catch (err) {
+    if (isCached && err instanceof FetchError && err.type === 'system') {
+      log.warn('Failed to refresh repository index, using stale index')
+      return readCachedIndex()
+    }
+    throw err
+  }
+}
+
+function createDownloader (name: string): Downloader {
+  let { cacheMaxAge, repoUrl, timeout } = defaults
+  let cacheDir: string | undefined
+
   const search = async (query: Query = {}): Promise<IndexEntry[]> => {
-    index ??= await fetchIndex()
+    cacheDir ??= getCacheDir('nginx-binaries')
+    const index = await getIndex(repoUrl, cacheDir, timeout, cacheMaxAge)
     return queryIndex(index, name, query)
   }
 
   return {
-    set repoUrl (url) { repoUrl = url; index = undefined },
+    set repoUrl (url) { repoUrl = url },
     get repoUrl () { return repoUrl },
 
     set timeout (msec) { timeout = msec },
     get timeout () { return timeout },
 
-    async download (query, destDir) {
-      index ??= await fetchIndex()
+    set cacheMaxAge (minutes: number) { cacheMaxAge = minutes },
+    get cacheMaxAge () { return cacheMaxAge },
 
+    async download (query, destDir) {
+      cacheDir ??= getCacheDir('nginx-binaries')
+      destDir ??= cacheDir
+
+      const index = await getIndex(repoUrl, cacheDir, timeout, cacheMaxAge)
       const file = queryIndex(index, name, query)[0]
       if (!file) {
         throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
-      destDir ??= getCacheDir('nginx-binaries')
       return await downloadFile(`${repoUrl}/${file.filename}`, file.integrity, destDir, { timeout })
     },
     async variants (query) {
