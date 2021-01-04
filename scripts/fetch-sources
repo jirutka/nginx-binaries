@@ -14,7 +14,7 @@ scrape_latest_version() {
 	local name=$3
 	local ver
 
-	if ver=$(curl -sS "$url" | sed -En "$pattern" | sort -ruV | head -1) && [ "$ver" ]; then
+	if ver=$(curl -fsS --retry 3 "$url" | sed -En "$pattern" | sort -ruV | head -1) && [ "$ver" ]; then
 		echo "$ver"
 	else
 		echo "ERROR: Failed to find $name latest version" >&2
@@ -35,7 +35,7 @@ github_latest_version_tag() {
 		jq_filter_tags="$jq_filter_tags - [\"v0.261\"]"
 	fi
 
-	if tag=$(curl -sS "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
+	if tag=$(curl -fsS --retry 3 "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
 		echo "$tag"
 	else
 		echo "ERROR: Failed to find $repo_slug latest version tag" >&2
@@ -57,7 +57,7 @@ download_tar() {
 	local filename=$(basename "$url")
 
 	echo "Downloading $url" >&2
-	curl -L -o "$filename" "$url"
+	curl -L --retry 3 -o "$filename" "$url"
 	tar -xf "$filename"
 }
 
