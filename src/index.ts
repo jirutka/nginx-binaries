@@ -14,12 +14,6 @@ import { bindAll, replaceProperty } from './internal/utils'
 
 const log = AnyLogger('nginx-binaries')
 
-const defaults = {
-  cacheMaxAge: 8 * 60,  // minutes
-  repoUrl: 'https://jirutka.github.io/nginx-binaries',
-  timeout: 10_000,  // milliseconds
-}
-
 const defaultQuery: Omit<Required<Query>, 'version'> = {
   // macOS (darwin) on ARM can run x86_64 binaries.
   arch: OS.platform() === 'darwin' ? 'x86_64' : normalizeArch(OS.arch()) as any,
@@ -191,7 +185,9 @@ export interface Downloader {
 }
 
 const createDownloader = (name: string): Downloader => bindAll({
-  ...defaults,
+  cacheMaxAge: 8 * 60,  // minutes
+  repoUrl: 'https://jirutka.github.io/nginx-binaries',
+  timeout: 10_000,  // milliseconds
 
   get cacheDir () {
     // Replace accessors with plain value (lazy initialization).
