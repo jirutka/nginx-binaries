@@ -1,4 +1,7 @@
 = nginx and njs standalone binaries
+:toc: macro
+:toc-title:
+// custom
 :npm-name: nginx-binaries
 :gh-name: jirutka/{npm-name}
 :alpine-branch: 3.12
@@ -49,6 +52,10 @@ ppc64le
 | macOS
 | x86_64
 |===
+
+== Table of Contents
+
+toc::[]
 
 
 == JS Library
