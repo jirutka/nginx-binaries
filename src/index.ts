@@ -9,7 +9,7 @@ import { normalizeArch } from './internal/archName'
 import { getCacheDir } from './internal/cacheDir'
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
-import { bindAll } from './internal/utils'
+import { bindAll, replaceProperty } from './internal/utils'
 
 
 const log = AnyLogger('nginx-binaries')
@@ -71,12 +71,17 @@ export interface Query {
 
 export interface Downloader {
   /**
-   * Maximum age in minutes for the cached repository index to be considered fresh.
-   * If the cached index is stale, the Downloader tries to refresh it before reading.
+   * Path to the cache directory where the repository index and binaries are stored.
    *
-   * Index file `index.json` is stored in directory `.cache/nginx-binaries/` inside
-   * the nearest writable `node_modules` directory or `nginx-binaries/` in the
-   * system-preferred temp directory.
+   * Defaults to `.cache/nginx-binaries/` relative to the nearest writable `node_modules`
+   * (nearest to `process.cwd()`) or `nginx-binaries/` in the system-preferred temp
+   * directory.
+   */
+  cacheDir: string
+  /**
+   * Maximum age in minutes for the cached repository index in `cacheDir` to be
+   * considered fresh. If the cached index is stale, the Downloader tries to refresh
+   * it before reading.
    *
    * @default 480 (8 hours)
    */
@@ -84,27 +89,23 @@ export interface Downloader {
   /**
    * URL of the repository with binaries.
    *
-   * **Caution:** After changing `repoUrl`, you should delete the old cached repository
-   * index (if exists) or disable index cache by setting `cacheMaxAge` to `0`.
-   * See `cacheMaxAge` for information about location of the cache.
+   * **Caution:** After changing `repoUrl`, you should delete old `index.json` in
+   * `cacheDir` or disable index cache by setting `cacheMaxAge` to `0`.
    *
-   * @default https://jirutka.github.io/nginx-binaries
+   * @default 'https://jirutka.github.io/nginx-binaries'
    */
   repoUrl: string
   /**
    * Fetch response timeout in milliseconds.
+   *
    * @default 10000
    */
   timeout: number
   /**
-   * Downloads a binary specified by `query` and stores it in the _cache directory_ or
+   * Downloads a binary specified by `query` and stores it in the `cacheDir` or
    * in `destFilePath`, if provided. Returns path to the file.
    *
    * If the file already exists and the checksums match, it just returns its path.
-   *
-   * Cache directory is `.cache/nginx-binaries/` relative to the nearest writable
-   * `node_modules` (nearest to `process.cwd()`) or `nginx-binaries/` in the
-   * system-preferred temp directory.
    *
    * If multiple versions satisfies the version range, the one with highest
    * version number is selected.
@@ -190,38 +191,41 @@ async function getIndex (
   }
 }
 
-function createDownloader (name: string): Downloader {
-  let cacheDir: string | undefined
+const createDownloader = (name: string): Downloader => bindAll({
+  ...defaults,
 
-  return bindAll({
-    ...defaults,
+  get cacheDir () {
+    // Replace accessors with plain value (lazy initialization).
+    return replaceProperty(this, 'cacheDir', getCacheDir('nginx-binaries'))
+  },
+  set cacheDir (dirpath) {
+    this.cacheDir &&= dirpath
+  },
 
-    async download (query, destFilePath) {
-      const [entry, ] = await this.search(query)
-      if (!entry) {
-        throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
-      }
-      destFilePath ??= path.join(cacheDir!, entry.filename)  //cacheDir is set after calling search()
-      const url = `${this.repoUrl}/${entry.filename}`
+  async download (query, destFilePath) {
+    const [entry, ] = await this.search(query)
+    if (!entry) {
+      throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
+    }
+    destFilePath ??= path.join(this.cacheDir, entry.filename)
+    const url = `${this.repoUrl}/${entry.filename}`
 
-      return await downloadFile(url, entry.integrity, destFilePath, { timeout: this.timeout })
-    },
+    return await downloadFile(url, entry.integrity, destFilePath, { timeout: this.timeout })
+  },
 
-    async search (query) {
-      cacheDir ??= getCacheDir('nginx-binaries')
-      const index = await getIndex(this.repoUrl, cacheDir, this.timeout, this.cacheMaxAge)
-      return queryIndex(index, name, query)
-    },
+  async search (query) {
+    const index = await getIndex(this.repoUrl, this.cacheDir, this.timeout, this.cacheMaxAge)
+    return queryIndex(index, name, query)
+  },
 
-    async variants (query) {
-      return [...new Set((await this.search(query ?? {})).map(x => x.variant))]
-    },
+  async variants (query) {
+    return [...new Set((await this.search(query ?? {})).map(x => x.variant))]
+  },
 
-    async versions (query) {
-      return [...new Set((await this.search(query ?? {})).map(x => x.version))]
-    },
-  })
-}
+  async versions (query) {
+    return [...new Set((await this.search(query ?? {})).map(x => x.version))]
+  },
+})
 
 /**
  * Creates a Fetcher that provides **nginx** binary.

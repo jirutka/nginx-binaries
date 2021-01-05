@@ -10,3 +10,10 @@ export function bindAll <T> (obj: T): T {
   }
   return obj
 }
+
+export function replaceProperty <T, K extends keyof T> (obj: T, propName: K, value: T[K]): T[K] {
+  delete obj[propName]
+  obj[propName] = value
+
+  return value
+}
