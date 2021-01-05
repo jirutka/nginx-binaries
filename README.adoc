@@ -166,7 +166,9 @@ Specify target CPU architecture.
 Defaults to the host architecture.
 
 
-== nginx
+== Binaries
+
+=== nginx
 
 *Linux* binary is statically linked with https://www.musl-libc.org[musl libc], openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 It’s compiled with debug mode, threads and aio.
@@ -178,7 +180,7 @@ It’s compiled with debug mode, threads and aio.
 It’s compiled with debug mode.
 
 
-=== Included Modules
+==== Included Modules
 
 *Built-In Modules:*
 
@@ -217,7 +219,7 @@ It’s compiled with debug mode.
 * https://github.com/openresty/set-misc-nginx-module[set-misc-nginx-module]
 
 
-== njs
+=== njs
 
 *Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, ncurses and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 
