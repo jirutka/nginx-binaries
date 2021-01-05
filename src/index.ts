@@ -9,6 +9,7 @@ import { normalizeArch } from './internal/archName'
 import { getCacheDir } from './internal/cacheDir'
 import { downloadFile } from './internal/downloadFile'
 import { fetchJson } from './internal/fetch'
+import { bindAll } from './internal/utils'
 
 
 const log = AnyLogger('nginx-binaries')
@@ -190,42 +191,36 @@ async function getIndex (
 }
 
 function createDownloader (name: string): Downloader {
-  let { cacheMaxAge, repoUrl, timeout } = defaults
   let cacheDir: string | undefined
 
-  const search = async (query: Query = {}): Promise<IndexEntry[]> => {
-    cacheDir ??= getCacheDir('nginx-binaries')
-    const index = await getIndex(repoUrl, cacheDir, timeout, cacheMaxAge)
-    return queryIndex(index, name, query)
-  }
-
-  return {
-    set repoUrl (url) { repoUrl = url },
-    get repoUrl () { return repoUrl },
-
-    set timeout (msec) { timeout = msec },
-    get timeout () { return timeout },
-
-    set cacheMaxAge (minutes: number) { cacheMaxAge = minutes },
-    get cacheMaxAge () { return cacheMaxAge },
+  return bindAll({
+    ...defaults,
 
     async download (query, destFilePath) {
-      const [entry, ] = await search(query)
+      const [entry, ] = await this.search(query)
       if (!entry) {
         throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
       destFilePath ??= path.join(cacheDir!, entry.filename)  //cacheDir is set after calling search()
+      const url = `${this.repoUrl}/${entry.filename}`
 
-      return await downloadFile(`${repoUrl}/${entry.filename}`, entry.integrity, destFilePath, { timeout })
+      return await downloadFile(url, entry.integrity, destFilePath, { timeout: this.timeout })
     },
+
+    async search (query) {
+      cacheDir ??= getCacheDir('nginx-binaries')
+      const index = await getIndex(this.repoUrl, cacheDir, this.timeout, this.cacheMaxAge)
+      return queryIndex(index, name, query)
+    },
+
     async variants (query) {
-      return [...new Set((await search(query)).map(x => x.variant))]
+      return [...new Set((await this.search(query ?? {})).map(x => x.variant))]
     },
+
     async versions (query) {
-      return [...new Set((await search(query)).map(x => x.version))]
+      return [...new Set((await this.search(query ?? {})).map(x => x.version))]
     },
-    search,
-  }
+  })
 }
 
 /**
