@@ -96,22 +96,24 @@ export interface Downloader {
    */
   timeout: number
   /**
-   * Downloads the specified binary into `destDir` and returns its path.
+   * Downloads a binary specified by `query` and stores it in the _cache directory_ or
+   * in `destFilePath`, if provided. Returns path to the file.
    *
-   * If the binary already exists in `destDir` and the checksums match,
-   * it just returns its path.
+   * If the file already exists and the checksums match, it just returns its path.
+   *
+   * Cache directory is `.cache/nginx-binaries/` relative to the nearest writable
+   * `node_modules` (nearest to `process.cwd()`) or `nginx-binaries/` in the
+   * system-preferred temp directory.
    *
    * If multiple versions satisfies the version range, the one with highest
    * version number is selected.
    *
    * @param query A query that specifies what binary to download.
-   * @param destDir A path to a directory where to store the downloaded binary.
-   *   Defaults to `.cache/nginx-binaries/` in the nearest writable `node_modules`
-   *   directory or `nginx-binaries/` in the system-preferred temp directory.
+   * @param destFilePath An optional file path where to write the downloaded binary.
    * @return Path to the downloaded binary on the filesystem.
    * @throws {RangeError} if no matching binary is found.
    */
-  download: (query: Query, destDir?: string) => Promise<string>
+  download: (query: Query, destFilePath?: string) => Promise<string>
   /**
    * Returns metadata of available binaries that match the query.
    */
@@ -207,13 +209,14 @@ function createDownloader (name: string): Downloader {
     set cacheMaxAge (minutes: number) { cacheMaxAge = minutes },
     get cacheMaxAge () { return cacheMaxAge },
 
-    async download (query, destDir) {
+    async download (query, destFilePath) {
       const [entry, ] = await search(query)
       if (!entry) {
         throw RangeError(`No ${name} binary found for ${formatQuery({ ...defaultQuery, ...query })}`)
       }
-      destDir ??= cacheDir!  //cacheDir is set after calling search()
-      return await downloadFile(`${repoUrl}/${entry.filename}`, entry.integrity, destDir, { timeout })
+      destFilePath ??= path.join(cacheDir!, entry.filename)  //cacheDir is set after calling search()
+
+      return await downloadFile(`${repoUrl}/${entry.filename}`, entry.integrity, destFilePath, { timeout })
     },
     async variants (query) {
       return [...new Set((await search(query)).map(x => x.variant))]

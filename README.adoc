@@ -84,8 +84,8 @@ await NginxBinary.download({ version: '1.18.x' })
 await NjsBinary.versions({ version: '^0.4.4' })
 // => ['0.5.0']
 
-await NjsBinary.download({ version: '^0.4.4', variant: 'debug' }, '.tmp/')
-// => '.tmp/njs-0.5.0-debug-x86_64-linux'
+await NjsBinary.download({ version: '^0.4.4', variant: 'debug' }, '.tmp/njs')
+// => '.tmp/njs'
 ----
 
 See https://github.com/Download/anylogger[anylogger] for information about setting up logging.

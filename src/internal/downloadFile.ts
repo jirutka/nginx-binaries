@@ -2,7 +2,7 @@ import AnyLogger from 'anylogger'
 import crypto from 'crypto'
 import { createReadStream, createWriteStream, mkdirSync as mkdir } from 'fs'
 import { RequestInit } from 'node-fetch'
-import { basename, join as joinPath } from 'path'
+import { basename, dirname } from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
 
@@ -15,12 +15,9 @@ const streamPipeline = promisify(stream.pipeline)
 export async function downloadFile (
   url: string,
   integrity: string,
-  destDir: string,
+  filepath: string,
   fetchOpts?: RequestInit,
 ): Promise<string> {
-
-  const filename = basename(url)
-  const filepath = joinPath(destDir, filename)
 
   if (await checkFileChecksum(filepath, integrity)) {
     log.debug(`File ${filepath} already exists`)
@@ -32,7 +29,7 @@ export async function downloadFile (
 
   log.info(`Downloading ${url}...`)
 
-  mkdir(destDir, { recursive: true })
+  mkdir(dirname(filepath), { recursive: true })
 
   const resp = await fetch(url, fetchOpts)
 
@@ -42,7 +39,7 @@ export async function downloadFile (
   )
 
   if (hash.digest('hex') !== expectedHash) {
-    throw Error(`File ${filename} is corrupted, ${hashAlg} checksum doesn't match!`)
+    throw Error(`File ${basename(filepath)} is corrupted, ${hashAlg} checksum doesn't match!`)
   }
   log.debug(`File was saved in ${filepath}`)
 
