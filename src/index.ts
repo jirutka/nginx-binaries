@@ -109,7 +109,10 @@ async function getIndex (
   }
   try {
     log.debug(`Fetching ${repoUrl}/index.json`)
+
     const index = await fetchJson(`${repoUrl}/index.json`, { timeout: fetchTimeout }) as IndexFile
+
+    FS.mkdirSync(cacheDir, { recursive: true })
     FS.writeFileSync(cachedIndexPath, JSON.stringify(index, null, 2))
 
     return index

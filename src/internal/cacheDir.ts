@@ -6,13 +6,9 @@ import path from 'path'
 export function getCacheDir (name: string): string {
   const nodeModules = findPkgNodeModules(process.cwd())
 
-  const cacheDir = nodeModules
+  return nodeModules
     ? path.join(nodeModules, '.cache', name)
     : path.join(OS.tmpdir(), name)
-
-  FS.mkdirSync(cacheDir, { recursive: true })
-
-  return cacheDir
 }
 
 function findPkgNodeModules (cwd: string): string | null {
