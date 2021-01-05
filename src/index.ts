@@ -25,7 +25,7 @@ export interface IndexEntry {
   name: string
   version: string
   variant: string
-  os: OS
+  os: Platform
   arch: Arch
   filename: string
   date: string
@@ -37,7 +37,7 @@ interface IndexFile {
   contents: IndexEntry[]
 }
 
-type OS = 'linux' | 'darwin' | 'win32'
+type Platform = 'linux' | 'darwin' | 'win32'
 type Arch = 'armv7' | 'arm' | 'aarch64' | 'arm64' | 'ppc64le' | 'x86_64' | 'x64'
 
 // NOTE: Keep in sync with API section in README.adoc (until I figure out how to generate it).
@@ -57,7 +57,7 @@ export interface Query {
   /**
    * Specify target OS. Defaults to the host OS.
    */
-  os?: OS
+  os?: Platform
   /**
    * Specify target CPU architecture. Defaults to the host architecture.
    */
