@@ -40,6 +40,7 @@ interface IndexFile {
 type OS = 'linux' | 'darwin' | 'win32'
 type Arch = 'armv7' | 'arm' | 'aarch64' | 'arm64' | 'ppc64le' | 'x86_64' | 'x64'
 
+// NOTE: Keep in sync with API section in README.adoc (until I figure out how to generate it).
 export interface Query {
   /**
    * Specify required version as exact version number or a SemVer version range.
@@ -126,6 +127,7 @@ async function getIndex (
   }
 }
 
+// NOTE: Keep in sync with API section in README.adoc (until I figure out how to generate it).
 export interface Downloader {
   /**
    * Path to the cache directory where the repository index and binaries are stored.

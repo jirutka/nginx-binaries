@@ -69,7 +69,7 @@ yarn add --dev {npm-name}
 ----
 
 
-=== Usage
+=== Usage Example
 
 [source, js, subs="+attributes"]
 ----
@@ -91,7 +91,77 @@ await NjsBinary.download({ version: '^0.4.4', variant: 'debug' }, '.tmp/njs')
 See https://github.com/Download/anylogger[anylogger] for information about setting up logging.
 
 
+=== API
+
+// Pandoc conversion to Markdown doesn't handle definition lists.
+ifdef::npm-readme[]
+https://github.com/{gh-name}#api[See on GitHub].
+
+endif::npm-readme[]
 ifndef::npm-readme[]
+
+==== NginxBinary / NjsBinary
+
+cacheDir `(string)`::
+Path to the cache directory where the repository index and binaries are stored.
++
+Defaults to `.cache/nginx-binaries/` relative to the nearest writable `node_modules` (nearest to `process.cwd()`) or `nginx-binaries/` in the system-preferred temp directory.
+
+cacheMaxAge `(number)`::
+Maximum age in minutes for the cached repository index in `cacheDir` to be considered fresh.
+If the cached index is stale, the Downloader tries to refresh it before reading.
++
+Defaults to `480` (8 hours).
+
+repoUrl `(string)`::
+URL of the repository with binaries.
++
+*Caution:* After changing `repoUrl`, you should delete old `index.json` in `cacheDir` or disable index cache by setting `cacheMaxAge` to `0`.
++
+Defaults to `'https://jirutka.github.io/nginx-binaries'`.
+
+timeout `(number)`::
+Fetch response timeout in milliseconds.
++
+Defaults to `10000` (10 seconds).
+
+download `(query: <<Query>>, destFilePath?: string) => Promise<string>`::
+Downloads a binary specified by `query` and stores it in the `cacheDir` or in `destFilePath`, if provided.
+Returns path to the file.
++
+If the file already exists and the checksums match, it just returns its path.
++
+If multiple versions satisfies the version range, the one with highest version number is selected.
+
+search `(query: <<Query>>) => Promise<IndexEntry[]>`::
+Returns metadata of available binaries that match the query.
+
+variants `(query?: <<Query>>) => Promise<string[]>`::
+Returns all the available variants matching the query.
+
+versions `(query?: <<Query>>) => Promise<string[]>`::
+Returns all the available versions matching the query.
+
+
+==== Query
+
+version `(string?)`::
+Specify required version as exact version number or a https://github.com/npm/node-semver#ranges[SemVer version range].
++
+Example: `'1.8.0'`, `'1.8.x'`, `'^1.8.0'`
+
+variant `(string?)`::
+Specify build variant of the binary (e.g. `debug`).
+Defaults to an empty string, i.e. the default variant.
+
+os `(string?)`::
+Specify target OS.
+Defaults to the host OS.
+
+arch `(string?)`::
+Specify target CPU architecture.
+Defaults to the host architecture.
+
 
 == nginx
 
