@@ -69,6 +69,66 @@ export interface Query {
   arch?: Arch
 }
 
+const formatQuery = (query: Query) => JSON.stringify(query)
+  .replace(/"/g, '')
+  .replace(/,/g, ', ')
+  .replace(/:/g, ': ')
+
+const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
+
+const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every(key => {
+  return query[key] === undefined ? false
+    : key === 'version' ? semver.satisfies(meta[key], query[key]!)
+    : key === 'arch' ? normalizeArch(query[key]!) === meta[key]
+    : query[key] === meta[key]
+})
+
+function queryIndex (index: IndexFile, name: string, query: Query): IndexEntry[] {
+  const fullQuery = { ...defaultQuery, ...query }
+
+  log.debug(`Looking for ${name} binary matching ${formatQuery(fullQuery)}`)
+  return index.contents
+    .filter(x => x.name === name)
+    .filter(queryFilter(fullQuery))
+    .sort((a, b) => semver.rcompare(a.version, b.version))
+}
+
+async function getIndex (
+  repoUrl: string,
+  cacheDir: string,
+  fetchTimeout: number,
+  cacheMaxAge: number,
+): Promise<IndexFile> {
+  const cachedIndexPath = path.join(cacheDir, 'index.json')
+
+  const readCachedIndex = () => JSON.parse(FS.readFileSync(cachedIndexPath, 'utf8')) as IndexFile
+
+  let isCached = false
+  try {
+    if (Date.now() - FS.statSync(cachedIndexPath).mtimeMs < cacheMaxAge * 60_000) {
+      log.debug(`Using cached index ${cachedIndexPath}`)
+      return readCachedIndex()
+    }
+    isCached = true
+  } catch {
+    // ignore
+  }
+  try {
+    log.debug(`Fetching ${repoUrl}/index.json`)
+    const index = await fetchJson(`${repoUrl}/index.json`, { timeout: fetchTimeout }) as IndexFile
+    FS.writeFileSync(cachedIndexPath, JSON.stringify(index, null, 2))
+
+    return index
+
+  } catch (err) {
+    if (isCached && err instanceof FetchError && err.type === 'system') {
+      log.warn('Failed to refresh repository index, using stale index')
+      return readCachedIndex()
+    }
+    throw err
+  }
+}
+
 export interface Downloader {
   /**
    * Path to the cache directory where the repository index and binaries are stored.
@@ -128,67 +188,6 @@ export interface Downloader {
    * Returns all the available versions matching the query.
    */
   versions: (query?: Query) => Promise<string[]>
-}
-
-
-const formatQuery = (query: Query) => JSON.stringify(query)
-  .replace(/"/g, '')
-  .replace(/,/g, ', ')
-  .replace(/:/g, ': ')
-
-const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
-
-const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every(key => {
-  return query[key] === undefined ? false
-    : key === 'version' ? semver.satisfies(meta[key], query[key]!)
-    : key === 'arch' ? normalizeArch(query[key]!) === meta[key]
-    : query[key] === meta[key]
-})
-
-function queryIndex (index: IndexFile, name: string, query: Query): IndexEntry[] {
-  const fullQuery = { ...defaultQuery, ...query }
-
-  log.debug(`Looking for ${name} binary matching ${formatQuery(fullQuery)}`)
-  return index.contents
-    .filter(x => x.name === name)
-    .filter(queryFilter(fullQuery))
-    .sort((a, b) => semver.rcompare(a.version, b.version))
-}
-
-async function getIndex (
-  repoUrl: string,
-  cacheDir: string,
-  fetchTimeout: number,
-  cacheMaxAge: number,
-): Promise<IndexFile> {
-  const cachedIndexPath = path.join(cacheDir, 'index.json')
-
-  const readCachedIndex = () => JSON.parse(FS.readFileSync(cachedIndexPath, 'utf8')) as IndexFile
-
-  let isCached = false
-  try {
-    if (Date.now() - FS.statSync(cachedIndexPath).mtimeMs < cacheMaxAge * 60_000) {
-      log.debug(`Using cached index ${cachedIndexPath}`)
-      return readCachedIndex()
-    }
-    isCached = true
-  } catch {
-    // ignore
-  }
-  try {
-    log.debug(`Fetching ${repoUrl}/index.json`)
-    const index = await fetchJson(`${repoUrl}/index.json`, { timeout: fetchTimeout }) as IndexFile
-    FS.writeFileSync(cachedIndexPath, JSON.stringify(index, null, 2))
-
-    return index
-
-  } catch (err) {
-    if (isCached && err instanceof FetchError && err.type === 'system') {
-      log.warn('Failed to refresh repository index, using stale index')
-      return readCachedIndex()
-    }
-    throw err
-  }
 }
 
 const createDownloader = (name: string): Downloader => bindAll({
