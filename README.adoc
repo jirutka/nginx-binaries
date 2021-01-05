@@ -19,39 +19,6 @@ ifndef::npm-readme[]
 You can also download the binaries manually from https://jirutka.github.io/nginx-binaries/ or https://github.com/{gh-name}/tree/binaries[binaries] branch.
 They are built automatically and periodically using GitHub Actions (see link:.github/workflows/binaries.yml[config]).
 
-[cols=5]
-|===
-| Program | Version Range(s) | Variant(s) | OS | Architecture(s)
-
-.3+| nginx
-.3+| ~1.18.0 +
-~1.19.5
-.3+| _default_
-| Linux
-| x86_64 +
-aarch64 +
-armv7 +
-ppc64le
-
-| macOS
-| x86_64
-
-| Windows
-| x86_64 (x64)
-
-.3+| njs
-.2+| ^0.5.0
-.2+| _default_ +
-debug
-| Linux
-| x86_64 +
-aarch64 +
-armv7 +
-ppc64le
-
-| macOS
-| x86_64
-|===
 
 == Table of Contents
 
@@ -174,6 +141,41 @@ Defaults to the host architecture.
 
 
 == Binaries
+
+[cols=5]
+|===
+| Program | Version Range(s) | Variant(s) | OS | Architecture(s)
+
+.3+| nginx
+.3+| ~1.18.0 +
+~1.19.5
+.3+| _default_
+| Linux
+| x86_64 +
+aarch64 +
+armv7 +
+ppc64le
+
+| macOS
+| x86_64
+
+| Windows
+| x86_64 (x64)
+
+.3+| njs
+.2+| ^0.5.0
+.2+| _default_ +
+debug
+| Linux
+| x86_64 +
+aarch64 +
+armv7 +
+ppc64le
+
+| macOS
+| x86_64
+|===
+
 
 === nginx
 
