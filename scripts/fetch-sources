@@ -35,12 +35,21 @@ github_latest_version_tag() {
 		jq_filter_tags="$jq_filter_tags - [\"v0.261\"]"
 	fi
 
-	if tag=$(curl -fsS --retry 3 "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
+	if tag=$(github_curl "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
 		echo "$tag"
 	else
 		echo "ERROR: Failed to find $repo_slug latest version tag" >&2
 		return 1
 	fi
+}
+
+github_curl() {
+	# Authenticate GitHub requests to avoid rate limits.
+	curl -fsS \
+		--retry 3 \
+		--header 'Accept: application/vnd.github.v3+json' \
+		${GITHUB_TOKEN:+--header "Authorization: Bearer $GITHUB_TOKEN"} \
+		"$@"
 }
 
 screaming_case() {
