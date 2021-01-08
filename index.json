@@ -62,9 +62,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.18.0-x86_64-win32.exe",
-      "date": "2021-01-04T00:38:31Z",
+      "date": "2021-01-08T00:46:37Z",
       "size": 3028480,
-      "integrity": "sha1-84c2c0589044587c839c336d1a57fbfa44c0af80"
+      "integrity": "sha1-6b8b0e56182a8530fbbd8231e7d5e80113f3526e"
     },
     {
       "name": "nginx",
@@ -128,9 +128,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.19.5-x86_64-win32.exe",
-      "date": "2021-01-04T00:38:31Z",
+      "date": "2021-01-08T00:46:37Z",
       "size": 3045376,
-      "integrity": "sha1-99761c39b3669945c106e8363a33f368431a1f02"
+      "integrity": "sha1-a1e091ecf677dc0a3263dd03de97560a54697265"
     },
     {
       "name": "njs",
@@ -194,9 +194,9 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.0-debug-x86_64-darwin",
-      "date": "2021-01-04T00:38:32Z",
+      "date": "2021-01-08T00:46:38Z",
       "size": 1449600,
-      "integrity": "sha1-16482fa407660d7a6e7b82f1fc57b5dcfb920d9a"
+      "integrity": "sha1-897ebb71fdfc3c793f45fbb03ba84706af21f59d"
     },
     {
       "name": "njs",
