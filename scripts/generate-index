@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// @ts-check
+/**
+ * @typedef {import('../src/index').IndexEntry} IndexEntry
+ * @typedef {IndexEntry[]} Index
+ */
 const process = require('process')
 const fs = require('fs')
 const path = require('path')
@@ -6,6 +11,7 @@ const path = require('path')
 
 /**
  * @param {string} filename
+ * @returns {boolean}
  */
 const filterFiles = (filename) =>
   !filename.startsWith('index.') &&
@@ -14,12 +20,14 @@ const filterFiles = (filename) =>
 
 /**
  * @param {string} filename
+ * @returns {string}
  */
 const readFileSha1 = (filename) =>
   fs.readFileSync(`${filename}.sha1`, 'utf8').split(' ', 1)[0]
 
 /**
  * @param {string} filename
+ * @returns {string}
  */
 const fileModifiedDate = (filename) =>
   fs.statSync(filename).mtime.toISOString().slice(0, -5) + 'Z'
@@ -27,6 +35,7 @@ const fileModifiedDate = (filename) =>
 /**
  * @param {string | undefined} dest
  * @param {string} data
+ * @returns {void}
  */
 const write = (dest, data) => dest
   ? fs.writeFileSync(dest, data, { encoding: 'utf-8' })
@@ -34,6 +43,7 @@ const write = (dest, data) => dest
 
 /**
  * @param {string} filename
+ * @returns {Omit<IndexEntry, 'date' | 'size' | 'integrity'>}
  */
 const parseBinaryName = (filename) => {
   const [name, version, ...rest] = filename.replace(/\.exe$/, '').split('-')
@@ -43,14 +53,16 @@ const parseBinaryName = (filename) => {
     name,
     version,
     variant: variant.join('-'),
+    // @ts-ignore
     arch,
+    // @ts-ignore
     os,
     filename,
   }
 }
 
 /**
- * @typedef {ReturnType<typeof generateIndex>} Index
+ * @returns {Index}
  */
 const generateIndex = () => fs.readdirSync('.')
   .filter(filterFiles)
@@ -67,6 +79,7 @@ const generateIndex = () => fs.readdirSync('.')
  *
  * @param {Index} oldIndex
  * @param {Index} newIndex
+ * @returns {Index}
  */
 const mergeIndexes = (oldIndex, newIndex) => newIndex.reduce((acc, newEntry) => {
   const idx = oldIndex.findIndex(entry => entry.filename === newEntry.filename)
@@ -80,12 +93,14 @@ const mergeIndexes = (oldIndex, newIndex) => newIndex.reduce((acc, newEntry) => 
 
 /**
  * @param {Index} index
+ * @returns {Index}
  */
 const sortIndex = (index) =>
   index.sort((a, b) => a.filename.localeCompare(b.filename))
 
 /**
- * @param {Array<object>} array
+ * @param {Record<string, string | number | boolean>[]} array
+ * @returns {string}
  */
 const stringifyAsCsv = (array) => {
   if (array.length < 1) return ''
