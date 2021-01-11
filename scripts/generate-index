@@ -16,7 +16,8 @@ const path = require('path')
 const filterFiles = (filename) =>
   !filename.startsWith('index.') &&
   !filename.startsWith('.') &&
-  !filename.endsWith('.sha1')
+  !filename.endsWith('.sha1') &&
+  !filename.endsWith('.sources')
 
 /**
  * @param {string} filename

@@ -43,6 +43,7 @@ BIN_NAME="njs-${NJS_VERSION}${VARIANT}-$HOST_ARCH-$HOST_OS"
 
 mkdir -p artifact/
 install build/njs artifact/$BIN_NAME
+mv .SOURCES artifact/$BIN_NAME.sources
 
 cd artifact/
 sha1sum $BIN_NAME > $BIN_NAME.sha1

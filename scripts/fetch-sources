@@ -8,6 +8,11 @@ else
 	exec bash "$0" "$@"
 fi
 
+case "$(uname -s)" in
+	Darwin) filesize() { stat -f %z "$@"; };;
+	*) filesize() { stat -c %s "$@"; };;
+esac
+
 scrape_latest_version() {
 	local url=$1
 	local pattern="s/.*$2.*/\1/p"
@@ -52,22 +57,13 @@ github_curl() {
 		"$@"
 }
 
-screaming_case() {
-	echo "$1" | tr '[a-z]-' '[A-Z]_'
-}
+checksum() {
+	local filename="$1"
 
-echo2() {
-	echo "$*"
-	echo "$*" >&2
-}
+	local sha256sum='sha256sum'
+	command -v sha256sum >/dev/null || sha256sum='shasum -a 256'
 
-download_tar() {
-	local url="$1"
-	local filename=$(basename "$url")
-
-	echo "Downloading $url" >&2
-	curl -L --retry 3 -o "$filename" "$url"
-	tar -xf "$filename"
+	$sha256sum "$filename" | cut -d' ' -f1
 }
 
 
@@ -79,30 +75,34 @@ fi
 for name in "$@"; do
 	case "$name" in
 		openssl)
-			url='https://www.openssl.org/source'
-			ver=$(scrape_latest_version "$url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
-			download_tar "$url/$name-$ver.tar.gz"
+			base_url='https://www.openssl.org/source'
+			ver=$(scrape_latest_version "$base_url/" 'openssl-(1(\.[0-9]+)+[a-z]+)\.' 'openssl')
+			url="$base_url/$name-$ver.tar.gz"
 		;;
 		pcre)
-			url='https://ftp.pcre.org/pub/pcre'
-			ver=$(scrape_latest_version "$url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
-			download_tar "$url/$name-$ver.tar.bz2"
+			base_url='https://ftp.pcre.org/pub/pcre'
+			ver=$(scrape_latest_version "$base_url/" 'pcre-(([0-9]+\.)+[0-9]+)\.' 'pcre')
+			url="$base_url/$name-$ver.tar.bz2"
 		;;
 		zlib)
-			url='https://zlib.net'
-			ver=$(scrape_latest_version "$url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
-			download_tar "$url/$name-$ver.tar.xz"
+			base_url='https://zlib.net'
+			ver=$(scrape_latest_version "$base_url/" 'zlib-(([0-9]+\.)+[0-9]+)\.' 'zlib')
+			url="$base_url/$name-$ver.tar.xz"
 		;;
 		*)
 			tag=$(github_latest_version_tag "$name")
 			ver=${tag#v}
-			download_tar "https://github.com/$name/archive/$tag/${name#*/}-$ver.tar.gz"
+			url="https://github.com/$name/archive/$tag/${name#*/}-$ver.tar.gz"
 		;;
 	esac
 
-	name=${name#*/}
-	var_prefix=$(screaming_case "$name")
+	filename=$(basename "$url")
 
-	echo2 "${var_prefix}_DIR=$name-$ver"
-	echo2 "${var_prefix}_VERSION=$ver"
+	echo "Downloading $url" >&2
+	curl -L --retry 3 -o "$filename" "$url"
+	tar -xf "$filename"
+
+	size=$(filesize "$filename")
+	hash=$(checksum "$filename")
+	echo "$url $size $hash $ver ${name#*/}" | tee -a .SOURCES
 done

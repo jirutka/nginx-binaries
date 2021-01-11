@@ -117,6 +117,7 @@ BIN_NAME="nginx-${NGINX_VERSION}-${HOST_ARCH}-${HOST_OS}${EXEEXT}"
 
 mkdir -p artifact/
 install objs/nginx$EXEEXT artifact/$BIN_NAME
+mv .SOURCES artifact/$BIN_NAME.sources
 
 cd artifact/
 sha1sum $BIN_NAME > $BIN_NAME.sha1
