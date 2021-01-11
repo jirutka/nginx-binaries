@@ -1,7 +1,37 @@
 #!/bin/sh
 set -eu
 
+glob_dir() {
+	local glob="$1"
+	local dir
+
+	if ! dir=$(ls -xd $1/ 2>/dev/null); then
+		echo "ERROR: Did not find directory matching: $glob" >&2
+		return 1
+	elif [ "${dir#* }" != "$dir" ]; then
+		echo "ERROR: Found more than one directory matching: $glob" >&2
+		return 1
+	else
+		echo "${dir%/}"
+	fi
+}
+
+add_module() {
+	local dir name
+
+	for name in "$@"; do
+		dir=$(glob_dir "${name#*/}-[0-9]*") || return 1
+
+		case "$name" in
+			nginx/njs) dir="$dir/nginx";;
+		esac
+		printf -- '--add-module=%s\n' "$dir"
+	done
+}
+
 configure() {
+	set -x  # log commands
+
 	./auto/configure \
 		--prefix="." \
 		--sbin-path="nginx" \
@@ -32,10 +62,6 @@ configure() {
 		--without-http_scgi_module \
 		--without-http_grpc_module \
 		--without-http_memcached_module \
-		--add-module="$NGX_DEVEL_KIT_DIR" \
-		--add-module="$ECHO_NGINX_MODULE_DIR" \
-		--add-module="$HEADERS_MORE_NGINX_MODULE_DIR" \
-		--add-module="$SET_MISC_NGINX_MODULE_DIR" \
 		"$@"
 }
 
@@ -49,25 +75,28 @@ case "$HOST_OS" in
 	mingw*) HOST_OS='win32'; EXEEXT='.exe';;
 esac
 
-set -x  # log commands
-
 uname -a
 
+module_flags=$(add_module $NGINX_MODULES)
+
 case "$HOST_OS" in
-	linux) configure \
-		--with-file-aio \
-		--with-threads \
-		--add-module="$NJS_DIR/nginx"
+	linux)
+		configure --with-file-aio --with-threads $module_flags
 	;;
-	darwin) configure \
-		--with-threads \
-		--add-module="$NJS_DIR/nginx"
+	darwin)
+		configure --with-threads $module_flags
 	;;
-	win32) configure \
-		--with-openssl="$OPENSSL_DIR" \
-		--with-pcre="$PCRE_DIR" \
-		--with-zlib="$ZLIB_DIR" \
-		--with-openssl-opt='no-asm no-tests -D_WIN32_WINNT=0x0501'
+	win32)
+		openssl_dir=$(glob_dir 'openssl-[0-9]*')
+		pcre_dir=$(glob_dir 'pcre-[0-9]*')
+		zlib_dir=$(glob_dir 'zlib-[0-9]*')
+
+		configure \
+			--with-openssl="$openssl_dir" \
+			--with-pcre="$pcre_dir" \
+			--with-zlib="$zlib_dir" \
+			--with-openssl-opt='no-asm no-tests -D_WIN32_WINNT=0x0501' \
+			$module_flags
 	;;
 esac
 

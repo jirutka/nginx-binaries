@@ -187,11 +187,11 @@ jobs:
         run: apk add -U build-base curl jq linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
 
       - name: Download and extract nginx modules
-        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
-        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
+        run: ./master/scripts/fetch-sources $NGINX_MODULES
 
       - name: Build nginx
         env:
+          NGINX_MODULES: ${{ env.NGINX_MODULES }}
           NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
@@ -227,8 +227,7 @@ jobs:
           path: master
 
       - name: Download and extract nginx modules
-        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
-        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
+        run: ./master/scripts/fetch-sources $NGINX_MODULES
 
       - name: Download alpine-chroot-install
         run: |
@@ -240,12 +239,13 @@ jobs:
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
-            -k 'VARIANT [A-Z_]*_DIR [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
+            -k 'VARIANT NGINX_MODULES [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
             -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
           /alpine/enter-chroot uname -a
 
       - name: Build nginx
         env:
+          NGINX_MODULES: ${{ env.NGINX_MODULES }}
           NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
@@ -282,8 +282,7 @@ jobs:
         run: brew install jq openssl@1.1 pcre zlib
 
       - name: Download and extract nginx modules
-        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
-        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
+        run: ./master/scripts/fetch-sources $NGINX_MODULES
 
       # cmake prefers dynamic libs and there's no option to change it, so
       # we have to remove them to give it no other option than using static.
@@ -295,6 +294,7 @@ jobs:
 
       - name: Build nginx
         env:
+          NGINX_MODULES: ${{ env.NGINX_MODULES }}
           NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
           LDFLAGS: -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
@@ -314,8 +314,12 @@ jobs:
           - 1.18.0
           - 1.19.5
     steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
+      - name: Remove nginx/njs from NGINX_MODULES (not supported on Windows)
+        shell: bash
+        run: echo NGINX_MODULES=$(printf '%s\n' $NGINX_MODULES | grep -xv nginx/njs) >> $GITHUB_ENV
+
+      - name: Setup MSYS2 and install packages
+        uses: msys2/setup-msys2@v2
         with:
           repository: nginx/nginx
           ref: release-${{ matrix.NGINX_VERSION }}
@@ -340,13 +344,11 @@ jobs:
 
       - name: Download and extract libraries
         shell: msys2 {0}
-        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each library.
-        run: ./master/scripts/fetch-sources openssl pcre zlib >> $GITHUB_ENV
+        run: ./master/scripts/fetch-sources openssl pcre zlib
 
       - name: Download and extract nginx modules
         shell: msys2 {0}
-        # This will define <NAME>_DIR and <NAME>_VERSION env. variables for each module.
-        run: ./master/scripts/fetch-sources $NGINX_MODULES >> $GITHUB_ENV
+        run: ./master/scripts/fetch-sources $NGINX_MODULES
 
       - name: Apply patches
         shell: msys2 {0}
@@ -358,6 +360,7 @@ jobs:
       - name: Build nginx
         shell: msys2 {0}
         env:
+          NGINX_MODULES: ${{ env.NGINX_MODULES }}
           NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           # -DFD_SETSIZE=1024 is per official nginx win32 binary.
           CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
