@@ -74,8 +74,13 @@ checksum() {
 }
 
 
+DEST_DIR=
+case "${1:-}" in
+	-d) DEST_DIR="$2"; shift 2;;
+esac
+
 if [ $# -lt 1 ] || [ "$1" = '--help' ]; then
-	echo "Usage: $0 <proj-name>[@<version-mask>] [<proj-name>[@<version-mask>]...]" >&2
+	echo "Usage: $0 [-d <dest-dir>] <proj-name>[@<version-mask>] [<proj-name>[@<version-mask>]...]" >&2
 	exit 2
 fi
 
@@ -108,7 +113,7 @@ for item in "$@"; do
 	esac
 
 	filename=$(basename "$url")
-	dir=${filename%.tar*}
+	dir=${DEST_DIR:-${filename%.tar*}}
 
 	echo "Downloading $url" >&2
 	curl -L --retry 3 -o "$filename" "$url"
