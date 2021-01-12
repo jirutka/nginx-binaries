@@ -1,26 +1,26 @@
 #!/bin/sh
 set -eu
 
-glob_dir() {
-	local glob="$1"
-	local dir
+find_srcdir() {
+	local name=$1
+	local dir=$(sed -En "s|.* ([^ ]*) ($name)$|\2-\1|p" .SOURCES)
 
-	if ! dir=$(ls -xd $1/ 2>/dev/null); then
-		echo "ERROR: Did not find directory matching: $glob" >&2
-		return 1
-	elif [ "${dir#* }" != "$dir" ]; then
-		echo "ERROR: Found more than one directory matching: $glob" >&2
-		return 1
+	if ! [ "$dir" ]; then
+		echo "ERROR: Did not find $name in .SOURCES file!" >&2
+	elif ! [ -d "$dir" ]; then
+		echo "ERROR: Directory '$dir' does not exist!" >&2
 	else
-		echo "${dir%/}"
+		echo "$dir"
+		return 0
 	fi
+	return 1
 }
 
 add_module() {
 	local dir name
 
 	for name in "$@"; do
-		dir=$(glob_dir "${name#*/}-[0-9]*") || return 1
+		dir=$(find_srcdir "${name#*/}") || return 1
 
 		case "$name" in
 			nginx/njs) dir="$dir/nginx";;
@@ -88,9 +88,9 @@ case "$HOST_OS" in
 		configure --with-threads $module_flags
 	;;
 	win32)
-		openssl_dir=$(glob_dir 'openssl-[0-9]*')
-		pcre_dir=$(glob_dir 'pcre-[0-9]*')
-		zlib_dir=$(glob_dir 'zlib-[0-9]*')
+		openssl_dir=$(find_srcdir openssl)
+		pcre_dir=$(find_srcdir pcre)
+		zlib_dir=$(find_srcdir zlib)
 
 		configure \
 			--with-openssl="$openssl_dir" \
