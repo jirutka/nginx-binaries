@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 
+NJS_VERSION=$(sed -En 's|.* ([^ ]*) njs$|\1|p;q' .SOURCES)
 HOST_ARCH=$(uname -m)
 HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
 

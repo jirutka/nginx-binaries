@@ -47,7 +47,6 @@ jobs:
 
       - name: Build njs
         env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
@@ -91,13 +90,12 @@ jobs:
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
-            -k 'VARIANT [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
+            -k 'VARIANT CFLAGS LDFLAGS JOBS' \
             -p 'build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static'
           /alpine/enter-chroot uname -a
 
       - name: Build njs
         env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
@@ -141,7 +139,6 @@ jobs:
 
       - name: Build njs
         env:
-          NJS_VERSION: ${{ matrix.NJS_VERSION }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
           LDFLAGS: -L/usr/local/opt/libedit/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
@@ -180,7 +177,6 @@ jobs:
       - name: Build nginx
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
         run: ./master/scripts/build-nginx
@@ -224,14 +220,13 @@ jobs:
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
-            -k 'VARIANT NGINX_MODULES [A-Z_]*_VERSION CFLAGS LDFLAGS JOBS' \
+            -k 'VARIANT NGINX_MODULES CFLAGS LDFLAGS JOBS' \
             -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
           /alpine/enter-chroot uname -a
 
       - name: Build nginx
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
@@ -277,7 +272,6 @@ jobs:
       - name: Build nginx
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
           LDFLAGS: -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
         run: ./master/scripts/build-nginx
@@ -340,7 +334,6 @@ jobs:
         shell: msys2 {0}
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          NGINX_VERSION: ${{ matrix.NGINX_VERSION }}
           # -DFD_SETSIZE=1024 is per official nginx win32 binary.
           CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
         run: ./master/scripts/build-nginx
