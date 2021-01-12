@@ -118,10 +118,12 @@ for item in "$@"; do
 	echo "Downloading $url" >&2
 	curl -L --retry 3 -o "$filename" "$url"
 
-	mkdir -p "$dir"
-	tar --strip-components=1 -C "$dir" -xf "$filename"
-
 	size=$(filesize "$filename")
 	hash=$(checksum "$filename")
+
+	mkdir -p "$dir"
+	tar --strip-components=1 -C "$dir" -xf "$filename"
+	rm "$filename"
+
 	echo "$url $size $hash $ver ${name#*/}" | tee -a .SOURCES
 done
