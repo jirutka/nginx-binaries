@@ -108,10 +108,13 @@ for item in "$@"; do
 	esac
 
 	filename=$(basename "$url")
+	dir=${filename%.tar*}
 
 	echo "Downloading $url" >&2
 	curl -L --retry 3 -o "$filename" "$url"
-	tar -xf "$filename"
+
+	mkdir -p "$dir"
+	tar --strip-components=1 -C "$dir" -xf "$filename"
 
 	size=$(filesize "$filename")
 	hash=$(checksum "$filename")
