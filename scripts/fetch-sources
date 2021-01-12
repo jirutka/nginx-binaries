@@ -39,8 +39,8 @@ github_latest_version_tag() {
 	local tag
 
 	local ver_regex_esc=$(printf '%s\n' "$ver_regex" | sed 's/\\/\\\\/g')
-	local jq_filter_tags=". | map(.name | select(test(\"^v?$ver_regex_esc$\")))"
-	local jq_latest='max_by(sub("^v"; "") | split(".") | map(tonumber))'
+	local jq_filter_tags=". | map(.name | select(test(\"^$ver_regex_esc$\")))"
+	local jq_latest='max_by(sub("^[^0-9]+"; "") | split(".") | map(tonumber))'
 
 	# XXX: Hack for https://github.com/openresty/headers-more-nginx-module/issues/117.
 	if [ "$repo_slug" = 'openresty/headers-more-nginx-module' ]; then
@@ -50,7 +50,7 @@ github_latest_version_tag() {
 	if tag=$(github_curl "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
 		echo "$tag"
 	else
-		echo "ERROR: Failed to find $repo_slug version tag matching /v?$ver_regex/" >&2
+		echo "ERROR: Failed to find $repo_slug version tag matching /$ver_regex/" >&2
 		return 1
 	fi
 }
@@ -84,7 +84,7 @@ for item in "$@"; do
 	name=${item%@*}
 
 	if [ "$name" = "${item#*@}" ]; then
-		ver_regex='([0-9]+\.)+[0-9]+'
+		ver_regex='v?([0-9]+\.)+[0-9]+'
 	else
 		ver_regex=$(version_mask_to_regex "${item#*@}")
 	fi
@@ -102,7 +102,7 @@ for item in "$@"; do
 		;;
 		*)
 			tag=$(github_latest_version_tag "$name" "$ver_regex")
-			ver=${tag#v}
+			ver=$(echo "$tag" | grep -o '[0-9].*')
 			url="https://github.com/$name/archive/$tag/${name#*/}-$ver.tar.gz"
 		;;
 	esac
