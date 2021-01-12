@@ -11,7 +11,9 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
   CFLAGS: -Os -fomit-frame-pointer -pipe
-  LINUX_LDFLAGS: -static -Wl,--as-needed
+  LINUX_LDFLAGS: -static -Wl,--as-needed -Wl,-Map,linker.map
+  DARWIN_LDFLAGS: -Wl,-map,linker.map
+  WIN32_LDFLAGS: -Wl,--as-needed -Wl,-Map,linker.map
   # List of extra nginx modules to download.
   NGINX_MODULES: >-
     nginx/njs
@@ -141,7 +143,7 @@ jobs:
         env:
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
-          LDFLAGS: -L/usr/local/opt/libedit/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/libedit/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
         run: ./master/scripts/build-njs
 
       - name: Upload njs binary to artifacts
@@ -273,7 +275,7 @@ jobs:
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
-          LDFLAGS: -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
@@ -336,6 +338,7 @@ jobs:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
           # -DFD_SETSIZE=1024 is per official nginx win32 binary.
           CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
+          LDFLAGS: ${{ env.WIN32_LDFLAGS }}
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts

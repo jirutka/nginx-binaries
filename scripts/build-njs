@@ -1,6 +1,8 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR="$(dirname "$0")"
+
 NJS_VERSION=$(sed -En 's|.* ([^ ]*) njs$|\1|p;q' .SOURCES)
 HOST_ARCH=$(uname -m)
 HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
@@ -39,6 +41,10 @@ case "$HOST_OS" in
 esac
 
 ./build/njs -V
+
+if [ -f linker.map ]; then
+	"$SCRIPT_DIR"/parse-mapfile-loaded-libs linker.map | tee -a .SOURCES
+fi
 
 BIN_NAME="njs-${NJS_VERSION}${VARIANT}-$HOST_ARCH-$HOST_OS"
 

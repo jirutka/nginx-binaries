@@ -1,0 +1,118 @@
+#!/bin/sh
+set -euo pipefail
+
+PROGNAME='parse-mapfile-loaded-libs'
+
+
+case "$(uname -s)" in
+	Darwin)
+		filesize() { stat -f %z "$1"; }
+		checksum() { shasum -a 256 "$1" | cut -d' ' -f1; }
+	;;
+	*)
+		filesize() { stat -c %s "$1"; }
+		checksum() { sha256sum "$1" | cut -d' ' -f1; }
+	;;
+esac
+
+report_files() {
+	local who_owns=$1; shift
+	local libpath pkgvername size sha
+
+	for libpath in "$@"; do
+		pkgvername=$($who_owns "$libpath" || echo 'unknown unknown')
+		size=$(filesize "$libpath")
+		sha=$(checksum "$libpath")
+
+		# Skip empty archives.
+		if [ "$size" -eq 8 ] && [ "$(cat "$libpath")" = '!<arch>' ]; then
+			continue
+		fi
+
+		echo "$libpath $size $sha $pkgvername"
+	done
+}
+
+gcc_mapfile_load_static() {
+	grep -E "^LOAD $2$" "$1" | cut -d' ' -f 2 | xargs realpath | sort | uniq
+}
+
+clang_mapfile_load_static() {
+	# LC_ALL=C - https://stackoverflow.com/a/23584470/2217862
+	LC_ALL=C sed -En "s|^\[[0-9 ]+\] ($2)\([^)]*\)?\s*$|\1|p" "$1" | sort | uniq
+}
+
+# Prints "<pkgver> <pkgname>" of the package that owns file $1.
+apk_who_owns() {
+	local filepath=$1
+	local pkgname
+	local pkgnamever
+
+	pkgname=$(apk info -q --who-owns "$filepath") || return 1
+	pkgnamever=$(apk search --origin --exact "$pkgname") || return 1
+
+	echo "$pkgnamever" | sed -E 's/^(.*)-(\d[^-]+-r\d+)/\2 \1/'
+}
+
+# Prints "<pkgver> <pkgname>" of the package that owns file $1.
+brew_who_owns() {
+	local filepath=$1
+	local pkgdir link
+
+	pkgdir=$(brew_find_pkg_root "$filepath") || return 1
+	link=$(readlink "$pkgdir") || return 1
+
+	# This is really dirty method, but brew doesn't provide any query for files.
+	echo "$link" | sed -En 's|.*/Cellar/([^@/]+)(@[^/]+)?/([0-9][^ ]*)$|\3 \1|p'
+}
+
+# Prints "<pkgver> <pkgname>" of the package that owns file $1.
+pacman_who_owns() {
+	local filepath="$1"
+
+	pacman --query --owns "$libpath" \
+		| sed -En 's|.* is owned by ([^ ]+) ([^ ]+)$|\2 \1|p' \
+		| grep .
+}
+
+brew_find_pkg_root() {
+	local path=$1
+	local path2
+
+	while true; do
+		if [ -d "$path"/.brew ]; then
+			echo "$path"
+			return 0
+		fi
+		path2=${path%/*}
+		[ "$path2" = "$path" ] && return 1
+		path=$path2
+	done
+}
+
+
+if [ $# -lt 1 ] || [ "$1" = '--help' ]; then
+	echo "Usage: $0 <mapfile> [<filter-regex>]"
+	exit 2
+fi
+mapfile=$1
+filter=${2:-}
+
+case "$(uname -s)" in
+	Darwin)
+		files=$(clang_mapfile_load_static "$mapfile" "${filter:-"/usr/.*\.a"}")
+		report_files brew_who_owns $files
+	;;
+	Linux)
+		files=$(gcc_mapfile_load_static "$mapfile" "${filter:-"/usr/.*\.a"}")
+		report_files apk_who_owns $files
+	;;
+	MINGW*)
+		files=$(gcc_mapfile_load_static "$mapfile" "${filter:-"[A-Z]:/.*\.a"}")
+		report_files pacman_who_owns $files
+	;;
+	*)
+		echo "$PROGNAME: System '$(uname -s)' is not supported!" >&2
+		exit 3
+	;;
+esac
