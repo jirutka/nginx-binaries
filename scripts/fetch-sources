@@ -8,8 +8,6 @@ else
 	exec bash "$0" "$@"
 fi
 
-readonly DEFAULT_VER_REGEX='([0-9]+\.)+[0-9]+'
-
 case "$(uname -s)" in
 	Darwin) filesize() { stat -f %z "$@"; };;
 	*) filesize() { stat -c %s "$@"; };;
@@ -36,7 +34,7 @@ scrape_latest_version() {
 
 github_latest_version_tag() {
 	local repo_slug=$1
-	local ver_regex=${2:-$DEFAULT_VER_REGEX}
+	local ver_regex=$2
 	local tags_url="https://api.github.com/repos/$repo_slug/tags"
 	local tag
 
@@ -86,7 +84,7 @@ for item in "$@"; do
 	name=${item%@*}
 
 	if [ "$name" = "${item#*@}" ]; then
-		ver_regex=''
+		ver_regex='([0-9]+\.)+[0-9]+'
 	else
 		ver_regex=$(version_mask_to_regex "${item#*@}")
 	fi
@@ -94,17 +92,17 @@ for item in "$@"; do
 	case "$name" in
 		openssl)
 			base_url='https://www.openssl.org/source'
-			ver=$(scrape_latest_version "$base_url/" "openssl-(${ver_regex:-"1(\.[0-9]+)+[a-z]+"})\." 'openssl')
+			ver=$(scrape_latest_version "$base_url/" "openssl-($ver_regex)\." 'openssl')
 			url="$base_url/$name-$ver.tar.gz"
 		;;
 		pcre)
 			base_url='https://ftp.pcre.org/pub/pcre'
-			ver=$(scrape_latest_version "$base_url/" "pcre-(${ver_regex:-$DEFAULT_VER_REGEX})\." 'pcre')
+			ver=$(scrape_latest_version "$base_url/" "pcre-($ver_regex)\." 'pcre')
 			url="$base_url/$name-$ver.tar.bz2"
 		;;
 		zlib)
 			base_url='https://zlib.net'
-			ver=$(scrape_latest_version "$base_url/" "zlib-(${ver_regex:-$DEFAULT_VER_REGEX})\." 'zlib')
+			ver=$(scrape_latest_version "$base_url/" "zlib-($ver_regex)\." 'zlib')
 			url="$base_url/$name-$ver.tar.xz"
 		;;
 		*)
