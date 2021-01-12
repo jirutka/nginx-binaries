@@ -34,19 +34,16 @@ jobs:
           - '-debug'
           - ''
     steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
+      - name: Install dependencies
+        run: apk add -U build-base curl jq libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
 
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
-      - name: Install dependencies
-        run: apk add -U build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
+      - name: Download and extract njs
+        run: ./master/scripts/fetch-sources -d . nginx/njs@${{ matrix.NJS_VERSION }}
 
       - name: Build njs
         env:
@@ -76,16 +73,13 @@ jobs:
           - armv7
           - ppc64le
     steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
-
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
+
+      - name: Download and extract njs
+        run: ./master/scripts/fetch-sources -d . nginx/njs@${{ matrix.NJS_VERSION }}
 
       - name: Download alpine-chroot-install
         run: |
@@ -126,19 +120,16 @@ jobs:
           - '-debug'
           - ''
     steps:
-      - name: Checkout njs repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/njs
-          ref: ${{ matrix.NJS_VERSION }}
+      - name: Install dependencies
+        run: brew install jq libedit ncurses pcre
 
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
-      - name: Install dependencies
-        run: brew install libedit ncurses pcre
+      - name: Download and extract njs
+        run: ./master/scripts/fetch-sources -d . nginx/njs@${{ matrix.NJS_VERSION }}
 
       # cmake prefers dynamic libs and there's no option to change it, so
       # we have to remove them to give it no other option than using static.
@@ -172,19 +163,16 @@ jobs:
           - 1.18.0
           - 1.19.5
     steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
+      - name: Install dependencies
+        run: apk add -U build-base curl jq linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
 
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
-      - name: Install dependencies
-        run: apk add -U build-base curl jq linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
+      - name: Download and extract nginx
+        run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
       - name: Download and extract nginx modules
         run: ./master/scripts/fetch-sources $NGINX_MODULES
@@ -215,16 +203,13 @@ jobs:
           - armv7
           #- ppc64le  # it works but takes twice as long as the others
     steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
-
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
+
+      - name: Download and extract nginx
+        run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
       - name: Download and extract nginx modules
         run: ./master/scripts/fetch-sources $NGINX_MODULES
@@ -267,19 +252,16 @@ jobs:
           - 1.18.0
           - 1.19.5
     steps:
-      - name: Checkout nginx repository
-        uses: actions/checkout@v2
-        with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
+      - name: Install dependencies
+        run: brew install jq openssl@1.1 pcre zlib
 
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
-      - name: Install dependencies
-        run: brew install jq openssl@1.1 pcre zlib
+      - name: Download and extract nginx
+        run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
       - name: Download and extract nginx modules
         run: ./master/scripts/fetch-sources $NGINX_MODULES
@@ -321,34 +303,31 @@ jobs:
       - name: Setup MSYS2 and install packages
         uses: msys2/setup-msys2@v2
         with:
-          repository: nginx/nginx
-          ref: release-${{ matrix.NGINX_VERSION }}
-
-      - name: Checkout myfreeer/nginx-build-msys2
-        uses: actions/checkout@v2
-        with:
-          repository: myfreeer/nginx-build-msys2
-          ref: ${{ matrix.NGINX_VERSION }}
-          path: msys2
+          update: false
+          install: base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-jq
 
       - name: Checkout master branch
         uses: actions/checkout@v2
         with:
           path: master
 
-      - name: Setup MSYS2 and install packages
-        uses: msys2/setup-msys2@v2
-        with:
-          update: false
-          install: base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-jq
-
-      - name: Download and extract libraries
+      - name: Download and extract nginx
         shell: msys2 {0}
-        run: ./master/scripts/fetch-sources 'openssl@1.1.x[a-z]' 'pcre@8.x' 'madler/zlib@v1.2.x'
+        run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
+
+      - name: Download and extract nginx MSYS2 patches
+        shell: msys2 {0}
+        run: |
+          nginx_version=$(cut -d' ' -f4 .SOURCES)
+          ./master/scripts/fetch-sources -d msys2 "myfreeer/nginx-build-msys2@$nginx_version"
 
       - name: Download and extract nginx modules
         shell: msys2 {0}
         run: ./master/scripts/fetch-sources $NGINX_MODULES
+
+      - name: Download and extract libraries
+        shell: msys2 {0}
+        run: ./master/scripts/fetch-sources 'openssl@1.1.x[a-z]' 'pcre@8.x' 'madler/zlib@v1.2.x'
 
       - name: Apply patches
         shell: msys2 {0}
