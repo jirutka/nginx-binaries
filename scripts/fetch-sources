@@ -100,11 +100,6 @@ for item in "$@"; do
 			ver=$(scrape_latest_version "$base_url/" "pcre-($ver_regex)\." 'pcre')
 			url="$base_url/$name-$ver.tar.bz2"
 		;;
-		zlib)
-			base_url='https://zlib.net'
-			ver=$(scrape_latest_version "$base_url/" "zlib-($ver_regex)\." 'zlib')
-			url="$base_url/$name-$ver.tar.xz"
-		;;
 		*)
 			tag=$(github_latest_version_tag "$name" "$ver_regex")
 			ver=${tag#v}
