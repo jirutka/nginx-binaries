@@ -31,6 +31,11 @@ export interface IndexEntry {
   date: string
   size: number
   checksum: string
+  /**
+   * A record of libraries (or modules) statically linked into the binary
+   * and the version number.
+   */
+  bundledLibs: Record<string, string>
 }
 
 interface IndexFile {
