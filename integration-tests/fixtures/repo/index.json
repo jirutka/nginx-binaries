@@ -9,7 +9,7 @@
       "filename": "nginx-1.18.0-x86_64-linux",
       "date": "2020-10-12T03:01:00Z",
       "size": 8744,
-      "checksum": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+      "checksum": "sha1:f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
     },
     {
       "name": "nginx",
@@ -20,7 +20,7 @@
       "filename": "nginx-1.18.0-aarch64-linux",
       "date": "2020-10-12T03:01:00Z",
       "size": 1324,
-      "checksum": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+      "checksum": "sha1:f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
     },
     {
       "name": "nginx",
@@ -31,7 +31,7 @@
       "filename": "nginx-1.18.0-x86_64-darwin",
       "date": "2020-10-12T03:01:00Z",
       "size": 1324,
-      "checksum": "sha1-f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
+      "checksum": "sha1:f2f6e3e8e2821ee490cbe133b9647a699ee22d99"
     },
     {
       "name": "nginx",
@@ -42,7 +42,7 @@
       "filename": "nginx-1.19.5-x86_64-linux",
       "date": "2020-12-12T23:45:32Z",
       "size": 12832,
-      "checksum": "sha1-011338ae2cc8c4251d1e238e246f9bf303696ba5"
+      "checksum": "sha1:011338ae2cc8c4251d1e238e246f9bf303696ba5"
     },
     {
       "name": "nginx",
@@ -53,7 +53,7 @@
       "filename": "nginx-1.19.5-aarch64-linux",
       "date": "2020-12-12T23:45:32Z",
       "size": 1234,
-      "checksum": "sha1-011338ae2cc8c4251d1e238e246f9bf303696ba5"
+      "checksum": "sha1:011338ae2cc8c4251d1e238e246f9bf303696ba5"
     },
     {
       "name": "njs",
@@ -64,7 +64,7 @@
       "filename": "njs-0.5.0-debug-x86_64-linux",
       "date": "2020-12-12T21:18:40Z",
       "size": 5495976,
-      "checksum": "sha1-20f957c8266f655047ac18439308bbf72a915ddb"
+      "checksum": "sha1:20f957c8266f655047ac18439308bbf72a915ddb"
     },
     {
       "name": "njs",
@@ -75,7 +75,7 @@
       "filename": "njs-0.5.0-x86_64-linux",
       "date": "2020-12-12T16:26:40Z",
       "size": 1305040,
-      "checksum": "sha1-7336b675b26bd67fdda3db18c66fa7f64691e280"
+      "checksum": "sha1:7336b675b26bd67fdda3db18c66fa7f64691e280"
     }
   ]
 }

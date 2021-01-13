@@ -63,7 +63,7 @@ async function checkFileChecksum (filepath: string, checksum: string): Promise<b
 }
 
 function splitChecksumValue (checksum: string): [algorithm: string, value: string] {
-  const [alg, value] = checksum.split('-', 2)
+  const [alg, value] = checksum.split(':', 2)
   if (!alg || !value) {
     throw RangeError(`Invalid checksum value: ${checksum}`)
   }
