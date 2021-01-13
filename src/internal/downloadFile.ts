@@ -14,17 +14,17 @@ const streamPipeline = promisify(stream.pipeline)
 
 export async function downloadFile (
   url: string,
-  integrity: string,
+  checksum: string,
   filepath: string,
   fetchOpts?: RequestInit,
 ): Promise<string> {
 
-  if (await checkFileChecksum(filepath, integrity)) {
+  if (await checkFileChecksum(filepath, checksum)) {
     log.debug(`File ${filepath} already exists`)
     return filepath
   }
 
-  const [hashAlg, expectedHash] = splitIntegrityValue(integrity)
+  const [hashAlg, expectedHash] = splitChecksumValue(checksum)
   const hash = crypto.createHash(hashAlg)
 
   log.info(`Downloading ${url}...`)
@@ -46,8 +46,8 @@ export async function downloadFile (
   return filepath
 }
 
-async function checkFileChecksum (filepath: string, integrity: string): Promise<boolean> {
-  const [hashAlg, expectedHash] = splitIntegrityValue(integrity)
+async function checkFileChecksum (filepath: string, checksum: string): Promise<boolean> {
+  const [hashAlg, expectedHash] = splitChecksumValue(checksum)
   const hash = crypto.createHash(hashAlg)
 
   try {
@@ -62,10 +62,10 @@ async function checkFileChecksum (filepath: string, integrity: string): Promise<
   }
 }
 
-function splitIntegrityValue (integrity: string): [algorithm: string, value: string] {
-  const [alg, value] = integrity.split('-', 2)
+function splitChecksumValue (checksum: string): [algorithm: string, value: string] {
+  const [alg, value] = checksum.split('-', 2)
   if (!alg || !value) {
-    throw RangeError(`Invalid integrity value: ${integrity}`)
+    throw RangeError(`Invalid checksum value: ${checksum}`)
   }
   return [alg, value]
 }

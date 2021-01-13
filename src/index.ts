@@ -30,7 +30,7 @@ export interface IndexEntry {
   filename: string
   date: string
   size: number
-  integrity: string
+  checksum: string
 }
 
 interface IndexFile {
@@ -210,7 +210,7 @@ const createDownloader = (name: string): Downloader => bindAll({
     destFilePath ??= path.join(this.cacheDir, entry.filename)
     const url = `${this.repoUrl}/${entry.filename}`
 
-    return await downloadFile(url, entry.integrity, destFilePath, { timeout: this.timeout })
+    return await downloadFile(url, entry.checksum, destFilePath, { timeout: this.timeout })
   },
 
   async search (query) {
