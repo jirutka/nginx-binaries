@@ -8,10 +8,8 @@ else
 	exec bash "$0" "$@"
 fi
 
-case "$(uname -s)" in
-	Darwin) filesize() { stat -f %z "$@"; };;
-	*) filesize() { stat -c %s "$@"; };;
-esac
+. "$(dirname "$0")"/common.sh
+
 
 version_mask_to_regex() {
 	echo "$1" | sed 's/\./\\./g;s/x/[0-9]+/g'
@@ -62,15 +60,6 @@ github_curl() {
 		--header 'Accept: application/vnd.github.v3+json' \
 		${GITHUB_TOKEN:+--header "Authorization: Bearer $GITHUB_TOKEN"} \
 		"$@"
-}
-
-checksum() {
-	local filename="$1"
-
-	local sha256sum='sha256sum'
-	command -v sha256sum >/dev/null || sha256sum='shasum -a 256'
-
-	$sha256sum "$filename" | cut -d' ' -f1
 }
 
 

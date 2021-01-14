@@ -1,19 +1,10 @@
 #!/bin/sh
 set -euo pipefail
 
+. "$(dirname "$0")"/common.sh
+
 PROGNAME='parse-mapfile-loaded-libs'
 
-
-case "$(uname -s)" in
-	Darwin)
-		filesize() { stat -f %z "$1"; }
-		checksum() { shasum -a 256 "$1" | cut -d' ' -f1; }
-	;;
-	*)
-		filesize() { stat -c %s "$1"; }
-		checksum() { sha256sum "$1" | cut -d' ' -f1; }
-	;;
-esac
 
 report_files() {
 	local who_owns=$1; shift
