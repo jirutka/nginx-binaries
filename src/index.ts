@@ -14,11 +14,22 @@ import { bindAll, replaceProperty } from './internal/utils'
 
 const log = AnyLogger('nginx-binaries')
 
+/**
+ * Expected version of the index file.
+ * Keep in sync with FORMAT_VERSION in scripts/generate-index!
+ */
+const indexFormatVersion = 2
+
 const defaultQuery: Omit<Required<Query>, 'version'> = {
   // macOS (darwin) on ARM can run x86_64 binaries.
   arch: OS.platform() === 'darwin' ? 'x86_64' : normalizeArch(OS.arch()) as any,
   os: OS.platform() as any,
   variant: '',
+}
+
+export interface IndexFile {
+  formatVersion: number
+  contents: IndexEntry[]
 }
 
 export interface IndexEntry {
@@ -36,10 +47,6 @@ export interface IndexEntry {
    * and the version number.
    */
   bundledLibs: Record<string, string>
-}
-
-interface IndexFile {
-  contents: IndexEntry[]
 }
 
 type Platform = 'linux' | 'darwin' | 'win32'
@@ -220,6 +227,10 @@ const createDownloader = (name: string): Downloader => bindAll({
 
   async search (query) {
     const index = await getIndex(this.repoUrl, this.cacheDir, this.timeout, this.cacheMaxAge)
+    // TODO: Move to getIndex()
+    if (index.formatVersion !== indexFormatVersion) {
+      throw Error(`Index format version mismatch, clean cache and update nginx-binaries package`)
+    }
     return queryIndex(index, name, query)
   },
 

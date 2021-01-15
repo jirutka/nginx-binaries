@@ -3,12 +3,18 @@
 /**
  * TODO: Remove `{ integrity?: string }` after 'integrity' is removed.
  * @typedef {import('../src/index').IndexEntry & { integrity?: string }} IndexEntry
+ * @typedef {import('../src/index').IndexFile} IndexFile
  * @typedef {IndexEntry[]} Index
  */
 const process = require('process')
 const fs = require('fs')
 const path = require('path')
 
+/**
+ * Version of the index file format.
+ * Keep in sync with indexFormatVersion in src/index.ts!
+ */
+const FORMAT_VERSION = 2
 
 /**
  * @template T
@@ -197,7 +203,12 @@ index = sortIndex(index)
 
 switch (format) {
   case 'json':
-    write(outFile, JSON.stringify({ contents: index }, null, 2))
+    /** @type {IndexFile} */
+    const data = {
+      formatVersion: FORMAT_VERSION,
+      contents: index,
+    }
+    write(outFile, JSON.stringify(data, null, 2))
     break
   case 'csv':
     write(outFile, stringifyAsCsv(
