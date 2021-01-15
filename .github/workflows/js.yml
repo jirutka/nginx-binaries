@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
 
@@ -24,7 +24,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
 
       - run: yarn build
 
