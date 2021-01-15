@@ -54,11 +54,21 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "nginx-1.18.0-ppc64le-linux",
-      "date": "2021-01-15T20:52:42Z",
+      "date": "2021-01-15T21:19:24Z",
       "size": 5259656,
-      "checksum": "sha1:edb879619dd24757041a4ed0a606ea5bf47d3778",
-      "integrity": "sha1-edb879619dd24757041a4ed0a606ea5bf47d3778",
-      "bundledLibs": {}
+      "checksum": "sha1:bc18c3144dc8be51682653950ef78ba1fb3b34e0",
+      "integrity": "sha1-bc18c3144dc8be51682653950ef78ba1fb3b34e0",
+      "bundledLibs": {
+        "njs": "0.5.0",
+        "ngx_devel_kit": "0.3.1",
+        "echo-nginx-module": "0.62",
+        "headers-more-nginx-module": "0.33",
+        "set-misc-nginx-module": "0.32",
+        "gcc": "9.3.0-r2",
+        "musl": "1.1.24-r10",
+        "openssl": "1.1.1i-r0",
+        "pcre": "8.44-r0"
+      }
     },
     {
       "name": "nginx",
@@ -112,10 +122,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.18.0-x86_64-win32.exe",
-      "date": "2021-01-15T20:52:44Z",
+      "date": "2021-01-15T21:19:24Z",
       "size": 3028480,
-      "checksum": "sha1:9c8482f205fbc65d3c4d6a57e8ed8534045a2c15",
-      "integrity": "sha1-9c8482f205fbc65d3c4d6a57e8ed8534045a2c15",
+      "checksum": "sha1:06c08bae73bc3f163176ab6ae750791d4031b30c",
+      "integrity": "sha1-06c08bae73bc3f163176ab6ae750791d4031b30c",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -182,11 +192,21 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "nginx-1.19.5-ppc64le-linux",
-      "date": "2021-01-15T20:52:42Z",
+      "date": "2021-01-15T21:19:25Z",
       "size": 5326120,
-      "checksum": "sha1:8ad56936b1fc0c2fb75001574a29dce8639c3cdc",
-      "integrity": "sha1-8ad56936b1fc0c2fb75001574a29dce8639c3cdc",
-      "bundledLibs": {}
+      "checksum": "sha1:e3783f7a362b04120db676de4cf1c3204600aa6f",
+      "integrity": "sha1-e3783f7a362b04120db676de4cf1c3204600aa6f",
+      "bundledLibs": {
+        "njs": "0.5.0",
+        "ngx_devel_kit": "0.3.1",
+        "echo-nginx-module": "0.62",
+        "headers-more-nginx-module": "0.33",
+        "set-misc-nginx-module": "0.32",
+        "gcc": "9.3.0-r2",
+        "musl": "1.1.24-r10",
+        "openssl": "1.1.1i-r0",
+        "pcre": "8.44-r0"
+      }
     },
     {
       "name": "nginx",
@@ -240,10 +260,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.19.5-x86_64-win32.exe",
-      "date": "2021-01-15T20:52:44Z",
+      "date": "2021-01-15T21:19:25Z",
       "size": 3045376,
-      "checksum": "sha1:f46fa184a19da9692f44ff7734565681ad694263",
-      "integrity": "sha1-f46fa184a19da9692f44ff7734565681ad694263",
+      "checksum": "sha1:3961d69b7481331ca32a2819adb5871257482bde",
+      "integrity": "sha1-3961d69b7481331ca32a2819adb5871257482bde",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -359,10 +379,10 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.0-debug-x86_64-darwin",
-      "date": "2021-01-15T20:52:45Z",
+      "date": "2021-01-15T21:19:26Z",
       "size": 1449600,
-      "checksum": "sha1:9a0b3cfc31248578638706f5bc34eae69c2be74b",
-      "integrity": "sha1-9a0b3cfc31248578638706f5bc34eae69c2be74b",
+      "checksum": "sha1:67a0007263226f781467c1b21e873824e05fd0f9",
+      "integrity": "sha1-67a0007263226f781467c1b21e873824e05fd0f9",
       "bundledLibs": {
         "libedit": "20191231-3.1",
         "ncurses": "6.2",
