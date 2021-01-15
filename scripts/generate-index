@@ -11,16 +11,6 @@ const path = require('path')
 
 
 /**
- * @param {string} filename
- * @returns {boolean}
- */
-const filterFiles = (filename) =>
-  !filename.startsWith('index.') &&
-  !filename.startsWith('.') &&
-  !filename.endsWith('.sha1') &&
-  !filename.endsWith('.sources')
-
-/**
  * @template T
  * @template {Array<keyof T>} K
  * @param {T} obj
@@ -130,7 +120,7 @@ const collectBundledLibs = (sourcesFile, programName) => {
  * @returns {Index}
  */
 const generateIndex = () => fs.readdirSync('.')
-  .filter(filterFiles)
+  .filter(filename => fs.existsSync(`${filename}.sha1`))
   .map(filename => {
     const entry = parseBinaryName(filename)
     const checksum = readFileSha1(filename)
