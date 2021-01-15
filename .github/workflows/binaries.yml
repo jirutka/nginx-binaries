@@ -8,6 +8,8 @@ on:
     - cron:  '0 0 * * 0'  # run each Sunday
 
 env:
+  # Alpine branch for alpine-chroot-install.
+  ALPINE_BRANCH: v3.12
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
   CFLAGS: -Os -fomit-frame-pointer -pipe
@@ -88,10 +90,11 @@ jobs:
           echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
           chmod +x alpine-chroot-install
 
-      - name: Install latest Alpine for ${{ matrix.ARCH }}
+      - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
+            -b ${{ env.ALPINE_BRANCH }} \
             -k 'VARIANT CFLAGS LDFLAGS JOBS' \
             -p 'build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static'
           /alpine/enter-chroot uname -a
@@ -218,10 +221,11 @@ jobs:
           echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
           chmod +x alpine-chroot-install
 
-      - name: Install latest Alpine for ${{ matrix.ARCH }}
+      - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
         run: |
           sudo ./alpine-chroot-install \
             -a ${{ matrix.ARCH }} \
+            -b ${{ env.ALPINE_BRANCH }} \
             -k 'VARIANT NGINX_MODULES CFLAGS LDFLAGS JOBS' \
             -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
           /alpine/enter-chroot uname -a
