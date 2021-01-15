@@ -16,7 +16,7 @@ It also provides a JS library for downloading these binaries (for use in integra
 
 ifndef::npm-readme[]
 
-You can also download the binaries manually from https://jirutka.github.io/nginx-binaries/ or https://github.com/{gh-name}/tree/binaries[binaries] branch.
+You can also download the binaries manually from https://jirutka.github.io/nginx-binaries/ or https://github.com/{gh-name}/tree/binaries[binaries] branch (see <<Files Repository>>).
 They are built automatically and periodically using GitHub Actions (see link:.github/workflows/binaries.yml[config]).
 
 
@@ -183,6 +183,21 @@ A record of all libraries (or modules) statically linked into the binary and the
   'echo-nginx-module': '0.62',
 }
 ----
+
+
+== Files Repository
+
+The built binaries are stored in https://github.com/{gh-name}/tree/binaries[binaries] branch of this git repository which is published on https://jirutka.github.io/nginx-binaries/.
+
+The repository contains the following types of files:
+
+* `index.{csv,json,html}` -- Repository index in CSV, JSON and HTML formats.
+* `<name>-<version>[-<variant>]-<arch>-<os>[.exe]` -- Program binary for particular architecture and OS.
+* `<name>-<version>[-<variant>]-<arch>-<os>[.exe].sha1` -- SHA-1 checksum of the binary file.
+* `<name>-<version>[-<variant>]-<arch>-<os>[.exe].sources` -- List of all source tarballs and system-provided static libraries from which the binary was built.
+
+See <<IndexEntry>> for description of `<name>`, `<version>` etc.
+Suffix `.exe` is used for Windows binaries only.
 
 
 == Binaries
