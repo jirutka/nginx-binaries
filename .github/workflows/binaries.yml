@@ -27,7 +27,7 @@ env:
 jobs:
   njs-x86_64-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: docker://alpine:3.12
     strategy:
@@ -63,7 +63,7 @@ jobs:
 
   njs-multi-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         NJS_VERSION:
@@ -156,7 +156,7 @@ jobs:
 
   nginx-x86_64-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: docker://alpine:3.12
     strategy:
@@ -193,7 +193,7 @@ jobs:
 
   nginx-multi-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         NGINX_VERSION:
@@ -361,7 +361,7 @@ jobs:
       - nginx-x86_64-darwin
       - nginx-x86_64-win32
     if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: docker://alpine:3.12
     steps:
