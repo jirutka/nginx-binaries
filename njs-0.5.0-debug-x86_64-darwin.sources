@@ -1,0 +1,4 @@
+https://github.com/nginx/njs/archive/0.5.0/njs-0.5.0.tar.gz 505568 9265f0ef58b41ec22917752bd4dc45a0892b7c283f914a21c36bc72693620bcd 0.5.0 njs
+/usr/local/opt/libedit/lib/libedit.a 261472 1dcbdaf858d2358b2bfd863bb65a5264d3d797fda88548b492ed053944224d9e 20191231-3.1 libedit
+/usr/local/opt/ncurses/lib/libncursesw.a 560768 16a4040ffc3b492fd7b40f4a26b445190daa4f190fdb1ec597e72ba7593e6f6d 6.2 ncurses
+/usr/local/opt/pcre/lib/libpcre.a 498576 095a90900c59daeb720894cf6ac000071255519e196645d5f11bf1bdc6e10d77 8.44 pcre
