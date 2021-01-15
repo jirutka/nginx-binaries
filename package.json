@@ -29,7 +29,7 @@
     "test": "nyc mocha"
   },
   "dependencies": {
-    "anylogger": "^1.0.9",
+    "anylogger": "^1.0.10",
     "node-fetch": "^2.6.1",
     "semver": "^7.3.4"
   },
