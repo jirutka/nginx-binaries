@@ -110,7 +110,7 @@ If the file already exists and the checksums match, it just returns its path.
 +
 If multiple versions satisfies the version range, the one with highest version number is selected.
 
-search `(query: <<Query>>) => Promise<IndexEntry[]>`::
+search `(query: <<Query>>) => Promise<<<IndexEntry>>[]>`::
 Returns metadata of available binaries that match the query.
 
 variants `(query?: <<Query>>) => Promise<string[]>`::
@@ -138,6 +138,51 @@ Defaults to the host OS.
 arch `(string?)`::
 Specify target CPU architecture.
 Defaults to the host architecture.
+
+
+==== IndexEntry
+
+name `(string)`::
+Name of the program: `'nginx'` or `'njs'`.
+
+version `(string)`::
+Version of the program.
+
+variant `(string)`::
+The build variant of the binary (e.g. `debug`).
+An empty string indicates the default variant.
+
+os `(string)`::
+OS platform for which this binary was built: `'darwin'` (macOS), `'linux'` (Linux), or `'win32'` (Windows).
+
+arch `(string)`::
+CPU architecture for which this binary was built: `'armv7'`, `'aarch64'`, `'ppc64le'`, or `'x86_64'`.
+
+filename `(string)`::
+Full name of the binary file.
+
+date `(string)`::
+Date and time (ISO-8601) at which the binary was built.
+
+size `(number)`::
+Size of the binary file in bytes.
+
+checksum `(string)`::
+Checksum of the binary file in format `<algorithm>:<hash>`.
++
+Example: `'sha1:7336b675b26bd67fdda3db18c66fa7f64691e280'`
+
+bundledLibs `(Record<string, string>)`::
+A record of all libraries (or modules) statically linked into the binary and the version number.
++
+.Example:
+[source, js]
+----
+{
+  'openssl': '1.1.1i-r0',
+  'echo-nginx-module': '0.62',
+}
+----
 
 
 == Binaries

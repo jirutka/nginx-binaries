@@ -32,19 +32,56 @@ export interface IndexFile {
   contents: IndexEntry[]
 }
 
+// NOTE: Keep in sync with API section in README.adoc (until I figure out how to generate it).
 export interface IndexEntry {
+  /**
+   * Name of the program (`nginx` or `njs`).
+   */
   name: string
+  /**
+   * Version of the program.
+   */
   version: string
+  /**
+   * The build variant of the binary (e.g. `debug`).
+   * An empty string indicates the default variant.
+   */
   variant: string
+  /**
+   * OS platform for which this binary was built.
+   */
   os: Platform
+  /**
+   * CPU architecture for which this binary was built.
+   */
   arch: Arch
+  /**
+   * Full name of the binary file.
+   */
   filename: string
+  /**
+   * Date and time (ISO-8601) at which the binary was built.
+   */
   date: string
+  /**
+   * Size of the binary file in bytes.
+   */
   size: number
+  /**
+   * Checksum of the binary file in format `<algorithm>:<hash>`.
+   *
+   * @example 'sha1:7336b675b26bd67fdda3db18c66fa7f64691e280'
+   */
   checksum: string
   /**
-   * A record of libraries (or modules) statically linked into the binary
+   * A record of all libraries (or modules) statically linked into the binary
    * and the version number.
+   *
+   * @example
+   * {
+   *   'openssl': '1.1.1i-r0',
+   *   'echo-nginx-module': '0.62',
+   * }
    */
   bundledLibs: Record<string, string>
 }
