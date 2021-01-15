@@ -12,8 +12,11 @@
   },
   "keywords": [
     "nginx",
+    "njs",
     "binary",
-    "binaries"
+    "binaries",
+    "static-binaries",
+    "cross-platform"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
