@@ -8,7 +8,6 @@ on:
     - cron:  '0 0 * * 0'  # run each Sunday
 
 env:
-  # Alpine branch for alpine-chroot-install.
   ALPINE_BRANCH: v3.12
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
@@ -25,42 +24,6 @@ env:
     openresty/set-misc-nginx-module
 
 jobs:
-  njs-x86_64-linux:
-    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-linux
-    runs-on: ubuntu-20.04
-    container:
-      image: docker://alpine:3.12
-    strategy:
-      matrix:
-        NJS_VERSION:
-          - 0.5.0
-        VARIANT:
-          - '-debug'
-          - ''
-    steps:
-      - name: Install dependencies
-        run: apk add -U build-base curl jq libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Download and extract njs
-        run: ./master/scripts/fetch-sources -d . nginx/njs@${{ matrix.NJS_VERSION }}
-
-      - name: Build njs
-        env:
-          VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: ./master/scripts/build-njs
-
-      - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
   njs-multi-linux:
     name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
     runs-on: ubuntu-20.04
@@ -72,6 +35,7 @@ jobs:
           - '-debug'
           - ''
         ARCH:
+          - x86_64
           - aarch64
           - armv7
           - ppc64le
@@ -154,43 +118,6 @@ jobs:
         with:
           path: artifact/*
 
-  nginx-x86_64-linux:
-    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-linux
-    runs-on: ubuntu-20.04
-    container:
-      image: docker://alpine:3.12
-    strategy:
-      matrix:
-        NGINX_VERSION:
-          - 1.18.0
-          - 1.19.5
-    steps:
-      - name: Install dependencies
-        run: apk add -U build-base curl jq linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static
-
-      - name: Checkout master branch
-        uses: actions/checkout@v2
-        with:
-          path: master
-
-      - name: Download and extract nginx
-        run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
-
-      - name: Download and extract nginx modules
-        run: ./master/scripts/fetch-sources $NGINX_MODULES
-
-      - name: Build nginx
-        env:
-          NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          CFLAGS: ${{ env.CFLAGS }}
-          LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: ./master/scripts/build-nginx
-
-      - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          path: artifact/*
-
   nginx-multi-linux:
     name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
     runs-on: ubuntu-20.04
@@ -200,6 +127,7 @@ jobs:
           - 1.18.0
           - 1.19.5
         ARCH:
+          - x86_64
           - aarch64
           - armv7
           #- ppc64le  # it works but takes twice as long as the others
@@ -353,10 +281,8 @@ jobs:
   upload:
     name: Upload binaries
     needs:
-      - njs-x86_64-linux
       - njs-multi-linux
       - njs-x86_64-darwin
-      - nginx-x86_64-linux
       - nginx-multi-linux
       - nginx-x86_64-darwin
       - nginx-x86_64-win32
