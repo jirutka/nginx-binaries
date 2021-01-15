@@ -12,7 +12,7 @@ const path = require('path')
 
 /**
  * Version of the index file format.
- * Keep in sync with indexFormatVersion in src/index.ts!
+ * Keep in sync with FORMAT_VERSION in src/repoIndex.ts!
  */
 const FORMAT_VERSION = 2
 
