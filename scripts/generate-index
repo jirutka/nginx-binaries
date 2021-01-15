@@ -104,10 +104,6 @@ const parseSourcesFile = (text) => {
  * @returns {Record<string, string>}
  */
 const collectBundledLibs = (sourcesFile, programName) => {
-  // TODO: Remove after .sources is generated for all binaries.
-  if (!fs.existsSync(sourcesFile)) {
-    return {}
-  }
   const text = fs.readFileSync(sourcesFile, 'utf8')
 
   return parseSourcesFile(text).reduce((acc, { name, version }) => {
