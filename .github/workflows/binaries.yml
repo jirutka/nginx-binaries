@@ -130,7 +130,7 @@ jobs:
           - x86_64
           - aarch64
           - armv7
-          #- ppc64le  # it works but takes twice as long as the others
+          - ppc64le
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
