@@ -50,8 +50,8 @@ jobs:
 
       - name: Download alpine-chroot-install
         run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.12.1/alpine-chroot-install
-          echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
+          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.13.0/alpine-chroot-install
+          echo '444069f1a060b9f08b7e5ac264c8b9527b32fb54  alpine-chroot-install' | sha1sum -c
           chmod +x alpine-chroot-install
 
       - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
@@ -145,8 +145,8 @@ jobs:
 
       - name: Download alpine-chroot-install
         run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.12.1/alpine-chroot-install
-          echo '5571ad4d17d14bb09ad23a75060f05553786e564  alpine-chroot-install' | sha1sum -c
+          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.13.0/alpine-chroot-install
+          echo '444069f1a060b9f08b7e5ac264c8b9527b32fb54  alpine-chroot-install' | sha1sum -c
           chmod +x alpine-chroot-install
 
       - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
