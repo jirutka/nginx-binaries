@@ -65,8 +65,6 @@ await NjsBinary.download({ version: '^0.4.4', variant: 'debug' }, '.tmp/njs')
 // => '.tmp/njs'
 ----
 
-See https://github.com/Download/anylogger[anylogger] for information about setting up logging.
-
 
 === API
 
@@ -182,6 +180,31 @@ A record of all libraries (or modules) statically linked into the binary and the
   'openssl': '1.1.1i-r0',
   'echo-nginx-module': '0.62',
 }
+----
+
+
+=== Logging
+
+. If https://github.com/Download/anylogger[anylogger] is available and initialized (any adapter has been registered), then:
+** all log messages will go through `anylogger` logger `nginx-binaries`.
+
+. If https://www.npmjs.com/package/debug[debug] is available, then:
+** _debug_ messages will be logged via `debug` logger `nginx-binaries`, others (error, warn, info) via `console`.
+
+. otherwise:
+** _error_, _warn_, and _info_ messages will be logged via `console`, _debug_ messages will be discarded.
+
+If none of these options is suitable, you can provide your own logger using `setLogger(object)`:
+
+[source, js, subs="+attributes"]
+----
+import { setLogger } from '{npm-name}'
+
+setLogger({
+  warn: console.warn,
+  error: console.error,
+  // undefined logging functions will be replaced with no-op
+})
 ----
 
 

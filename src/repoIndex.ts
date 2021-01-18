@@ -1,4 +1,3 @@
-import AnyLogger from 'anylogger'
 import FS from 'fs'
 import { FetchError } from 'node-fetch'
 import path from 'path'
@@ -6,9 +5,8 @@ import semver from 'semver'
 
 import { normalizeArch } from './internal/archName'
 import { fetchJson } from './internal/fetch'
+import { log } from './internal/logger'
 
-
-const log = AnyLogger('nginx-binaries')
 
 /**
  * Expected version of the index file.

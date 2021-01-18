@@ -2,6 +2,7 @@ import { createDownloader } from './downloader'
 
 export type { Downloader } from './downloader'
 export type { IndexEntry, IndexFile } from './repoIndex'
+export { setLogger } from './internal/logger'
 
 /**
  * Creates a Fetcher that provides **nginx** binary.

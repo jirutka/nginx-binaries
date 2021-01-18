@@ -1,4 +1,3 @@
-import AnyLogger from 'anylogger'
 import crypto from 'crypto'
 import { createReadStream, createWriteStream, mkdirSync as mkdir } from 'fs'
 import { RequestInit } from 'node-fetch'
@@ -7,9 +6,9 @@ import stream from 'stream'
 import { promisify } from 'util'
 
 import { fetch } from './fetch'
+import { log } from './logger'
 
 
-const log = AnyLogger('nginx-binaries')
 const streamPipeline = promisify(stream.pipeline)
 
 export async function downloadFile (

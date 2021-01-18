@@ -197,6 +197,11 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.14.tgz#44d2dd0b5de6185089375d976b4ec5caf6861193"
   integrity sha512-G+ITQPXkwTrslfG5L/BksmbLUA0M1iybEsmCWPqzSxsRRhJZimBKJkoMi8fr/CPygPTj4zO5pJH7I2/cm9M7SQ==
 
+"@types/debug@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
+  integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
+
 "@types/finalhandler@~1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/finalhandler/-/finalhandler-1.1.0.tgz#7c62084bac116918c55ad3f884f7c68ca8921124"
@@ -300,15 +305,15 @@ anylogger-debug@~1.0.3:
     anylogger "^1.0.6"
     debug "^4.3.1"
 
-anylogger@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/anylogger/-/anylogger-1.0.10.tgz#0a2df51403ecf76d58aec80579ce3e7514cae164"
-  integrity sha512-iZsA9nnDpeS6A19W6LcOKqAxk2pbc93rOl4KnfOItmqdvVktv1rNqqOsY7I2j8wjt0slmGnInapKnfmKAifFDw==
-
 anylogger@^1.0.6:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/anylogger/-/anylogger-1.0.9.tgz#94e8cdd0fca8d976f005d46b4a0490da8344e3da"
   integrity sha512-0dBWCjGzCbptcdKwGd2vHE5AGi44wIPSOWULwfqeUaoxs/YKQoMrpOeMBw5mh5fbmoXnTIxWhtGSclTdnC2VYQ==
+
+anylogger@~1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/anylogger/-/anylogger-1.0.10.tgz#0a2df51403ecf76d58aec80579ce3e7514cae164"
+  integrity sha512-iZsA9nnDpeS6A19W6LcOKqAxk2pbc93rOl4KnfOItmqdvVktv1rNqqOsY7I2j8wjt0slmGnInapKnfmKAifFDw==
 
 anymatch@~3.1.1:
   version "3.1.1"
