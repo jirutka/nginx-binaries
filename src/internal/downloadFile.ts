@@ -1,8 +1,8 @@
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 import { createReadStream, createWriteStream, mkdirSync as mkdir } from 'fs'
 import { RequestInit } from 'node-fetch'
 import { basename, dirname } from 'path'
-import stream from 'stream'
+import * as stream from 'stream'
 import { promisify } from 'util'
 
 import { fetch } from './fetch'

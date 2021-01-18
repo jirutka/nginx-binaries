@@ -1,6 +1,6 @@
 import { assert } from 'chai'
-import FS from 'fs'
-import getPort from 'get-port'
+import * as FS from 'fs'
+import * as getPort from 'get-port'
 import { after, before, test } from 'mocha'
 import * as OS from 'os'
 import { basename } from 'path'

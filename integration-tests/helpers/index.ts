@@ -1,8 +1,8 @@
 import * as FS from 'fs'
 import * as http from 'http'
-import finalHandler from 'finalhandler'
+import * as finalHandler from 'finalhandler'
 import * as OS from 'os'
-import serveStatic from 'serve-static'
+import * as serveStatic from 'serve-static'
 
 
 export function createStaticServer (root: string, options?: serveStatic.ServeStaticOptions): http.Server {

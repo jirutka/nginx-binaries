@@ -1,5 +1,5 @@
-import OS from 'os'
-import path from 'path'
+import * as OS from 'os'
+import * as path from 'path'
 
 import { formatQuery, getIndex, queryIndex, FORMAT_VERSION, IndexEntry, Query } from './repoIndex'
 import { normalizeArch } from './internal/archName'
