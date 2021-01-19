@@ -1,6 +1,11 @@
 name: binaries
 on:
   push:
+    # Don't run on version tags (these are used for JS module).
+    tags-ignore:
+      - 'v**'
+    branches:
+      - '**'
     paths:
       - .github/workflows/binaries.yml
       - scripts/*
