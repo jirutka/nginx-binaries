@@ -43,3 +43,7 @@ export function setLogger (logger: Partial<Logger>) {
     log.debug = noop
   }
 })()
+
+
+/** @internal */
+export const __testing = { loggerName, logLevels, noop }
