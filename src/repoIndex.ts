@@ -5,7 +5,7 @@ import * as semver from 'semver'
 
 import { normalizeArch } from './internal/archName'
 import { fetchJson } from './internal/fetch'
-import { log } from './internal/logger'
+import { log } from './logger'
 
 
 /**

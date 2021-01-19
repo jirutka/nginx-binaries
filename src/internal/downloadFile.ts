@@ -6,7 +6,7 @@ import * as stream from 'stream'
 import { promisify } from 'util'
 
 import { fetch } from './fetch'
-import { log } from './logger'
+import { log } from '../logger'
 
 
 const streamPipeline = promisify(stream.pipeline)

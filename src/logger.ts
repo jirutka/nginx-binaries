@@ -9,6 +9,7 @@ type Logger = Pick<Console, typeof logLevels[number]>
 
 const noop = () => void 0
 
+/** @internal */
 // Initialized in `initialize()`.
 export const log = {} as Logger
 
