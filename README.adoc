@@ -120,20 +120,20 @@ Returns all the available versions matching the query.
 
 ==== Query
 
-version `(string?)`::
+version `(?string)`::
 Specify required version as exact version number or a https://github.com/npm/node-semver#ranges[SemVer version range].
 +
 Example: `'1.8.0'`, `'1.8.x'`, `'^1.8.0'`
 
-variant `(string?)`::
+variant `(?string)`::
 Specify build variant of the binary (e.g. `debug`).
 Defaults to an empty string, i.e. the default variant.
 
-os `(string?)`::
+os `(?string)`::
 Specify target OS.
 Defaults to the host OS.
 
-arch `(string?)`::
+arch `(?string)`::
 Specify target CPU architecture.
 Defaults to the host architecture.
 
@@ -170,7 +170,7 @@ Checksum of the binary file in format `<algorithm>:<hash>`.
 +
 Example: `'sha1:7336b675b26bd67fdda3db18c66fa7f64691e280'`
 
-bundledLibs `(Record<string, string>)`::
+bundledLibs `(Object.<string, string>)`::
 A record of all libraries (or modules) statically linked into the binary and the version number.
 +
 .Example:
