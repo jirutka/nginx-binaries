@@ -269,7 +269,7 @@ It’s compiled with debug mode, threads and aio.
 It’s compiled with debug mode, threads and aio.
 
 *Windows* binary is statically linked with latest openssl, pcre and zlib built from sources.
-It’s compiled with debug mode.
+It’s compiled with debug mode and patches from https://github.com/myfreeer/nginx-build-msys2[nginx-build-msys2] made by https://github.com/myfreeer[@myfreeer].
 
 
 ==== Included Modules
