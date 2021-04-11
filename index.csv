@@ -4,7 +4,7 @@ nginx,1.18.0,,armv7l,linux,nginx-1.18.0-armv7l-linux,2021-04-02T14:52:11Z,320321
 nginx,1.18.0,,ppc64le,linux,nginx-1.18.0-ppc64le-linux,2021-04-02T14:52:11Z,5327304,sha1:9a7f2646b26d15a5698efc1b9ab298c6fa325590
 nginx,1.18.0,,x86_64,darwin,nginx-1.18.0-x86_64-darwin,2021-04-02T14:52:11Z,4200016,sha1:fcd5629724db84c1cd0753c57ac00f51d4fbce02
 nginx,1.18.0,,x86_64,linux,nginx-1.18.0-x86_64-linux,2021-04-02T14:52:11Z,5021336,sha1:f7b455c170e9d4aaff4f5ae254b7597873dac64e
-nginx,1.18.0,,x86_64,win32,nginx-1.18.0-x86_64-win32.exe,2021-04-02T14:52:11Z,3029504,sha1:3668a6b5c1d0e988bc12255cf3b2b1cb73693b7f
+nginx,1.18.0,,x86_64,win32,nginx-1.18.0-x86_64-win32.exe,2021-04-11T00:43:44Z,3029504,sha1:cf1545c26179c59a43e2c8f1b82b5ad8223b4166
 nginx,1.19.5,,aarch64,linux,nginx-1.19.5-aarch64-linux,2021-01-15T20:52:44Z,4739712,sha1:ca6edc9963a93843fdbdfe09dc3cdbc0bee8a58d
 nginx,1.19.5,,armv7l,linux,nginx-1.19.5-armv7l-linux,2021-01-15T20:52:44Z,3202472,sha1:d46c913e08edecc814f02dd0008d03c9f8692c89
 nginx,1.19.5,,ppc64le,linux,nginx-1.19.5-ppc64le-linux,2021-01-15T21:19:25Z,5326120,sha1:e3783f7a362b04120db676de4cf1c3204600aa6f
@@ -34,7 +34,7 @@ nginx,1.19.9,,armv7l,linux,nginx-1.19.9-armv7l-linux,2021-04-02T14:52:11Z,321580
 nginx,1.19.9,,ppc64le,linux,nginx-1.19.9-ppc64le-linux,2021-04-02T14:52:11Z,5327904,sha1:bdc9deeec08b01392a20ab10378f6fbfb4729427
 nginx,1.19.9,,x86_64,darwin,nginx-1.19.9-x86_64-darwin,2021-04-02T14:52:12Z,4216712,sha1:2b5ddc2439f62eac448ddc9c3a39b388c6525512
 nginx,1.19.9,,x86_64,linux,nginx-1.19.9-x86_64-linux,2021-04-02T14:52:12Z,5046584,sha1:328feb3f90a4bbb73a0c702102b983e3817f36d0
-nginx,1.19.9,,x86_64,win32,nginx-1.19.9-x86_64-win32.exe,2021-04-02T14:52:12Z,3047424,sha1:a293d349745de2937b84f8a381639bacfa3d2c61
+nginx,1.19.9,,x86_64,win32,nginx-1.19.9-x86_64-win32.exe,2021-04-11T00:43:45Z,3047424,sha1:f5855d0aeaa74c30571633af729bc1d231ca22e1
 njs,0.5.0,,aarch64,linux,njs-0.5.0-aarch64-linux,2021-01-15T20:52:44Z,1295280,sha1:4f0cd0caf24e2205094294924efd6498f335debf
 njs,0.5.0,,armv7l,linux,njs-0.5.0-armv7l-linux,2021-01-15T20:52:44Z,925572,sha1:fe01510b6d1140ef8b2ef5e458bed00e2d8c0548
 njs,0.5.0,debug,aarch64,linux,njs-0.5.0-debug-aarch64-linux,2021-01-15T20:52:44Z,5707264,sha1:ba7a86c9da2549234ebea5226e15d7d021a5f62f
@@ -70,7 +70,7 @@ njs,0.5.3,,armv7l,linux,njs-0.5.3-armv7l-linux,2021-04-02T14:52:12Z,925604,sha1:
 njs,0.5.3,debug,aarch64,linux,njs-0.5.3-debug-aarch64-linux,2021-04-02T14:52:12Z,5580872,sha1:268df8732750c5fc452063b77dac9b30389e8e6d
 njs,0.5.3,debug,armv7l,linux,njs-0.5.3-debug-armv7l-linux,2021-04-02T14:52:12Z,4545408,sha1:7a7a9ad8b87ba43b0ca38289502f60220d0d30fc
 njs,0.5.3,debug,ppc64le,linux,njs-0.5.3-debug-ppc64le-linux,2021-04-02T14:52:12Z,5715144,sha1:6aaa59ef57367fc95071d1dd78c667373a9f345a
-njs,0.5.3,debug,x86_64,darwin,njs-0.5.3-debug-x86_64-darwin,2021-04-02T14:52:12Z,1450352,sha1:e1f1b308ed6481ec46785cde512a22590c3449b0
+njs,0.5.3,debug,x86_64,darwin,njs-0.5.3-debug-x86_64-darwin,2021-04-11T00:43:46Z,1450352,sha1:df8d4158b4b34cdc2a725186a4232d09ce4b3fea
 njs,0.5.3,debug,x86_64,linux,njs-0.5.3-debug-x86_64-linux,2021-04-02T14:52:13Z,5368768,sha1:277bcce4bc81a384b511341cdf520e37199f4ba8
 njs,0.5.3,,ppc64le,linux,njs-0.5.3-ppc64le-linux,2021-04-02T14:52:13Z,1480120,sha1:0c441bc395ce4c21633a56010c38eaa66895de4c
 njs,0.5.3,,x86_64,darwin,njs-0.5.3-x86_64-darwin,2021-04-02T14:52:13Z,1204736,sha1:59296a7f17494f7cefec56a0a316d53ccc01ccb5
