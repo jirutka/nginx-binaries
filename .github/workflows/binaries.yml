@@ -314,10 +314,19 @@ jobs:
       - name: Download and unpack all workflow run artifacts
         uses: actions/download-artifact@v2
 
-      - name: Move downloaded binaries into repository
+      - name: List unpacked artifact files
+        run: ls -lah artifact/
+
+      # XXX: Windows builds of nginx and macOS builds of njs-debug are not reproducible.
+      #  This is a workaround to avoid unnecessary updates of binaries that are built from
+      #  very same sources as the existing (note that we track even used system libs).
+      - name: Move binaries with changed source checksums to the repository
+        working-directory: binaries
         run: |
-          mv artifact/* binaries/
-          ls -lah binaries/
+          mv ../artifact/*.sources .
+          for name in $(git status --porcelain | cut -c4-); do
+              mv -v ../artifact/${name%.sources}* .
+          done
 
       - name: Generate index.json
         run: ./master/scripts/generate-index --json binaries/ binaries/index.json
