@@ -27,6 +27,8 @@ env:
     openresty/echo-nginx-module
     openresty/headers-more-nginx-module
     openresty/set-misc-nginx-module
+  # Don't update binaries with unchanged sources.
+  SKIP_SAME_SOURCES: true
 
 jobs:
   njs-multi-linux:
@@ -321,12 +323,17 @@ jobs:
       #  This is a workaround to avoid unnecessary updates of binaries that are built from
       #  very same sources as the existing (note that we track even used system libs).
       - name: Move binaries with changed source checksums to the repository
+        if: env.SKIP_SAME_SOURCES == 'true'
         working-directory: binaries
         run: |
           mv ../artifact/*.sources .
           for name in $(git status --porcelain | cut -c4-); do
               mv -v ../artifact/${name%.sources}* .
           done
+
+      - name: Move all binaries to the repository
+        if: env.SKIP_SAME_SOURCES != 'true'
+        run: mv -v artifact/* binaries/
 
       - name: Generate index.json
         run: ./master/scripts/generate-index --json binaries/ binaries/index.json
