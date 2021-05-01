@@ -1765,12 +1765,12 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.3-debug-x86_64-darwin",
-      "date": "2021-04-20T22:56:55Z",
-      "size": 1450352,
-      "checksum": "sha1:859640d172ed00aa99c4d7f20d0e95695a0dc40b",
-      "integrity": "sha1-859640d172ed00aa99c4d7f20d0e95695a0dc40b",
+      "date": "2021-05-01T16:04:55Z",
+      "size": 1450376,
+      "checksum": "sha1:f9c35085157dbadd2f8b868945527bd4bf0299a1",
+      "integrity": "sha1-f9c35085157dbadd2f8b868945527bd4bf0299a1",
       "bundledLibs": {
-        "libedit": "20210216-3.1",
+        "libedit": "20210419-3.1",
         "ncurses": "6.2",
         "pcre": "8.44"
       }
@@ -1820,12 +1820,12 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.3-x86_64-darwin",
-      "date": "2021-04-02T14:52:13Z",
-      "size": 1204736,
-      "checksum": "sha1:59296a7f17494f7cefec56a0a316d53ccc01ccb5",
-      "integrity": "sha1-59296a7f17494f7cefec56a0a316d53ccc01ccb5",
+      "date": "2021-05-01T16:04:56Z",
+      "size": 1204728,
+      "checksum": "sha1:71c259d38025239b1424b54413c0fe211a209e57",
+      "integrity": "sha1-71c259d38025239b1424b54413c0fe211a209e57",
       "bundledLibs": {
-        "libedit": "20210216-3.1",
+        "libedit": "20210419-3.1",
         "ncurses": "6.2",
         "pcre": "8.44"
       }
