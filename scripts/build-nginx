@@ -44,8 +44,8 @@ configure() {
 		--http-log-path=access.log \
 		--http-client-body-temp-path="client_body_temp" \
 		--http-proxy-temp-path="proxy_temp" \
-		--user=nginx \
-		--group=nginx \
+		--user=nobody \
+		--group=nobody \
 		--with-cc="${CC:-cc}" \
 		--with-cc-opt="${CFLAGS:-}" \
 		--with-ld-opt="${LDFLAGS:-}" \
