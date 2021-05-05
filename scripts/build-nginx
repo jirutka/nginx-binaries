@@ -45,7 +45,7 @@ configure() {
 		--http-client-body-temp-path="client_body_temp" \
 		--http-proxy-temp-path="proxy_temp" \
 		--user=nobody \
-		--group=nobody \
+		--group=nogroup \
 		--with-cc="${CC:-cc}" \
 		--with-cc-opt="${CFLAGS:-}" \
 		--with-ld-opt="${LDFLAGS:-}" \
