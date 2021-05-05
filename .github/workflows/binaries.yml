@@ -28,7 +28,7 @@ env:
     openresty/headers-more-nginx-module
     openresty/set-misc-nginx-module
   # Don't update binaries with unchanged sources.
-  SKIP_SAME_SOURCES: true
+  SKIP_SAME_SOURCES: false
 
 jobs:
   njs-multi-linux:
