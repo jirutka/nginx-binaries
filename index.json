@@ -122,10 +122,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.18.0-x86_64-win32.exe",
-      "date": "2021-05-05T17:25:35Z",
+      "date": "2021-06-13T01:23:48Z",
       "size": 3029504,
-      "checksum": "sha1:1b04ebbcad23e14a857f56da0d82134769c1e429",
-      "integrity": "sha1-1b04ebbcad23e14a857f56da0d82134769c1e429",
+      "checksum": "sha1:ab0d2357c31922e0c7b686d75e022fbfccdd674b",
+      "integrity": "sha1-ab0d2357c31922e0c7b686d75e022fbfccdd674b",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -134,9 +134,9 @@
         "openssl": "1.1.1k",
         "pcre": "8.44",
         "zlib": "1.2.11",
-        "mingw-w64-x86_64-gcc": "10.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6158.1c773877-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6158.1c773877-1"
+        "mingw-w64-x86_64-gcc": "10.3.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6215.788f57701-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6215.788f57701-1"
       }
     },
     {
@@ -260,10 +260,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.19.10-x86_64-win32.exe",
-      "date": "2021-05-05T17:25:38Z",
+      "date": "2021-06-13T01:23:49Z",
       "size": 3048448,
-      "checksum": "sha1:6dc8d2acf32e540163efca8af232c9f3f4a81b4f",
-      "integrity": "sha1-6dc8d2acf32e540163efca8af232c9f3f4a81b4f",
+      "checksum": "sha1:5e924cff21867f29cf90c5b8820c7862ef8ba39e",
+      "integrity": "sha1-5e924cff21867f29cf90c5b8820c7862ef8ba39e",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -272,9 +272,9 @@
         "openssl": "1.1.1k",
         "pcre": "8.44",
         "zlib": "1.2.11",
-        "mingw-w64-x86_64-gcc": "10.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6158.1c773877-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6158.1c773877-1"
+        "mingw-w64-x86_64-gcc": "10.3.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6215.788f57701-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6215.788f57701-1"
       }
     },
     {
@@ -1226,10 +1226,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.20.1-x86_64-win32.exe",
-      "date": "2021-05-30T02:38:33Z",
+      "date": "2021-06-13T01:23:49Z",
       "size": 3048448,
-      "checksum": "sha1:df3504273c30a7dea21b28849721e78c82a2c16e",
-      "integrity": "sha1-df3504273c30a7dea21b28849721e78c82a2c16e",
+      "checksum": "sha1:65b9044aaad0188856544fbca1f1b69213e84a44",
+      "integrity": "sha1-65b9044aaad0188856544fbca1f1b69213e84a44",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -1238,9 +1238,9 @@
         "openssl": "1.1.1k",
         "pcre": "8.44",
         "zlib": "1.2.11",
-        "mingw-w64-x86_64-gcc": "10.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6158.1c773877-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6158.1c773877-1"
+        "mingw-w64-x86_64-gcc": "10.3.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6215.788f57701-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6215.788f57701-1"
       }
     },
     {
@@ -1903,12 +1903,12 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.3-debug-x86_64-darwin",
-      "date": "2021-05-05T17:25:42Z",
+      "date": "2021-06-13T01:23:50Z",
       "size": 1450376,
-      "checksum": "sha1:3b8b29af686a37e46058a7379afdb00a6fc277d3",
-      "integrity": "sha1-3b8b29af686a37e46058a7379afdb00a6fc277d3",
+      "checksum": "sha1:016ffba494fdee6c2bd35ff53ef52e4c5c697fc0",
+      "integrity": "sha1-016ffba494fdee6c2bd35ff53ef52e4c5c697fc0",
       "bundledLibs": {
-        "libedit": "20210419-3.1",
+        "libedit": "20210522-3.1",
         "ncurses": "6.2",
         "pcre": "8.44"
       }
@@ -1958,12 +1958,12 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.5.3-x86_64-darwin",
-      "date": "2021-05-01T16:04:56Z",
+      "date": "2021-06-13T01:23:50Z",
       "size": 1204728,
-      "checksum": "sha1:71c259d38025239b1424b54413c0fe211a209e57",
-      "integrity": "sha1-71c259d38025239b1424b54413c0fe211a209e57",
+      "checksum": "sha1:f534f856acded06984521b808ea1b5bf3215dd77",
+      "integrity": "sha1-f534f856acded06984521b808ea1b5bf3215dd77",
       "bundledLibs": {
-        "libedit": "20210419-3.1",
+        "libedit": "20210522-3.1",
         "ncurses": "6.2",
         "pcre": "8.44"
       }
