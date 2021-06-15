@@ -1,0 +1,10 @@
+https://github.com/nginx/nginx/archive/release-1.21.0/nginx-1.21.0.tar.gz 1107321 9f9f685c7166f181c8031a60e8bc3e7ca391ed55a50f673cd7736086f5e63021 1.21.0 nginx
+https://github.com/nginx/njs/archive/0.6.0/njs-0.6.0.tar.gz 528419 9060272f24bede008931aefd2badc476553af4cdfd34557884bc021e8d9fe7b5 0.6.0 njs
+https://github.com/vision5/ngx_devel_kit/archive/v0.3.1/ngx_devel_kit-0.3.1.tar.gz 66542 0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85 0.3.1 ngx_devel_kit
+https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0.62.tar.gz 53329 86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01 0.62 echo-nginx-module
+https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-more-nginx-module-0.33.tar.gz 28130 a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf 0.33 headers-more-nginx-module
+https://github.com/openresty/set-misc-nginx-module/archive/v0.32/set-misc-nginx-module-0.32.tar.gz 29329 f1ad2459c4ee6a61771aa84f77871f4bfe42943a4aa4c30c62ba3f981f52c201 0.32 set-misc-nginx-module
+/usr/local/opt/openssl/lib/libcrypto.a 4087072 34d8a63847eb6922aebf26c9ee5c9f6f3f83ca6a908c552704349d003f44ce50 1.1.1k openssl
+/usr/local/opt/openssl/lib/libssl.a 723992 4a8fc9a56280911d19af3840b681a762c4b2c73e0ec5c9780e5ddb623edc963d 1.1.1k openssl
+/usr/local/opt/pcre/lib/libpcre.a 498576 095a90900c59daeb720894cf6ac000071255519e196645d5f11bf1bdc6e10d77 8.44 pcre
+/usr/local/opt/zlib/lib/libz.a 96736 08e30952da70d3a212a008399be77860d21490e7567a5d647c422c54458fa787 1.2.11 zlib
