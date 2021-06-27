@@ -6,5 +6,5 @@ https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-mor
 https://github.com/openresty/set-misc-nginx-module/archive/v0.32/set-misc-nginx-module-0.32.tar.gz 29329 f1ad2459c4ee6a61771aa84f77871f4bfe42943a4aa4c30c62ba3f981f52c201 0.32 set-misc-nginx-module
 /usr/local/opt/openssl/lib/libcrypto.a 4087072 34d8a63847eb6922aebf26c9ee5c9f6f3f83ca6a908c552704349d003f44ce50 1.1.1k openssl
 /usr/local/opt/openssl/lib/libssl.a 723992 4a8fc9a56280911d19af3840b681a762c4b2c73e0ec5c9780e5ddb623edc963d 1.1.1k openssl
-/usr/local/opt/pcre/lib/libpcre.a 498576 095a90900c59daeb720894cf6ac000071255519e196645d5f11bf1bdc6e10d77 8.44 pcre
+/usr/local/opt/pcre/lib/libpcre.a 500984 423dee604681f979e4397462f670df352129025195db60c8b6f96495b3e2ce11 8.45 pcre
 /usr/local/opt/zlib/lib/libz.a 96736 08e30952da70d3a212a008399be77860d21490e7567a5d647c422c54458fa787 1.2.11 zlib
