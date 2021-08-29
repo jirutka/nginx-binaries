@@ -4,6 +4,6 @@ https://github.com/vision5/ngx_devel_kit/archive/v0.3.1/ngx_devel_kit-0.3.1.tar.
 https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0.62.tar.gz 53329 86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01 0.62 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-more-nginx-module-0.33.tar.gz 28130 a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf 0.33 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.32/set-misc-nginx-module-0.32.tar.gz 29329 f1ad2459c4ee6a61771aa84f77871f4bfe42943a4aa4c30c62ba3f981f52c201 0.32 set-misc-nginx-module
-https://www.openssl.org/source/openssl-1.1.1k.tar.gz 9823400 892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5 1.1.1k openssl
+https://www.openssl.org/source/openssl-1.1.1l.tar.gz 9834044 0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1 1.1.1l openssl
 https://ftp.pcre.org/pub/pcre/pcre-8.45.tar.bz2 1578809 4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8 8.45 pcre
 https://github.com/madler/zlib/archive/v1.2.11/zlib-1.2.11.tar.gz 644492 629380c90a77b964d896ed37163f5c3a34f6e6d897311f1df2a7016355c45eff 1.2.11 zlib
