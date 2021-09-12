@@ -3,7 +3,7 @@ https://github.com/nginx/njs/archive/0.6.2/njs-0.6.2.tar.gz 538303 109ee42b05344
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.1/ngx_devel_kit-0.3.1.tar.gz 66542 0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85 0.3.1 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0.62.tar.gz 53329 86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01 0.62 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-more-nginx-module-0.33.tar.gz 28130 a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf 0.33 headers-more-nginx-module
-https://github.com/openresty/set-misc-nginx-module/archive/v0.32/set-misc-nginx-module-0.32.tar.gz 29329 f1ad2459c4ee6a61771aa84f77871f4bfe42943a4aa4c30c62ba3f981f52c201 0.32 set-misc-nginx-module
+https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 /usr/lib/gcc/aarch64-alpine-linux-musl/9.3.0/libgcc.a 186952 cff7bb381b3592ae50b394943431feb7c96fcd8f869ba3bdcf83f3f551f83454 9.3.0-r2 gcc
 /usr/lib/gcc/aarch64-alpine-linux-musl/9.3.0/libgcc_eh.a 277844 7102aafa27454b6be4fc4c36213cc07fdc3c028d9da438d08ba58fdb8d66ebaf 9.3.0-r2 gcc
 /usr/lib/libc.a 12423970 451c7d6cf2154aa40d22382b532398507a9a9b666b6f908572af0191efad6541 1.1.24-r10 musl
