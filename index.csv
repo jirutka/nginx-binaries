@@ -145,5 +145,5 @@ njs,0.6.2,debug,ppc64le,linux,njs-0.6.2-debug-ppc64le-linux,2021-09-01T00:26:33Z
 njs,0.6.2,debug,x86_64,darwin,njs-0.6.2-debug-x86_64-darwin,2021-09-01T00:26:33Z,1499896,sha1:70884c05780e5c29bf1fb119ec70a47f76e4c246
 njs,0.6.2,debug,x86_64,linux,njs-0.6.2-debug-x86_64-linux,2021-09-01T00:26:33Z,5746520,sha1:44b5d3bf9e0a2e9c285eca4ef8b45629d5d39b65
 njs,0.6.2,,ppc64le,linux,njs-0.6.2-ppc64le-linux,2021-09-01T00:26:33Z,1481048,sha1:195b5ea414dc01eb7d18b07337fa7210faac813a
-njs,0.6.2,,x86_64,darwin,njs-0.6.2-x86_64-darwin,2021-09-01T00:26:33Z,1237776,sha1:e69e4fd60533d7e5edf3fccc5ddf6ab3ece3e27b
+njs,0.6.2,,x86_64,darwin,njs-0.6.2-x86_64-darwin,2021-09-26T01:31:50Z,1238168,sha1:1b8124edad7500a568ed59c8c12aa73b3410c536
 njs,0.6.2,,x86_64,linux,njs-0.6.2-x86_64-linux,2021-09-01T00:26:33Z,1339056,sha1:10b4ed69abdd658a4021a61da2dfcb90542e1d5e

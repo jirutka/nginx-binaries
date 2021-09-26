@@ -1,4 +1,4 @@
 https://github.com/nginx/njs/archive/0.6.2/njs-0.6.2.tar.gz 538303 109ee42b05344f050f5ead28a68c52e8e671e1625eb6a1f765b1db5c3bcef2b9 0.6.2 njs
-/usr/local/opt/libedit/lib/libedit.a 262776 68615b69ccb912b06c4efe9787f8b8f1e5840f4ddd0beeee965ade417539a013 20210714-3.1 libedit
+/usr/local/opt/libedit/lib/libedit.a 264376 d25da882a9e83e48fbbe1fefca3bc538123b88683e36c3db1852292f66ce64a5 20210910-3.1 libedit
 /usr/local/opt/ncurses/lib/libncursesw.a 560072 4e1f98ea9f4f2893a7dfc70de346a228276a70cfe83d86594765f6d270de29ef 6.2 ncurses
 /usr/local/opt/pcre/lib/libpcre.a 500984 423dee604681f979e4397462f670df352129025195db60c8b6f96495b3e2ce11 8.45 pcre

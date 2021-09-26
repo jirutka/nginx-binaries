@@ -3053,12 +3053,12 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.6.2-x86_64-darwin",
-      "date": "2021-09-01T00:26:33Z",
-      "size": 1237776,
-      "checksum": "sha1:e69e4fd60533d7e5edf3fccc5ddf6ab3ece3e27b",
-      "integrity": "sha1-e69e4fd60533d7e5edf3fccc5ddf6ab3ece3e27b",
+      "date": "2021-09-26T01:31:50Z",
+      "size": 1238168,
+      "checksum": "sha1:1b8124edad7500a568ed59c8c12aa73b3410c536",
+      "integrity": "sha1-1b8124edad7500a568ed59c8c12aa73b3410c536",
       "bundledLibs": {
-        "libedit": "20210714-3.1",
+        "libedit": "20210910-3.1",
         "ncurses": "6.2",
         "pcre": "8.45"
       }
