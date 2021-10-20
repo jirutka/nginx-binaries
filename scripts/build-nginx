@@ -111,7 +111,7 @@ file objs/nginx$EXEEXT
 
 case "$HOST_OS" in
 	darwin) otool -L objs/nginx$EXEEXT;;
-	*) ldd objs/nginx$EXEEXT;;
+	*) ldd objs/nginx$EXEEXT || true;;
 esac
 
 ./objs/nginx$EXEEXT -V
