@@ -67,7 +67,7 @@ jobs:
             -a ${{ matrix.ARCH }} \
             -b ${{ env.ALPINE_BRANCH }} \
             -k 'VARIANT CFLAGS LDFLAGS JOBS' \
-            -p 'build-base libedit-dev libedit-static pcre-dev ncurses-dev ncurses-static'
+            -p 'build-base libedit-dev libedit-static openssl-dev openssl-libs-static pcre-dev ncurses-dev ncurses-static'
           /alpine/enter-chroot uname -a
 
       - name: Build njs
@@ -95,7 +95,7 @@ jobs:
           - ''
     steps:
       - name: Install dependencies
-        run: brew install jq libedit ncurses pcre
+        run: brew install jq libedit openssl@1.1 ncurses pcre
 
       - name: Checkout master branch
         uses: actions/checkout@v2
@@ -110,14 +110,15 @@ jobs:
       - name: Remove dylibs
         run: |
           rm /usr/local/opt/libedit/lib/*.dylib
+          rm /usr/local/opt/openssl/lib/*.dylib
           rm /usr/local/opt/ncurses/lib/*.dylib
           rm /usr/local/opt/pcre/lib/*.dylib
 
       - name: Build njs
         env:
           VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
-          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/libedit/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
+          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/libedit/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
         run: ./master/scripts/build-njs
 
       - name: Upload njs binary to artifacts
