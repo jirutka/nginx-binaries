@@ -230,10 +230,10 @@ Suffix `.exe` is used for Windows binaries only.
 | Program | Version Range(s) | Variant(s) | OS | Architecture(s)
 
 .3+| nginx
-.3+| ~1.18.0 (stable) +
-~1.19.5 (EOL) +
-~1.20.0 (stable) +
-~1.21.0 (mainline)
+.3+| 1.18.x (stable) +
+1.19.x (EOL) footnote:[The first available nginx version in branch 1.19.x is 1.19.5.] +
+1.20.x (stable) +
+1.21.x (mainline)
 .3+| _default_
 | Linux
 | x86_64 +
@@ -248,7 +248,7 @@ ppc64le
 | x86_64 (x64)
 
 .3+| njs
-.2+| ^0.5.0
+.2+| 0.x.x footnote:[The first available njs version is 0.5.0.]
 .2+| _default_ +
 debug
 | Linux
