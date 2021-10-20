@@ -4,7 +4,7 @@
 // custom
 :npm-name: nginx-binaries
 :gh-name: jirutka/{npm-name}
-:alpine-branch: 3.12
+:alpine-branch: 3.14
 :nginx-docs-uri: http://nginx.org/en/docs/
 
 ifdef::env-github[]
