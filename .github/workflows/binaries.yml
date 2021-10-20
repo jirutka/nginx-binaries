@@ -95,7 +95,7 @@ jobs:
           - ''
     steps:
       - name: Install dependencies
-        run: brew install jq libedit openssl@1.1 ncurses pcre
+        run: brew install gsed jq libedit openssl@1.1 ncurses pcre
 
       - name: Checkout master branch
         uses: actions/checkout@v2
@@ -192,7 +192,7 @@ jobs:
           - 1.21.x
     steps:
       - name: Install dependencies
-        run: brew install jq openssl@1.1 pcre zlib
+        run: brew install gsed jq openssl@1.1 pcre zlib
 
       - name: Checkout master branch
         uses: actions/checkout@v2

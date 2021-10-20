@@ -74,7 +74,7 @@ HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
 EXEEXT=''
 
 case "$HOST_OS" in
-	darwin) alias sha1sum='shasum -a1';;
+	darwin) alias sha1sum='shasum -a1'; alias sed='gsed';;
 	mingw*) HOST_OS='win32'; EXEEXT='.exe';;
 esac
 

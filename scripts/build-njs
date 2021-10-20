@@ -8,7 +8,7 @@ HOST_ARCH=$(uname -m)
 HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
 
 case "$HOST_OS" in
-	darwin) alias sha1sum='shasum -a1';;
+	darwin) alias sha1sum='shasum -a1'; alias sed='gsed';;
 esac
 
 case "$VARIANT" in
