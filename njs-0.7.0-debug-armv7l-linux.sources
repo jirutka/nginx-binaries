@@ -1,9 +1,9 @@
 https://github.com/nginx/njs/archive/0.7.0/njs-0.7.0.tar.gz 575477 3f0fe7d77600a9c54000ce101dd51f44811964502641ae505e38c1bbf595e6f1 0.7.0 njs
-/usr/lib/gcc/armv7-alpine-linux-musleabihf/9.3.0/libgcc.a 141162 9b1d96c2f57427b121815925ff060ad9bebb1dc65d81e4079fd054b86760b298 9.3.0-r2 gcc
-/usr/lib/gcc/armv7-alpine-linux-musleabihf/9.3.0/libgcc_eh.a 94772 7685af697fe9ee67270bf23c81b6d000283121c831093c7f1accefbfdc62a0fe 9.3.0-r2 gcc
-/usr/lib/libc.a 8050002 b654f8e01975595a605baef9f5b4b9800b81c04ec9ef86c80a8dcf87fd9c2578 1.1.24-r10 musl
-/usr/lib/libcrypto.a 13888716 ffcc72d8260deff27c2c7fa16f70c6fafbf50f0d99bb3aa22152d7b1c2d119c1 1.1.1l-r0 openssl
-/usr/lib/libedit.a 207362 08e6a239b729fc8440996e3a2ff485cacfe27c5c8c965771c38e422cf68d7b5a 20191231.3.1-r0 libedit
-/usr/lib/libncursesw.a 487402 0fbdb7ad8ab757e9cbada9e3c72a3be0ee0eac2bc9fdace84eb732cad3692568 6.2_p20200523-r0 ncurses
-/usr/lib/libpcre.a 306612 e174311d421acd3296fc06feacb9c59be12405d71944247eb5c3cbaa6dc0e050 8.44-r0 pcre
-/usr/lib/libssp_nonshared.a 2542 2e600dcd389c6258db4e0c9cd710c02936b158867753e39866747de5df5a407e 1.1.24-r10 musl
+/usr/lib/gcc/armv7-alpine-linux-musleabihf/10.3.1/libgcc.a 143250 607f65c9a5a3a2f8b4345064cf602213e80a91be7118f32c19bea630460a0590 10.3.1_git20210424-r2 gcc
+/usr/lib/gcc/armv7-alpine-linux-musleabihf/10.3.1/libgcc_eh.a 91592 9606b6627c0c30c14f68aa5bcc7dccf2c56b5c6bf1ab5aec6d951831aa06aff7 10.3.1_git20210424-r2 gcc
+/usr/lib/libc.a 8029356 0190c721c3b76214ae642b5ef7a17e7849b2f4040e22bfe663cb3cda5f86a1cc 1.2.2-r3 musl
+/usr/lib/libcrypto.a 12237688 7409cad8eade35270cb6b1ad69855edb6e4c062683be119465b82f434ad7980f 1.1.1l-r0 openssl
+/usr/lib/libedit.a 208370 cf84e58063e419a6174fb47c0aa72ab29e0e3b8b93b1877bf3cf546bfbad8e2d 20210216.3.1-r0 libedit
+/usr/lib/libncursesw.a 494024 e553c954b04ba8dc88cd4720f3788062838df5d053e1f04ee1e3f4eacebd4f41 6.2_p20210612-r0 ncurses
+/usr/lib/libpcre.a 306980 189465a4e357275b3edc8b439543e7598a2d5df647031bc73e3f7b4b6f04004f 8.44-r0 pcre
+/usr/lib/libssp_nonshared.a 2570 d9d43098ea3b39db443f3740879b6287e946d17bb396fc8c3797b0f4950176fb 1.2.2-r3 musl
