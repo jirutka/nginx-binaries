@@ -90,9 +90,9 @@ for item in "$@"; do
 			url="$base_url/$name-$ver.tar.gz"
 		;;
 		pcre)
-			base_url='https://ftp.pcre.org/pub/pcre'
-			ver=$(scrape_latest_version "$base_url/" "pcre-($ver_regex)\." 'pcre')
-			url="$base_url/$name-$ver.tar.bz2"
+			base_url='https://sourceforge.net/projects/pcre'
+			ver=$(scrape_latest_version "$base_url/rss?path=/pcre" "pcre-($ver_regex)\." 'pcre')
+			url="$base_url/files/$name/$ver/$name-$ver.tar.gz"
 		;;
 		*)
 			tag=$(github_latest_version_tag "$name" "$ver_regex")
