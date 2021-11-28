@@ -5,5 +5,5 @@ https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0
 https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-more-nginx-module-0.33.tar.gz 28130 a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf 0.33 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 https://www.openssl.org/source/openssl-1.1.1l.tar.gz 9834044 0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1 1.1.1l openssl
-https://ftp.pcre.org/pub/pcre/pcre-8.45.tar.bz2 1578809 4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8 8.45 pcre
+https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz 2096552 4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09 8.45 pcre
 https://github.com/madler/zlib/archive/v1.2.11/zlib-1.2.11.tar.gz 644492 629380c90a77b964d896ed37163f5c3a34f6e6d897311f1df2a7016355c45eff 1.2.11 zlib
