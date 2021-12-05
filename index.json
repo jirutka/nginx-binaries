@@ -122,10 +122,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.18.0-x86_64-win32.exe",
-      "date": "2021-11-28T23:07:58Z",
-      "size": 3033088,
-      "checksum": "sha1:c347b443fa2e9610aa812e8b4b4c2264d2a12baf",
-      "integrity": "sha1-c347b443fa2e9610aa812e8b4b4c2264d2a12baf",
+      "date": "2021-12-05T01:36:52Z",
+      "size": 3030016,
+      "checksum": "sha1:60d16409f1e01ab3ab4e44ee312bd967b6ae9a32",
+      "integrity": "sha1-60d16409f1e01ab3ab4e44ee312bd967b6ae9a32",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -133,7 +133,10 @@
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1l",
         "pcre": "8.45",
-        "zlib": "1.2.11"
+        "zlib": "1.2.11",
+        "mingw-w64-x86_64-gcc": "11.2.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6350.19ecabd80-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6350.19ecabd80-1"
       }
     },
     {
@@ -1358,10 +1361,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.20.2-x86_64-win32.exe",
-      "date": "2021-11-28T23:08:01Z",
-      "size": 3051008,
-      "checksum": "sha1:1b09ae1955dd160f45a7e3b4dc211ac4951cbff3",
-      "integrity": "sha1-1b09ae1955dd160f45a7e3b4dc211ac4951cbff3",
+      "date": "2021-12-05T01:36:53Z",
+      "size": 3048448,
+      "checksum": "sha1:7a81ad844cc2a9a1357a8b8880e1deca1a6572ce",
+      "integrity": "sha1-7a81ad844cc2a9a1357a8b8880e1deca1a6572ce",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -1369,7 +1372,10 @@
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1l",
         "pcre": "8.45",
-        "zlib": "1.2.11"
+        "zlib": "1.2.11",
+        "mingw-w64-x86_64-gcc": "11.2.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6350.19ecabd80-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6350.19ecabd80-1"
       }
     },
     {
@@ -2036,10 +2042,10 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.21.4-x86_64-win32.exe",
-      "date": "2021-11-28T23:08:03Z",
-      "size": 3053056,
-      "checksum": "sha1:6a1e527d58de88dae5a657a7a5819f88eb01a320",
-      "integrity": "sha1-6a1e527d58de88dae5a657a7a5819f88eb01a320",
+      "date": "2021-12-05T01:36:54Z",
+      "size": 3050496,
+      "checksum": "sha1:db9c48f010bc693e2050fb7ce2ea855df1c5a13f",
+      "integrity": "sha1-db9c48f010bc693e2050fb7ce2ea855df1c5a13f",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
@@ -2047,7 +2053,10 @@
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1l",
         "pcre": "8.45",
-        "zlib": "1.2.11"
+        "zlib": "1.2.11",
+        "mingw-w64-x86_64-gcc": "11.2.0-2",
+        "mingw-w64-x86_64-crt-git": "9.0.0.6350.19ecabd80-1",
+        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6350.19ecabd80-1"
       }
     },
     {
