@@ -3468,14 +3468,14 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.7.0-debug-x86_64-darwin",
-      "date": "2021-11-28T23:08:06Z",
-      "size": 3728824,
-      "checksum": "sha1:b0bb8b7d06588a294ce29fc5d412c362c3a2aa19",
-      "integrity": "sha1-b0bb8b7d06588a294ce29fc5d412c362c3a2aa19",
+      "date": "2021-12-12T01:38:35Z",
+      "size": 4725944,
+      "checksum": "sha1:979fba5117a5ed959f44b637279d8f076ace8417",
+      "integrity": "sha1-979fba5117a5ed959f44b637279d8f076ace8417",
       "bundledLibs": {
         "libedit": "20210910-3.1",
         "ncurses": "6.3",
-        "openssl": "1.1.1l_1",
+        "openssl": "3.0.0_1",
         "pcre": "8.45"
       }
     },
@@ -3526,14 +3526,14 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.7.0-x86_64-darwin",
-      "date": "2021-11-28T23:08:08Z",
-      "size": 3216120,
-      "checksum": "sha1:44e5188a908553c6863292f7213610a3597dc314",
-      "integrity": "sha1-44e5188a908553c6863292f7213610a3597dc314",
+      "date": "2021-12-12T01:38:36Z",
+      "size": 4024720,
+      "checksum": "sha1:9b8c5b362a699105318a4fca77207e375e6ee441",
+      "integrity": "sha1-9b8c5b362a699105318a4fca77207e375e6ee441",
       "bundledLibs": {
         "libedit": "20210910-3.1",
         "ncurses": "6.3",
-        "openssl": "1.1.1l_1",
+        "openssl": "3.0.0_1",
         "pcre": "8.45"
       }
     },
