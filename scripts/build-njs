@@ -18,9 +18,11 @@ esac
 
 set -x  # log commands
 
+# --no-pcre2 - prefer pcre (8.x) over pcre2 (10.x), it's much smaller
 ./configure \
 	--cc-opt="$CFLAGS" \
 	--ld-opt="${LDFLAGS/-static/}" \
+	--no-pcre2 \
 	--debug="$DEBUG"
 NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
 
