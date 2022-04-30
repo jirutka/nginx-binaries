@@ -55,28 +55,28 @@ jobs:
       - name: Download and extract njs
         run: ./master/scripts/fetch-sources -d . nginx/njs@${{ matrix.NJS_VERSION }}
 
-      - name: Download alpine-chroot-install
-        run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.13.3/alpine-chroot-install
-          echo 'c3005e323029637db20ec9595243ac94bb9b2226  alpine-chroot-install' | sha1sum -c
-          chmod +x alpine-chroot-install
-
       - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
-        run: |
-          sudo ./alpine-chroot-install \
-            -a ${{ matrix.ARCH }} \
-            -b ${{ env.ALPINE_BRANCH }} \
-            -k 'VARIANT CFLAGS LDFLAGS JOBS' \
-            -p 'build-base libedit-dev libedit-static openssl-dev openssl-libs-static pcre-dev ncurses-dev ncurses-static'
-          /alpine/enter-chroot uname -a
+        uses: jirutka/setup-alpine@v1
+        with:
+          arch: ${{ matrix.ARCH }}
+          branch: ${{ env.ALPINE_BRANCH }}
+          packages: >
+            build-base
+            libedit-dev
+            libedit-static
+            ncurses-dev
+            ncurses-static
+            openssl-dev
+            openssl-libs-static
+            pcre-dev
 
       - name: Build njs
         env:
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: |
-          /alpine/enter-chroot -u $USER ./master/scripts/build-njs
+        run: ./master/scripts/build-njs
+        shell: alpine.sh {0}
 
       - name: Upload njs binary to artifacts
         uses: actions/upload-artifact@v2
@@ -152,20 +152,19 @@ jobs:
       - name: Download and extract nginx modules
         run: ./master/scripts/fetch-sources $NGINX_MODULES
 
-      - name: Download alpine-chroot-install
-        run: |
-          wget https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/v0.13.3/alpine-chroot-install
-          echo 'c3005e323029637db20ec9595243ac94bb9b2226  alpine-chroot-install' | sha1sum -c
-          chmod +x alpine-chroot-install
-
       - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
-        run: |
-          sudo ./alpine-chroot-install \
-            -a ${{ matrix.ARCH }} \
-            -b ${{ env.ALPINE_BRANCH }} \
-            -k 'VARIANT NGINX_MODULES CFLAGS LDFLAGS JOBS' \
-            -p 'build-base linux-headers openssl-dev openssl-libs-static pcre-dev zlib-dev zlib-static'
-          /alpine/enter-chroot uname -a
+        uses: jirutka/setup-alpine@v1
+        with:
+          arch: ${{ matrix.ARCH }}
+          branch: ${{ env.ALPINE_BRANCH }}
+          packages: >
+            build-base
+            linux-headers
+            openssl-dev
+            openssl-libs-static
+            pcre-dev
+            zlib-dev
+            zlib-static
 
       - name: Build nginx
         env:
@@ -173,8 +172,8 @@ jobs:
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
-        run: |
-          /alpine/enter-chroot -u $USER ./master/scripts/build-nginx
+        run: ./master/scripts/build-nginx
+        shell: alpine.sh {0}
 
       - name: Upload nginx binary to artifacts
         uses: actions/upload-artifact@v2
