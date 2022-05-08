@@ -7,4 +7,4 @@ https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-
 /usr/local/opt/openssl/lib/libcrypto.a 4091488 84fec47ded2c111a7d40dbd12a1822917e094c6fe10b86767d1511511c0cb78a 1.1.1n openssl
 /usr/local/opt/openssl/lib/libssl.a 725824 65d8a812e070737ea9a2aa548f383cb909c7bb6ed6113ba4adace63c15200d9e 1.1.1n openssl
 /usr/local/opt/pcre/lib/libpcre.a 499160 50aea46711f4a3a21adbfd2d3db472e35cf13202e9791bb6fb98e19b396c7c7d 8.45 pcre
-/usr/local/opt/zlib/lib/libz.a 97576 5dddf674faac2ac6e1984edecda68d8a9eb1fb4d8e0a225db8e42d015924e7fb 1.2.11 zlib
+/usr/local/opt/zlib/lib/libz.a 102224 e4dd384b24f0ed16a8b7c59e6d9dac5a94c1d64e500ff15c9f341883ce7ee23e 1.2.12 zlib

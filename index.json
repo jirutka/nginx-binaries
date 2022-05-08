@@ -77,10 +77,10 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.18.0-x86_64-darwin",
-      "date": "2022-04-17T02:15:36Z",
-      "size": 4266584,
-      "checksum": "sha1:b00ef76924a1aa4a70cf5acec4b8a7ba7a8510c4",
-      "integrity": "sha1-b00ef76924a1aa4a70cf5acec4b8a7ba7a8510c4",
+      "date": "2022-05-08T02:26:02Z",
+      "size": 4266624,
+      "checksum": "sha1:bcfe33f6df0533d1def7dd4a5f1a9331e9091cf9",
+      "integrity": "sha1-bcfe33f6df0533d1def7dd4a5f1a9331e9091cf9",
       "bundledLibs": {
         "njs": "0.7.3",
         "ngx_devel_kit": "0.3.1",
@@ -89,7 +89,7 @@
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1n",
         "pcre": "8.45",
-        "zlib": "1.2.11"
+        "zlib": "1.2.12"
       }
     },
     {
@@ -122,21 +122,21 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.18.0-x86_64-win32.exe",
-      "date": "2022-04-03T02:13:33Z",
+      "date": "2022-05-08T02:26:02Z",
       "size": 3051008,
-      "checksum": "sha1:4b1c2d1f124706a41de583cbbd3f33fcf9c4d96e",
-      "integrity": "sha1-4b1c2d1f124706a41de583cbbd3f33fcf9c4d96e",
+      "checksum": "sha1:40c4be6b915892e8fa8300dc07cb3348fd878e3d",
+      "integrity": "sha1-40c4be6b915892e8fa8300dc07cb3348fd878e3d",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
         "headers-more-nginx-module": "0.33",
         "set-misc-nginx-module": "0.33",
-        "openssl": "1.1.1n",
+        "openssl": "1.1.1o",
         "pcre": "8.45",
         "zlib": "1.2.12",
-        "mingw-w64-x86_64-gcc": "11.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6448.b03cbfb95-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6448.b03cbfb95-1"
+        "mingw-w64-x86_64-gcc": "11.3.0-1",
+        "mingw-w64-x86_64-crt-git": "10.0.0.r14.ga08c638f8-1",
+        "mingw-w64-x86_64-winpthreads-git": "10.0.0.r14.ga08c638f8-1"
       }
     },
     {
@@ -1316,10 +1316,10 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.20.2-x86_64-darwin",
-      "date": "2022-04-17T02:15:39Z",
-      "size": 4283256,
-      "checksum": "sha1:f351af457690b9e626b0d4328b7ce30faf83fc57",
-      "integrity": "sha1-f351af457690b9e626b0d4328b7ce30faf83fc57",
+      "date": "2022-05-08T02:26:03Z",
+      "size": 4299744,
+      "checksum": "sha1:73865cee4ed457332fb4079d34f7e5bd22847364",
+      "integrity": "sha1-73865cee4ed457332fb4079d34f7e5bd22847364",
       "bundledLibs": {
         "njs": "0.7.3",
         "ngx_devel_kit": "0.3.1",
@@ -1328,7 +1328,7 @@
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1n",
         "pcre": "8.45",
-        "zlib": "1.2.11"
+        "zlib": "1.2.12"
       }
     },
     {
@@ -1361,21 +1361,21 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.20.2-x86_64-win32.exe",
-      "date": "2022-04-03T02:13:34Z",
+      "date": "2022-05-08T02:26:03Z",
       "size": 3068928,
-      "checksum": "sha1:4a83aa589d1f18e830fc586590108e0a51cab89d",
-      "integrity": "sha1-4a83aa589d1f18e830fc586590108e0a51cab89d",
+      "checksum": "sha1:62c839e91a2451815eaaade3f486168c5dfd9187",
+      "integrity": "sha1-62c839e91a2451815eaaade3f486168c5dfd9187",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
         "headers-more-nginx-module": "0.33",
         "set-misc-nginx-module": "0.33",
-        "openssl": "1.1.1n",
+        "openssl": "1.1.1o",
         "pcre": "8.45",
         "zlib": "1.2.12",
-        "mingw-w64-x86_64-gcc": "11.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6448.b03cbfb95-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6448.b03cbfb95-1"
+        "mingw-w64-x86_64-gcc": "11.3.0-1",
+        "mingw-w64-x86_64-crt-git": "10.0.0.r14.ga08c638f8-1",
+        "mingw-w64-x86_64-winpthreads-git": "10.0.0.r14.ga08c638f8-1"
       }
     },
     {
@@ -2272,10 +2272,10 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.21.6-x86_64-darwin",
-      "date": "2022-04-17T02:15:42Z",
-      "size": 3889840,
-      "checksum": "sha1:ef3cfd4006830440f7fd494a92d21641e815a1f5",
-      "integrity": "sha1-ef3cfd4006830440f7fd494a92d21641e815a1f5",
+      "date": "2022-05-08T02:26:04Z",
+      "size": 3889904,
+      "checksum": "sha1:b0a5235b4f810cded220c5ba104805b253d652e7",
+      "integrity": "sha1-b0a5235b4f810cded220c5ba104805b253d652e7",
       "bundledLibs": {
         "njs": "0.7.3",
         "ngx_devel_kit": "0.3.1",
@@ -2283,7 +2283,7 @@
         "headers-more-nginx-module": "0.33",
         "set-misc-nginx-module": "0.33",
         "openssl": "1.1.1n",
-        "zlib": "1.2.11"
+        "zlib": "1.2.12"
       }
     },
     {
@@ -2316,21 +2316,21 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.21.6-x86_64-win32.exe",
-      "date": "2022-04-03T02:13:35Z",
+      "date": "2022-05-08T02:26:04Z",
       "size": 3072512,
-      "checksum": "sha1:f2cd765ff443d7c081c9a949ce46496dd0d1eef6",
-      "integrity": "sha1-f2cd765ff443d7c081c9a949ce46496dd0d1eef6",
+      "checksum": "sha1:4fb9c5bedc146621855de39c76d53c47657006fa",
+      "integrity": "sha1-4fb9c5bedc146621855de39c76d53c47657006fa",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.1",
         "echo-nginx-module": "0.62",
         "headers-more-nginx-module": "0.33",
         "set-misc-nginx-module": "0.33",
-        "openssl": "1.1.1n",
+        "openssl": "1.1.1o",
         "pcre": "8.45",
         "zlib": "1.2.12",
-        "mingw-w64-x86_64-gcc": "11.2.0-10",
-        "mingw-w64-x86_64-crt-git": "9.0.0.6448.b03cbfb95-1",
-        "mingw-w64-x86_64-winpthreads-git": "9.0.0.6448.b03cbfb95-1"
+        "mingw-w64-x86_64-gcc": "11.3.0-1",
+        "mingw-w64-x86_64-crt-git": "10.0.0.r14.ga08c638f8-1",
+        "mingw-w64-x86_64-winpthreads-git": "10.0.0.r14.ga08c638f8-1"
       }
     },
     {
