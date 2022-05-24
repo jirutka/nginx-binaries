@@ -52,16 +52,16 @@ yarn add --dev {npm-name}
 ----
 import { NginxBinary, NjsBinary } from '{npm-name}'
 
-await NginxBinary.versions({ version: '^1.18.0' })
-// => ['1.18.0', '1.19.5']
+await NginxBinary.versions({ version: '^1.21.5' })
+// => ['1.21.5', '1.21.6', '1.22.0']
 
-await NginxBinary.download({ version: '1.18.x' })
-// => '[...]/node_modules/.cache/nginx-binaries/nginx-1.18.0-x86_64-linux'
+await NginxBinary.download({ version: '1.22.x' })
+// => '[...]/node_modules/.cache/nginx-binaries/nginx-1.22.0-x86_64-linux'
 
-await NjsBinary.versions({ version: '^0.4.4' })
-// => ['0.5.0']
+await NjsBinary.versions({ version: '^0.7.0' })
+// => ['0.7.1', '0.7.2', '0.7.3', '0.7.4']
 
-await NjsBinary.download({ version: '^0.4.4', variant: 'debug' }, '.tmp/njs')
+await NjsBinary.download({ version: '^0.7.0', variant: 'debug' }, '.tmp/njs')
 // => '.tmp/njs'
 ----
 
