@@ -1,0 +1,5 @@
+https://github.com/nginx/njs/archive/0.7.4/njs-0.7.4.tar.gz 589203 c474b5adf6b1e8757100bbef35e1dc403183f8d9c0f50bfab01727b7777d7225 0.7.4 njs
+/usr/local/opt/libedit/lib/libedit.a 263760 9857643e6b5216b66932260121e0d9304103af2aa9030fc6215021ecbecf901d 20210910-3.1 libedit
+/usr/local/opt/ncurses/lib/libncursesw.a 566232 658a5f9d0bed53a8c23a82b5715af9f5ccfd7735e61363ecf43016d4043d220e 6.3 ncurses
+/usr/local/opt/openssl/lib/libcrypto.a 4091480 a4118ef18fba562fabc14ee55280f99b1afde08a6bca6f5dc3ce19e6df06aba7 1.1.1o openssl
+/usr/local/opt/pcre/lib/libpcre.a 499160 50aea46711f4a3a21adbfd2d3db472e35cf13202e9791bb6fb98e19b396c7c7d 8.45 pcre
