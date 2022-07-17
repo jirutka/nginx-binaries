@@ -4,6 +4,6 @@ https://github.com/nginx/njs/archive/0.7.5/njs-0.7.5.tar.gz 592998 75eb6581cc503
 /usr/lib/libc.a 9832432 e01fb00b32e336f1b24b6051f60197ad58c1ad2e94ef90b5dca84cb9df41d8f5 1.2.2-r3 musl
 /usr/lib/libcrypto.a 13735546 da303aafe625b2743bd5da9d03d7fd35aafc7cc024fdaa948634b017d0346d2c 1.1.1q-r0 openssl
 /usr/lib/libedit.a 335886 dbd2d8be1aeb394ce0de3e0ac24db66436a2f0d93a32cfb20d7bfcb9dc0b8db6 20210216.3.1-r0 libedit
-/usr/lib/libncursesw.a 744780 163a49775ddaaf73f6b8731ffa0020095783db7697c8022ff5b86f0c1b9155ee 6.2_p20210612-r0 ncurses
+/usr/lib/libncursesw.a 745060 5de510a89c2ad5ce6e9135a8669de5b20f7336704165f9a18a032c271224410a 6.2_p20210612-r1 ncurses
 /usr/lib/libpcre.a 493580 d936a061a299d1414e1a5c12942209a3337c9848bd94a3eed894658025a7632b 8.44-r0 pcre
 /usr/lib/libssp_nonshared.a 3230 7a9a61f69a16a9091b74ca8262d87131348b93332da1fd0fa1b5f5523734083f 1.2.2-r3 musl
