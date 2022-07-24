@@ -1,8 +1,8 @@
 https://github.com/nginx/nginx/archive/release-1.20.2/nginx-1.20.2.tar.gz 1105969 41936071d032e8173ea3119509a13739688045ca8d04d63d04a69ef5331b3bd4 1.20.2 nginx
-https://github.com/nginx/njs/archive/0.7.5/njs-0.7.5.tar.gz 592998 75eb6581cc50383115fc836158fc69b3fc5b79d51aa9038b6095da7679b72842 0.7.5 njs
+https://github.com/nginx/njs/archive/0.7.6/njs-0.7.6.tar.gz 600165 51f529912b8ba5fd01b77bf10620f1c49d479f8f07d5708885f6ca5e42af5c26 0.7.6 njs
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.1/ngx_devel_kit-0.3.1.tar.gz 66542 0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85 0.3.1 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0.62.tar.gz 53329 86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01 0.62 echo-nginx-module
-https://github.com/openresty/headers-more-nginx-module/archive/v0.33/headers-more-nginx-module-0.33.tar.gz 28130 a3dcbab117a9c103bc1ea5200fc00a7b7d2af97ff7fd525f16f8ac2632e30fbf 0.33 headers-more-nginx-module
+https://github.com/openresty/headers-more-nginx-module/archive/v0.34/headers-more-nginx-module-0.34.tar.gz 28827 0c0d2ced2ce895b3f45eb2b230cd90508ab2a773299f153de14a43e44c1209b3 0.34 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 /usr/lib/gcc/powerpc64le-alpine-linux-musl/10.3.1/libgcc.a 260424 dae26cc5ea68caba5e1ff8a9b0760983bb387c5a5a0f00b7829ee0f82eb79d8e 10.3.1_git20210424-r2 gcc
 /usr/lib/gcc/powerpc64le-alpine-linux-musl/10.3.1/libgcc_eh.a 598508 d8abddb2cf1bbd827b84487c7779f3f84e15805699ad5ea7a45e92b2cabc21a4 10.3.1_git20210424-r2 gcc
