@@ -1,10 +1,10 @@
 https://github.com/nginx/nginx/archive/release-1.20.2/nginx-1.20.2.tar.gz 1105969 41936071d032e8173ea3119509a13739688045ca8d04d63d04a69ef5331b3bd4 1.20.2 nginx
 https://github.com/nginx/njs/archive/0.7.7/njs-0.7.7.tar.gz 609779 f9e5b6ee79711ef2fcea6482144c0c901b99ba6bd52d72c1c0ae7415a42f4f45 0.7.7 njs
-https://github.com/vision5/ngx_devel_kit/archive/v0.3.1/ngx_devel_kit-0.3.1.tar.gz 66542 0e971105e210d272a497567fa2e2c256f4e39b845a5ba80d373e26ba1abfbd85 0.3.1 ngx_devel_kit
-https://github.com/openresty/echo-nginx-module/archive/v0.62/echo-nginx-module-0.62.tar.gz 53329 86f6866baf7297d85feb42ff6d9c212d1de696f3314a53d3a41a4b533a67ab01 0.62 echo-nginx-module
+https://github.com/vision5/ngx_devel_kit/archive/v0.3.2/ngx_devel_kit-0.3.2.tar.gz 66551 aa961eafb8317e0eb8da37eb6e2c9ff42267edd18b56947384e719b85188f58b 0.3.2 ngx_devel_kit
+https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.34/headers-more-nginx-module-0.34.tar.gz 28827 0c0d2ced2ce895b3f45eb2b230cd90508ab2a773299f153de14a43e44c1209b3 0.34 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 /usr/local/opt/openssl/lib/libcrypto.a 4091136 4d618fc9010ad3c42fcd4c68198d12ecddea010706666a7d07fe4667a17331e1 1.1.1q openssl
 /usr/local/opt/openssl/lib/libssl.a 726424 7ec0e544031a3035e602eb8054bbff8dc9a8eafbb5720dab934a6a978a318b2e 1.1.1q openssl
 /usr/local/opt/pcre/lib/libpcre.a 499160 50aea46711f4a3a21adbfd2d3db472e35cf13202e9791bb6fb98e19b396c7c7d 8.45 pcre
-/usr/local/opt/zlib/lib/libz.a 102160 c7484f7954e45b653772c4bb8c763ef5a214d21184a7d68bf12bd0c06b550f29 1.2.12_1 zlib
+/usr/local/opt/zlib/lib/libz.a 102208 936a688bf72b722a384f5474cd93850ec2804c7fa66c7092244918f21d79c998 1.2.13 zlib
