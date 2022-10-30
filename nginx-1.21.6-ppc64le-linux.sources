@@ -1,5 +1,5 @@
 https://github.com/nginx/nginx/archive/release-1.21.6/nginx-1.21.6.tar.gz 1116839 8cd5afc05579ccee8842450f4b79f91d2e77f9a223121797b4b4dfd9cf650e5e 1.21.6 nginx
-https://github.com/nginx/njs/archive/0.7.7/njs-0.7.7.tar.gz 609779 f9e5b6ee79711ef2fcea6482144c0c901b99ba6bd52d72c1c0ae7415a42f4f45 0.7.7 njs
+https://github.com/nginx/njs/archive/0.7.8/njs-0.7.8.tar.gz 613161 1dea684c56b12febf58ed450dfe4583d3fa5d146518e5dba1607b81b6e7f9af4 0.7.8 njs
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.2/ngx_devel_kit-0.3.2.tar.gz 66551 aa961eafb8317e0eb8da37eb6e2c9ff42267edd18b56947384e719b85188f58b 0.3.2 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.34/headers-more-nginx-module-0.34.tar.gz 28827 0c0d2ced2ce895b3f45eb2b230cd90508ab2a773299f153de14a43e44c1209b3 0.34 headers-more-nginx-module
