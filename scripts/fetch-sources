@@ -114,5 +114,9 @@ for item in "$@"; do
 	tar --strip-components=1 -C "$dir" -xf "$filename"
 	rm "$filename"
 
+	case "$name-$ver" in
+		nginx/njs-0.7.12) patch --batch -d "$dir" -p1 < master/patches/njs-0.7.12-fix-module-build.patch;;
+	esac
+
 	echo "$url $size $hash $ver ${name#*/}" | tee -a .SOURCES
 done

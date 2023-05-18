@@ -8,6 +8,7 @@ on:
       - '**'
     paths:
       - .github/workflows/binaries.yml
+      - patches/*
       - scripts/*
   schedule:
     - cron:  '0 0 * * 0'  # run each Sunday

@@ -34,6 +34,7 @@ add_module() {
 configure() {
 	set -x  # log commands
 
+	NJS_LIBXSLT=NO \
 	./auto/configure \
 		--prefix="." \
 		--sbin-path="nginx" \

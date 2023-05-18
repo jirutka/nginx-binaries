@@ -1,0 +1,110 @@
+Patch-Source: https://github.com/nginx/njs/commit/cd1ac80f692d62dc87d08458a985f4502caec934
+--
+From cd1ac80f692d62dc87d08458a985f4502caec934 Mon Sep 17 00:00:00 2001
+From: Dmitry Volyntsev <xeioex@nginx.com>
+Date: Wed, 10 May 2023 22:36:53 -0700
+Subject: [PATCH] Modules: added options to disable parts dependant on 3rd
+ party libs.
+
+The following environment variables are added: NJS_OPENSSL, NJS_LIBXSLT,
+NJS_ZLIB.  When a variable evaluates to "NO" the part of the module
+related to the corresponsing library is disabled.
+
+For example to disable libxslt related code:
+    NJS_LIBXSLT=NO ./configure  .. --add-module=/path/to/njs/module
+---
+ nginx/config   | 43 +++++++++++++++++++++++++++++++++++++------
+ nginx/ngx_js.c |  6 ++++++
+ 2 files changed, 43 insertions(+), 6 deletions(-)
+
+diff --git a/nginx/config b/nginx/config
+index 58e8cb84c..1bd922f42 100644
+--- a/nginx/config
++++ b/nginx/config
+@@ -1,13 +1,42 @@
+ ngx_addon_name="ngx_js_module"
+ 
++NJS_OPENSSL=${NJS_OPENSSL:-YES}
++NJS_LIBXSLT=${NJS_LIBXSLT:-YES}
++NJS_ZLIB=${NJS_ZLIB:-YES}
++
+ NJS_DEPS="$ngx_addon_dir/ngx_js.h \
+     $ngx_addon_dir/ngx_js_fetch.h"
+ NJS_SRCS="$ngx_addon_dir/ngx_js.c \
+     $ngx_addon_dir/ngx_js_fetch.c \
+-    $ngx_addon_dir/ngx_js_regex.c \
+-    $ngx_addon_dir/../external/njs_webcrypto_module.c
+-    $ngx_addon_dir/../external/njs_zlib_module.c
+-    $ngx_addon_dir/../external/njs_xml_module.c"
++    $ngx_addon_dir/ngx_js_regex.c"
++
++NJS_OPENSSL_LIB=
++NJS_XSLT_LIB=
++NJS_ZLIB_LIB=
++
++if [ $NJS_OPENSSL != NO ]; then
++    NJS_OPENSSL_LIB=OPENSSL
++    have=NJS_HAVE_OPENSSL . auto/have
++    NJS_SRCS="$NJS_SRCS $ngx_addon_dir/../external/njs_webcrypto_module.c"
++
++    echo " enabled webcrypto module"
++fi
++
++if [ $NJS_LIBXSLT != NO ]; then
++    NJS_XSLT_LIB=LIBXSLT
++    have=NJS_HAVE_XML . auto/have
++    NJS_SRCS="$NJS_SRCS $ngx_addon_dir/../external/njs_xml_module.c"
++
++    echo " enabled xml module"
++fi
++
++if [ $NJS_ZLIB != NO ]; then
++    NJS_ZLIB_LIB=ZLIB
++    have=NJS_HAVE_ZLIB . auto/have
++    NJS_SRCS="$NJS_SRCS $ngx_addon_dir/../external/njs_zlib_module.c"
++
++    echo " enabled zlib module"
++fi
+ 
+ if [ $HTTP != NO ]; then
+     ngx_module_type=HTTP_AUX_FILTER
+@@ -15,7 +44,8 @@ if [ $HTTP != NO ]; then
+     ngx_module_incs="$ngx_addon_dir/../src $ngx_addon_dir/../build"
+     ngx_module_deps="$ngx_addon_dir/../build/libnjs.a $NJS_DEPS"
+     ngx_module_srcs="$ngx_addon_dir/ngx_http_js_module.c $NJS_SRCS"
+-    ngx_module_libs="PCRE OPENSSL ZLIB LIBXSLT $ngx_addon_dir/../build/libnjs.a -lm"
++    ngx_module_libs="PCRE $NJS_OPENSSL_LIB $NJS_XSLT_LIB $NJS_ZLIB_LIB \
++                     $ngx_addon_dir/../build/libnjs.a -lm"
+ 
+     . auto/module
+ 
+@@ -30,7 +60,8 @@ if [ $STREAM != NO ]; then
+     ngx_module_incs="$ngx_addon_dir/../src $ngx_addon_dir/../build"
+     ngx_module_deps="$ngx_addon_dir/../build/libnjs.a $NJS_DEPS"
+     ngx_module_srcs="$ngx_addon_dir/ngx_stream_js_module.c $NJS_SRCS"
+-    ngx_module_libs="PCRE OPENSSL ZLIB LIBXSLT $ngx_addon_dir/../build/libnjs.a -lm"
++    ngx_module_libs="PCRE $NJS_OPENSSL_LIB $NJS_XSLT_LIB $NJS_ZLIB_LIB \
++                     $ngx_addon_dir/../build/libnjs.a -lm"
+ 
+     . auto/module
+ fi
+diff --git a/nginx/ngx_js.c b/nginx/ngx_js.c
+index 2b5be2cee..ed3ea5c26 100644
+--- a/nginx/ngx_js.c
++++ b/nginx/ngx_js.c
+@@ -88,9 +88,15 @@ static njs_external_t  ngx_js_ext_core[] = {
+ 
+ 
+ njs_module_t *njs_js_addon_modules[] = {
++#ifdef NJS_HAVE_OPENSSL
+     &njs_webcrypto_module,
++#endif
++#ifdef NJS_HAVE_XML
+     &njs_xml_module,
++#endif
++#ifdef NJS_HAVE_ZLIB
+     &njs_zlib_module,
++#endif
+     NULL,
+ };
+ 

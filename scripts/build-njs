@@ -22,6 +22,7 @@ set -x  # log commands
 ./configure \
 	--cc-opt="$CFLAGS" \
 	--ld-opt="${LDFLAGS/-static/}" \
+	--no-libxml2 \
 	--no-pcre2 \
 	--debug="$DEBUG"
 NJS_CFLAGS=$(sed -n 's/^NJS_CFLAGS\s*=\s*//p' build/Makefile)
