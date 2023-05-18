@@ -33,7 +33,7 @@ cc -o build/njs \
 	-Isrc -Ibuild -Injs \
 	src/njs_shell.c \
 	build/libnjs.a \
-	-lcrypto -lm -lpcre -ledit -lncursesw
+	-lcrypto -lm -lpcre -ledit -lncursesw -lz
 
 ls -lah build/
 [ "$DEBUG" = 'YES' ] || strip build/njs

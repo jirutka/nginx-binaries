@@ -316,8 +316,8 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 
 === njs
 
-*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, ncurses and pcre from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, ncurses, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 
-*macOS* binary is statically linked with libedit, ncurses and pcre from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with libedit, ncurses, pcre and zlib from https://brew.sh[Homebrew].
 
 endif::npm-readme[]

@@ -70,6 +70,7 @@ jobs:
             openssl-dev
             openssl-libs-static
             pcre-dev
+            zlib-static
 
       - name: Build njs
         env:
@@ -96,7 +97,7 @@ jobs:
           - ''
     steps:
       - name: Install dependencies
-        run: brew install gsed jq libedit openssl@1.1 ncurses pcre
+        run: brew install gsed jq libedit openssl@1.1 ncurses pcre zlib
 
       - name: Checkout master branch
         uses: actions/checkout@v2
@@ -114,12 +115,13 @@ jobs:
           rm /usr/local/opt/openssl/lib/*.dylib
           rm /usr/local/opt/ncurses/lib/*.dylib
           rm /usr/local/opt/pcre/lib/*.dylib
+          rm /usr/local/opt/zlib/lib/*.dylib
 
       - name: Build njs
         env:
           VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include
-          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/libedit/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib
+          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/libedit/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ncurses/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/libedit/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ncurses/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
         run: ./master/scripts/build-njs
 
       - name: Upload njs binary to artifacts
