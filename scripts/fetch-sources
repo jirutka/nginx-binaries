@@ -40,11 +40,6 @@ github_latest_version_tag() {
 	local jq_filter_tags=". | map(.name | select(test(\"^$ver_regex_esc$\")))"
 	local jq_latest='max_by(sub("^[^0-9]+"; "") | split(".") | map(tonumber))'
 
-	# XXX: Hack for https://github.com/openresty/headers-more-nginx-module/issues/117.
-	if [ "$repo_slug" = 'openresty/headers-more-nginx-module' ]; then
-		jq_filter_tags="$jq_filter_tags - [\"v0.261\"]"
-	fi
-
 	if tag=$(github_curl "$tags_url" | jq -er "$jq_filter_tags | $jq_latest") && [ "$tag" ]; then
 		echo "$tag"
 	else
