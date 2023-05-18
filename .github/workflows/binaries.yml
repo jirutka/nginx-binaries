@@ -26,13 +26,14 @@ env:
   NGINX_MODULES: >-
     nginx/njs
     kjdev/nginx-auth-jwt
+    kjdev/nginx-keyval
     vision5/ngx_devel_kit
     openresty/echo-nginx-module
     openresty/headers-more-nginx-module
     openresty/set-misc-nginx-module
   # The same as above, but for Windows.
   # - nginx/njs: doesn't support Windows
-  # - kjdev/nginx-auth-jwt: a bit complicated to build (TODO)
+  # - kjdev/nginx-auth-jwt, kjdev/nginx-keyval: a bit complicated to build (TODO)
   NGINX_MODULES_WIN32: >-
     vision5/ngx_devel_kit
     openresty/echo-nginx-module
