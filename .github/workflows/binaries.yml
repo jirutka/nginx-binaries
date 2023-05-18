@@ -25,6 +25,15 @@ env:
   # List of extra nginx modules to download.
   NGINX_MODULES: >-
     nginx/njs
+    kjdev/nginx-auth-jwt
+    vision5/ngx_devel_kit
+    openresty/echo-nginx-module
+    openresty/headers-more-nginx-module
+    openresty/set-misc-nginx-module
+  # The same as above, but for Windows.
+  # - nginx/njs: doesn't support Windows
+  # - kjdev/nginx-auth-jwt: a bit complicated to build (TODO)
+  NGINX_MODULES_WIN32: >-
     vision5/ngx_devel_kit
     openresty/echo-nginx-module
     openresty/headers-more-nginx-module
@@ -161,6 +170,8 @@ jobs:
           branch: ${{ env.ALPINE_BRANCH }}
           packages: >
             build-base
+            jansson-dev
+            jansson-static
             linux-headers
             openssl-dev
             openssl-libs-static
@@ -193,7 +204,7 @@ jobs:
           - 1.24.x
     steps:
       - name: Install dependencies
-        run: brew install gsed jq openssl@1.1 pcre zlib
+        run: brew install gsed jansson jq openssl@1.1 pcre zlib
 
       - name: Checkout master branch
         uses: actions/checkout@v3
@@ -210,6 +221,7 @@ jobs:
       # we have to remove them to give it no other option than using static.
       - name: Remove dylibs
         run: |
+          rm /usr/local/opt/jansson/lib/*.dylib
           rm /usr/local/opt/openssl/lib/*.dylib
           rm /usr/local/opt/pcre/lib/*.dylib
           rm /usr/local/opt/zlib/lib/*.dylib
@@ -217,8 +229,8 @@ jobs:
       - name: Build nginx
         env:
           NGINX_MODULES: ${{ env.NGINX_MODULES }}
-          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
-          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
+          CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/jansson/include -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/jansson/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
@@ -236,10 +248,6 @@ jobs:
           - 1.23.x
           - 1.24.x
     steps:
-      - name: Remove nginx/njs from NGINX_MODULES (not supported on Windows)
-        shell: bash
-        run: echo NGINX_MODULES=$(printf '%s\n' $NGINX_MODULES | grep -xv nginx/njs) >> $GITHUB_ENV
-
       - name: Setup MSYS2 and install packages
         uses: msys2/setup-msys2@v2
         with:
@@ -261,7 +269,7 @@ jobs:
 
       - name: Download and extract nginx modules
         shell: msys2 {0}
-        run: ./master/scripts/fetch-sources $NGINX_MODULES
+        run: ./master/scripts/fetch-sources $NGINX_MODULES_WIN32
 
       - name: Download and extract libraries
         shell: msys2 {0}
@@ -283,7 +291,7 @@ jobs:
       - name: Build nginx
         shell: msys2 {0}
         env:
-          NGINX_MODULES: ${{ env.NGINX_MODULES }}
+          NGINX_MODULES: ${{ env.NGINX_MODULES_WIN32 }}
           # -DFD_SETSIZE=1024 is per official nginx win32 binary.
           CFLAGS: ${{ env.CFLAGS }} -DFD_SETSIZE=1024
           LDFLAGS: ${{ env.WIN32_LDFLAGS }}

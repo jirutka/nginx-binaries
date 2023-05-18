@@ -268,10 +268,10 @@ pass:[<s>armv7</s>] footnote:armv7[]
 
 === nginx
 
-*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], jansson, openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 It’s compiled with debug mode, threads and aio.
 
-*macOS* binary is statically linked with openssl, pcre and zlib from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with jansson, openssl, pcre and zlib from https://brew.sh[Homebrew].
 It’s compiled with debug mode, threads and aio.
 
 *Windows* binary is statically linked with latest openssl, pcre and zlib built from sources.
@@ -315,6 +315,7 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 * https://github.com/openresty/headers-more-nginx-module[headers-more-nginx-module]
 * https://github.com/vision5/ngx_devel_kit[ngx_devel_kit]
 * https://github.com/openresty/set-misc-nginx-module[set-misc-nginx-module]
+* https://github.com/kjdev/nginx-auth-jwt[kjdev/nginx-auth-jwt] (since 1.22.1, 1.23.4, and 1.24.0; except Windows binaries)
 
 
 === njs
