@@ -1,6 +1,7 @@
 name: js
 on:
   - push
+  - pull_request
 
 jobs:
   test:
@@ -15,7 +16,7 @@ jobs:
   publish:
     name: Publish on npmjs
     needs: test
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') && github.event_name != 'pull_request'
     runs-on: ubuntu-20.04
     steps:
       - name: Install asciidoctor and pandoc
