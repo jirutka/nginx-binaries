@@ -46,7 +46,6 @@ jobs:
         ARCH:
           - x86_64
           - aarch64
-          - armv7
           - ppc64le
     steps:
       - name: Checkout master branch
@@ -142,7 +141,6 @@ jobs:
         ARCH:
           - x86_64
           - aarch64
-          - armv7
           - ppc64le
     steps:
       - name: Checkout master branch

@@ -11,7 +11,7 @@ ifdef::env-github[]
 image:https://github.com/{gh-name}/workflows/binaries/badge.svg[Binaries Workflow, link=https://github.com/{gh-name}/actions?query=workflow%3A%22binaries%22]
 endif::env-github[]
 
-This project provides standalone nginx and njs (NGINX JavaScript) binaries for *any* Linux system footnote:[nginx binaries are built as standalone static executables, so they works on every Linux system regardless of used libc.] (x86_64, aarch64, armv7, ppc64le), macOS (x86_64), and Windows (x86_64).
+This project provides standalone nginx and njs (NGINX JavaScript) binaries for *any* Linux system footnote:[nginx binaries are built as standalone static executables, so they works on every Linux system regardless of used libc.] (x86_64, aarch64, ppc64le), macOS (x86_64), and Windows (x86_64).
 It also provides a JS library for downloading these binaries (for use in integration tests).
 
 ifndef::npm-readme[]
@@ -239,8 +239,8 @@ Suffix `.exe` is used for Windows binaries only.
 | Linux
 | x86_64 +
 aarch64 +
-armv7 +
-ppc64le
+ppc64le +
+pass:[<s>armv7</s>] footnote:armv7[As of January 2023, binaries for armv7 are no longer built -- gcc runs out of memory when building njs using the QEMU emulator. If you want support for armv7, let me know in issues.]
 
 | macOS
 | x86_64
@@ -255,8 +255,8 @@ debug
 | Linux
 | x86_64 +
 aarch64 +
-armv7 +
-ppc64le
+ppc64le +
+pass:[<s>armv7</s>] footnote:armv7[]
 
 | macOS
 | x86_64
