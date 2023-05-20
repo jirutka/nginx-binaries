@@ -1,9 +1,10 @@
 import * as crypto from 'node:crypto'
 import { createReadStream, createWriteStream, mkdirSync as mkdir } from 'node:fs'
-import { RequestInit } from 'node-fetch'
 import { basename, dirname } from 'node:path'
 import * as stream from 'node:stream'
 import { promisify } from 'node:util'
+
+import { RequestInit } from 'node-fetch'
 
 import { fetch } from './fetch'
 import { log } from '../logger'
