@@ -53,7 +53,7 @@ async function checkFileChecksum (filepath: string, checksum: string): Promise<b
     await streamPipeline(createReadStream(filepath), hash)
     return hash.digest('hex') === expectedHash
 
-  } catch (err) {
+  } catch (err: any) {
     if (err.code === 'ENOENT' || err.code === 'EISDIR') {
       return false
     }

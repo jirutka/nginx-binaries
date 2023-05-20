@@ -160,4 +160,4 @@ const queryFilter = (query: Query) => (meta: IndexEntry) => objKeys(query).every
     : query[key] === meta[key]
 })
 
-const objKeys = <T> (obj: T) => Object.keys(obj) as Array<keyof T>
+const objKeys = <T extends {}> (obj: T) => Object.keys(obj) as Array<keyof T>
