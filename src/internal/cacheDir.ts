@@ -1,6 +1,6 @@
-import * as FS from 'fs'
-import * as OS from 'os'
-import * as path from 'path'
+import * as FS from 'node:fs'
+import * as OS from 'node:os'
+import * as path from 'node:path'
 
 
 export function getCacheDir (name: string): string {

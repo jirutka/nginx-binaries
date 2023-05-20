@@ -1,6 +1,6 @@
-import * as FS from 'fs'
+import * as FS from 'node:fs'
 import { FetchError } from 'node-fetch'
-import * as path from 'path'
+import * as path from 'node:path'
 import * as semver from 'semver'
 
 import { normalizeArch } from './internal/archName'

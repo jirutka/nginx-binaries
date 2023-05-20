@@ -1,9 +1,9 @@
 import { assert } from 'chai'
-import * as FS from 'fs'
+import * as FS from 'node:fs'
 import * as getPort from 'get-port'
 import { after, before, test } from 'mocha'
-import * as OS from 'os'
-import { basename } from 'path'
+import * as OS from 'node:os'
+import { basename } from 'node:path'
 
 import { createStaticServer, isFile, readJson } from './helpers'
 import { IndexEntry, NginxBinary } from '../src'

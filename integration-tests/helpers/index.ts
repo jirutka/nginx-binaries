@@ -1,7 +1,7 @@
-import * as FS from 'fs'
-import * as http from 'http'
+import * as FS from 'node:fs'
+import * as http from 'node:http'
 import * as finalHandler from 'finalhandler'
-import * as OS from 'os'
+import * as OS from 'node:os'
 import * as serveStatic from 'serve-static'
 
 

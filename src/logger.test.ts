@@ -1,4 +1,4 @@
-import { strict as assert } from 'assert'
+import { strict as assert } from 'node:assert'
 import type AnyLoggerModule from 'anylogger'
 import debug from 'debug'
 import { beforeEach, describe, test } from 'mocha'
