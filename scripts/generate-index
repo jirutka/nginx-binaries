@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 /**
- * TODO: Remove `{ integrity?: string }` after 'integrity' is removed.
- * @typedef {import('../src/index').IndexEntry & { integrity?: string }} IndexEntry
+ * @typedef {import('../src/index').IndexEntry} IndexEntry
  * @typedef {import('../src/index').IndexFile} IndexFile
  * @typedef {IndexEntry[]} Index
  */
@@ -131,8 +130,6 @@ const generateIndex = () => fs.readdirSync('.')
       date: fileModifiedDate(filename),
       size: fs.statSync(filename).size,
       checksum: `sha1:${checksum}`,
-      // TODO: This is for backward compatibility with < 0.5.0, remove it in near future.
-      integrity: `sha1-${checksum}`,
       bundledLibs: collectBundledLibs(`${filename}.sources`, entry.name),
     }
   })
@@ -208,8 +205,7 @@ switch (format) {
     break
   case 'csv':
     write(outFile, stringifyAsCsv(
-      // TODO: Remove after 'integrity' is removed.
-      index.map(entry => omit(entry, 'bundledLibs', 'integrity')),
+      index.map(entry => omit(entry, 'bundledLibs')),
     ))
     break
   default:
