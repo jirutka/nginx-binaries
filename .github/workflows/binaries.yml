@@ -146,8 +146,8 @@ jobs:
       matrix:
         NGINX_VERSION:
           - 1.22.x
-          - 1.23.x
           - 1.24.x
+          - 1.25.x
         ARCH:
           - x86_64
           - aarch64
@@ -201,8 +201,8 @@ jobs:
       matrix:
         NGINX_VERSION:
           - 1.22.x
-          - 1.23.x
           - 1.24.x
+          - 1.25.x
     steps:
       - name: Install dependencies
         run: brew install gsed jansson jq openssl@1.1 pcre zlib
@@ -246,8 +246,8 @@ jobs:
       matrix:
         NGINX_VERSION:
           - 1.22.x
-          - 1.23.x
           - 1.24.x
+          - 1.25.x
     steps:
       - name: Setup MSYS2 and install packages
         uses: msys2/setup-msys2@v2

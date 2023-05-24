@@ -235,8 +235,9 @@ Suffix `.exe` is used for Windows binaries only.
 1.20.x (EOL) +
 1.21.x (EOL) +
 1.22.x (old stable) +
-1.23.x (mainline) +
-1.24.x (stable)
+1.23.x (EOL) +
+1.24.x (stable) +
+1.25.x (mainline)
 
 .3+| _default_
 | Linux
