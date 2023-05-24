@@ -268,13 +268,13 @@ pass:[<s>armv7</s>] footnote:armv7[]
 
 === nginx
 
-*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], jansson, openssl, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], jansson, openssl (3.x), pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 It’s compiled with debug mode, threads and aio.
 
-*macOS* binary is statically linked with jansson, openssl, pcre and zlib from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with jansson, openssl@1.1, pcre and zlib from https://brew.sh[Homebrew].
 It’s compiled with debug mode, threads and aio.
 
-*Windows* binary is statically linked with latest openssl, pcre and zlib built from sources.
+*Windows* binary is statically linked with latest openssl 1.1.x, pcre 8.x and zlib 1.2.x built from sources.
 It’s compiled with debug mode and patches from https://github.com/myfreeer/nginx-build-msys2[nginx-build-msys2] made by https://github.com/myfreeer[@myfreeer].
 
 
@@ -321,8 +321,8 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 
 === njs
 
-*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, ncurses, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
+*Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, openssl (3.x), ncurses, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 
-*macOS* binary is statically linked with libedit, ncurses, pcre and zlib from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with libedit, openssl@1.1, ncurses, pcre and zlib from https://brew.sh[Homebrew].
 
 endif::npm-readme[]
