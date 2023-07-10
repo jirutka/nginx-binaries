@@ -16,6 +16,11 @@ case "$VARIANT" in
 	*) DEBUG='NO';;
 esac
 
+case "$NJS_VERSION" in
+	0.[5-7].*) NJS_SHELL_C='src/njs_shell.c';;
+	*) NJS_SHELL_C='external/njs_shell.c';;
+esac
+
 set -x  # log commands
 
 # --no-pcre2 - prefer pcre (8.x) over pcre2 (10.x), it's much smaller
@@ -31,7 +36,7 @@ make libnjs
 cc -o build/njs \
 	$NJS_CFLAGS $LDFLAGS \
 	-Isrc -Ibuild -Injs \
-	src/njs_shell.c \
+	$NJS_SHELL_C \
 	build/libnjs.a \
 	-lcrypto -lm -lpcre -ledit -lncursesw -lz
 
