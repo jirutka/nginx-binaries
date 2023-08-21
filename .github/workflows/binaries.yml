@@ -376,7 +376,7 @@ jobs:
         run: |
           git status || exit 1
           test -n "$(git status --porcelain)" && result=yes || result=no
-          echo ::set-output name=result::$result
+          echo "result=$result" >> $GITHUB_OUTPUT
 
       - name: Commit changes
         if: steps.has_changes.outputs.result == 'yes'
