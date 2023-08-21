@@ -1,7 +1,15 @@
 name: js
 on:
-  - push
-  - pull_request
+  push:
+    paths-ignore:
+      - .github/workflows/binaries.yml
+      - scripts/*
+      - README.adoc
+  pull_request:
+    paths-ignore:
+      - .github/workflows/binaries.yml
+      - scripts/*
+      - README.adoc
 
 jobs:
   test:
