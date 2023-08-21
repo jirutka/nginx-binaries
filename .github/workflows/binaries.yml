@@ -266,7 +266,7 @@ jobs:
 
       - name: Download and extract nginx MSYS2 patches
         shell: msys2 {0}
-        run: ./master/scripts/fetch-sources -d msys2 "myfreeer/nginx-build-msys2@1.18.0"
+        run: ./master/scripts/fetch-sources -d msys2 "myfreeer/nginx-build-msys2@1.22.0"
 
       - name: Download and extract nginx modules
         shell: msys2 {0}
