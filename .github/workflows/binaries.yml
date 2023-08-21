@@ -187,7 +187,6 @@ jobs:
       - name: Build nginx
         env:
           NGINX_MODULES: nginx/njs ${{ env.NGINX_MODULES }}
-          VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
         run: ./master/scripts/build-nginx
