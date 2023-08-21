@@ -291,7 +291,6 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 * {nginx-docs-uri}/http/ngx_http_charset_module.html[ngx_http_charset_module]
 * {nginx-docs-uri}/http/ngx_http_empty_gif_module.html[ngx_http_empty_gif_module]
 * {nginx-docs-uri}/http/ngx_http_gzip_module.html[ngx_http_gzip_module]
-* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module] (except Windows footnote:[njs is not supported on Windows, see https://github.com/nginx/njs/issues/320[nginx/njs#320]])
 * {nginx-docs-uri}/http/ngx_http_limit_conn_module.html[ngx_http_limit_conn_module]
 * {nginx-docs-uri}/http/ngx_http_limit_req_module.html[ngx_http_limit_req_module]
 * {nginx-docs-uri}/http/ngx_http_map_module.html[ngx_http_map_module]
@@ -310,6 +309,14 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 * {nginx-docs-uri}/http/ngx_http_userid_module.html[ngx_http_userid_module]
 * {nginx-docs-uri}/http/ngx_http_v2_module.html[ngx_http_v2_module]
 
+*Extra Modules:* footnote:[Modules that are provided by NGINX but released separately.]
+
+* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module] (except Windows footnote:[njs is not supported on Windows, see https://github.com/nginx/njs/issues/320[nginx/njs#320]])
+
+Since nginx 1.22.0, the stable and mainline versions of nginx include the latest version of njs available at the time of building.
+The _old stable_ versions of nginx include the latest minor (i.e. x.**Y**.z) version of njs released prior to the release of a new stable nginx (and the latest patch version available at the time of building).
+That is, it’s the same as in NGINX’s own packages.
+
 *3rd Party Modules:*
 
 * https://github.com/openresty/echo-nginx-module[echo-nginx-module]
@@ -318,6 +325,8 @@ It’s compiled with debug mode and patches from https://github.com/myfreeer/ngi
 * https://github.com/openresty/set-misc-nginx-module[set-misc-nginx-module]
 * https://github.com/kjdev/nginx-auth-jwt[kjdev/nginx-auth-jwt] (since 1.22.1, 1.23.4, and 1.24.0; except Windows binaries)
 * https://github.com/kjdev/nginx-keyval[nginx-keyval] (since 1.22.1, 1.23.4, and 1.24.0; except Windows binaries)
+
+nginx binaries include the latest version of the third-party modules available at the time of building.
 
 
 === njs

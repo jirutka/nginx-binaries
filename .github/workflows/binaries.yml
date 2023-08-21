@@ -23,8 +23,8 @@ env:
   DARWIN_LDFLAGS: -Wl,-map,linker.map
   WIN32_LDFLAGS: -Wl,--as-needed -Wl,-Map,linker.map
   # List of extra nginx modules to download.
+  # NOTE: nginx/njs is not defined here, but directly in the jobs.
   NGINX_MODULES: >-
-    nginx/njs
     kjdev/nginx-auth-jwt
     kjdev/nginx-keyval
     vision5/ngx_devel_kit
@@ -32,7 +32,6 @@ env:
     openresty/headers-more-nginx-module
     openresty/set-misc-nginx-module
   # The same as above, but for Windows.
-  # - nginx/njs: doesn't support Windows
   # - kjdev/nginx-auth-jwt, kjdev/nginx-keyval: a bit complicated to build (TODO)
   NGINX_MODULES_WIN32: >-
     vision5/ngx_devel_kit
@@ -152,6 +151,11 @@ jobs:
           - x86_64
           - aarch64
           - ppc64le
+        include:
+          - NJS_VERSION: 0.x.x
+          # Pin older njs version for old stable nginx.
+          - NGINX_VERSION: 1.22.x
+            NJS_VERSION: 0.7.x
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v3
@@ -162,7 +166,7 @@ jobs:
         run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
       - name: Download and extract nginx modules
-        run: ./master/scripts/fetch-sources $NGINX_MODULES
+        run: ./master/scripts/fetch-sources nginx/njs@${{ matrix.NJS_VERSION }} $NGINX_MODULES
 
       - name: Install Alpine ${{ env.ALPINE_BRANCH }} for ${{ matrix.ARCH }}
         uses: jirutka/setup-alpine@v1
@@ -182,7 +186,7 @@ jobs:
 
       - name: Build nginx
         env:
-          NGINX_MODULES: ${{ env.NGINX_MODULES }}
+          NGINX_MODULES: nginx/njs ${{ env.NGINX_MODULES }}
           VARIANT: ${{ matrix.VARIANT }}
           CFLAGS: ${{ env.CFLAGS }}
           LDFLAGS: ${{ env.LINUX_LDFLAGS }}
@@ -203,6 +207,11 @@ jobs:
           - 1.22.x
           - 1.24.x
           - 1.25.x
+        include:
+          - NJS_VERSION: 0.x.x
+          # Pin older njs version for old nginx.
+          - NGINX_VERSION: 1.22.x
+            NJS_VERSION: 0.7.x
     steps:
       - name: Install dependencies
         run: brew install gsed jansson jq openssl@1.1 pcre zlib
@@ -216,7 +225,7 @@ jobs:
         run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
       - name: Download and extract nginx modules
-        run: ./master/scripts/fetch-sources $NGINX_MODULES
+        run: ./master/scripts/fetch-sources nginx/njs@${{ matrix.NJS_VERSION }} $NGINX_MODULES
 
       # cmake prefers dynamic libs and there's no option to change it, so
       # we have to remove them to give it no other option than using static.
@@ -229,7 +238,7 @@ jobs:
 
       - name: Build nginx
         env:
-          NGINX_MODULES: ${{ env.NGINX_MODULES }}
+          NGINX_MODULES: nginx/njs ${{ env.NGINX_MODULES }}
           CFLAGS: ${{ env.CFLAGS }} -I/usr/local/opt/jansson/include -I/usr/local/opt/openssl/include -I/usr/local/opt/pcre/include -I/usr/local/opt/zlib/include
           LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/usr/local/opt/jansson/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/pcre/lib -L/usr/local/opt/zlib/lib
         run: ./master/scripts/build-nginx
