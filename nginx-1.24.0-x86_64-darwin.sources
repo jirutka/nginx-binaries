@@ -9,4 +9,4 @@ https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-
 /usr/local/opt/jansson/lib/libjansson.a 75672 5c3a7a0940a229667216541cf5b5f287a8bd7eb24a24086abc83f46fa78e73b5 2.14 jansson
 /usr/local/opt/openssl/lib/libcrypto.a 7301056 b7e5b905e2dbf5ed3008864f1537ae50ae5f7420f38bbfee19dd1a4e4560f4af 3.1.2 openssl
 /usr/local/opt/openssl/lib/libssl.a 832568 6ed14b8f2639785a1aa0b45ea27db57e17f0d5adac0c39f7901ab5ae3428d5d2 3.1.2 openssl
-/usr/local/opt/zlib/lib/libz.a 102232 8528447ad586fbca171082f945b03e59a683b333021a9c3a9e482f93e477e763 1.2.13 zlib
+/usr/local/opt/zlib/lib/libz.a 102272 e2e624bf50bad664e4fe4dc85d9c9c78f10d14631b4d4038f30135006f6135cb 1.3 zlib
