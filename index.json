@@ -2477,9 +2477,9 @@
       "arch": "aarch64",
       "os": "linux",
       "filename": "nginx-1.22.1-aarch64-linux",
-      "date": "2023-08-21T22:45:03Z",
+      "date": "2023-09-24T01:40:32Z",
       "size": 5266336,
-      "checksum": "sha1:aa450d9541e5a7eb7d9b966fa620a0a65b9a883d",
+      "checksum": "sha1:911483549ea89fbdd558147b5d24f8cd1c38158f",
       "bundledLibs": {
         "njs": "0.7.12",
         "nginx-auth-jwt": "0.2.1",
@@ -2490,7 +2490,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -2525,9 +2525,9 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "nginx-1.22.1-ppc64le-linux",
-      "date": "2023-08-21T22:45:03Z",
+      "date": "2023-09-24T01:40:32Z",
       "size": 5922384,
-      "checksum": "sha1:fad394c4e169316c36ebaee1e17777c7c854a359",
+      "checksum": "sha1:6b24345d1aa42f4ed5bfbc60bda5d8cfcf99f557",
       "bundledLibs": {
         "njs": "0.7.12",
         "nginx-auth-jwt": "0.2.1",
@@ -2538,7 +2538,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -2573,9 +2573,9 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.22.1-x86_64-linux",
-      "date": "2023-08-21T22:45:04Z",
+      "date": "2023-09-24T01:40:32Z",
       "size": 6100776,
-      "checksum": "sha1:a59e9fc02088b21ef25ad217a969347efe13e510",
+      "checksum": "sha1:a85fecd15e860ffb954669337d83bb69256260ef",
       "bundledLibs": {
         "njs": "0.7.12",
         "nginx-auth-jwt": "0.2.1",
@@ -2586,7 +2586,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -2743,9 +2743,9 @@
       "arch": "aarch64",
       "os": "linux",
       "filename": "nginx-1.24.0-aarch64-linux",
-      "date": "2023-09-17T01:45:25Z",
+      "date": "2023-09-24T01:40:33Z",
       "size": 5205552,
-      "checksum": "sha1:13660585adf4199f533c96781377074bcc6fbc24",
+      "checksum": "sha1:13b3a05b26657e474a118d727d7c6ffbe0203948",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -2756,7 +2756,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -2768,9 +2768,9 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "nginx-1.24.0-ppc64le-linux",
-      "date": "2023-09-17T01:45:25Z",
+      "date": "2023-09-24T01:40:33Z",
       "size": 5927168,
-      "checksum": "sha1:9da45c7415315d6678044c203288218dd448c4a0",
+      "checksum": "sha1:34cd4593acc36f03a277c483ee6c035569c575f2",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -2781,7 +2781,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -2816,9 +2816,9 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.24.0-x86_64-linux",
-      "date": "2023-09-17T01:45:26Z",
+      "date": "2023-09-24T01:40:33Z",
       "size": 6104680,
-      "checksum": "sha1:148fd7e54f1aa51ab28fa9dca88bc6b66887391b",
+      "checksum": "sha1:222750a6153e786570f321ff1639753434d54d8a",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -2829,7 +2829,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -3106,9 +3106,9 @@
       "arch": "aarch64",
       "os": "linux",
       "filename": "nginx-1.25.2-aarch64-linux",
-      "date": "2023-09-17T01:45:27Z",
+      "date": "2023-09-24T01:40:34Z",
       "size": 5205136,
-      "checksum": "sha1:69670a1b817507c3a9ab9bbffe0f957ce0ef4f0c",
+      "checksum": "sha1:599f374e5e83cd64e563a832469f7ed10c4ac430",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -3119,7 +3119,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -3131,9 +3131,9 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "nginx-1.25.2-ppc64le-linux",
-      "date": "2023-09-17T01:45:27Z",
+      "date": "2023-09-24T01:40:34Z",
       "size": 5926752,
-      "checksum": "sha1:774492dc1ee3d587575d8d7653a41e85cbb2e071",
+      "checksum": "sha1:34dc26a32f31a2d1616fa3ec6f8513b9b517f9c4",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -3144,7 +3144,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -3179,9 +3179,9 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "nginx-1.25.2-x86_64-linux",
-      "date": "2023-09-17T01:45:28Z",
-      "size": 6100104,
-      "checksum": "sha1:6b8e63507c021ff19338eaae16c3a91dcebd9922",
+      "date": "2023-09-24T01:40:34Z",
+      "size": 6104200,
+      "checksum": "sha1:f88521dfc4ce48210897a1e590f83efdbdf38163",
       "bundledLibs": {
         "njs": "0.8.1",
         "nginx-auth-jwt": "0.2.1",
@@ -3192,7 +3192,7 @@
         "set-misc-nginx-module": "0.33",
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "jansson": "2.14-r3",
         "pcre": "8.45-r3"
       }
@@ -6785,13 +6785,13 @@
       "arch": "aarch64",
       "os": "linux",
       "filename": "njs-0.8.1-aarch64-linux",
-      "date": "2023-09-17T01:45:29Z",
+      "date": "2023-09-24T01:40:34Z",
       "size": 3990688,
-      "checksum": "sha1:654dbed98fea32df396dcecbef5934be145cf14e",
+      "checksum": "sha1:11c36d2a4e5495fced878dec1863efc206be6be6",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
@@ -6804,13 +6804,13 @@
       "arch": "aarch64",
       "os": "linux",
       "filename": "njs-0.8.1-debug-aarch64-linux",
-      "date": "2023-09-17T01:45:30Z",
-      "size": 16484848,
-      "checksum": "sha1:46234f9b5fd88ad00baaa211bcdc2b8a97ac65d2",
+      "date": "2023-09-24T01:40:35Z",
+      "size": 16487744,
+      "checksum": "sha1:32e37db6ed5c04b25618547dc6d3284e7ddce278",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
@@ -6823,13 +6823,13 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "njs-0.8.1-debug-ppc64le-linux",
-      "date": "2023-09-17T01:45:30Z",
-      "size": 16038288,
-      "checksum": "sha1:ab3f84744b107d15b539e49c52c44c0863939737",
+      "date": "2023-09-24T01:40:35Z",
+      "size": 16041112,
+      "checksum": "sha1:6aaa057fe2a5228704f2a898e0fb970a13622fdf",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
@@ -6858,13 +6858,13 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "njs-0.8.1-debug-x86_64-linux",
-      "date": "2023-09-17T01:45:31Z",
-      "size": 16913648,
-      "checksum": "sha1:c36455034df69489aadae2dc35fd52128b06c805",
+      "date": "2023-09-24T01:40:36Z",
+      "size": 16919376,
+      "checksum": "sha1:6139c7ebbf72df89989655fd247901a7b9bdeb6a",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
@@ -6877,13 +6877,13 @@
       "arch": "ppc64le",
       "os": "linux",
       "filename": "njs-0.8.1-ppc64le-linux",
-      "date": "2023-09-17T01:45:31Z",
+      "date": "2023-09-24T01:40:36Z",
       "size": 4515488,
-      "checksum": "sha1:134a5bf766fe795afd9e0910427bc44e7784b082",
+      "checksum": "sha1:f0a4ec804b9c986c665c1889b5bdf9c062db8fb2",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
@@ -6912,13 +6912,13 @@
       "arch": "x86_64",
       "os": "linux",
       "filename": "njs-0.8.1-x86_64-linux",
-      "date": "2023-09-17T01:45:32Z",
-      "size": 4857992,
-      "checksum": "sha1:452a65686f2258520c1d47a92e287e18e83a1c77",
+      "date": "2023-09-24T01:40:36Z",
+      "size": 4862088,
+      "checksum": "sha1:c1699415d67d6f302984733e50feb7c781557a36",
       "bundledLibs": {
         "gcc": "12.2.1_git20220924-r10",
         "musl": "1.2.4-r1",
-        "openssl": "3.1.2-r0",
+        "openssl": "3.1.3-r0",
         "libedit": "20221030.3.1-r1",
         "ncurses": "6.4_p20230506-r0",
         "pcre": "8.45-r3"
