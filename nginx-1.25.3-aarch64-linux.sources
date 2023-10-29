@@ -1,0 +1,16 @@
+https://github.com/nginx/nginx/archive/release-1.25.3/nginx-1.25.3.tar.gz 1228791 e43252bb993ec0a11715b2592435473d71a57581759d695600d55ffc752e3e33 1.25.3 nginx
+https://github.com/nginx/njs/archive/0.8.2/njs-0.8.2.tar.gz 733916 6f17387db8df90b6e3382d280455962ff85fa2b1a32d91c2ce1fd1af5a854d72 0.8.2 njs
+https://github.com/kjdev/nginx-auth-jwt/archive/0.2.1/nginx-auth-jwt-0.2.1.tar.gz 58717 23958d5f02012f56660cacc3c0355bafea10ceb77abb3f0e8da123edf1f7d8f1 0.2.1 nginx-auth-jwt
+https://github.com/kjdev/nginx-keyval/archive/0.2.0/nginx-keyval-0.2.0.tar.gz 21418 7964ca93a1a4170a379caa7ad5dc8440d90d209e76675fe453176a80ae41a6f3 0.2.0 nginx-keyval
+https://github.com/vision5/ngx_devel_kit/archive/v0.3.2/ngx_devel_kit-0.3.2.tar.gz 66551 aa961eafb8317e0eb8da37eb6e2c9ff42267edd18b56947384e719b85188f58b 0.3.2 ngx_devel_kit
+https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
+https://github.com/openresty/headers-more-nginx-module/archive/v0.35/headers-more-nginx-module-0.35.tar.gz 29216 1a216be253bbd5bf751d572ac2f93bdb61fbc2d78078d26c1335f4637cf2360a 0.35 headers-more-nginx-module
+https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
+/usr/lib/gcc/aarch64-alpine-linux-musl/12.2.1/libgcc.a 347710 96bf24b9efb531e39735625672ef115625dfd880a4e8e938a19747d003808190 12.2.1_git20220924-r10 gcc
+/usr/lib/gcc/aarch64-alpine-linux-musl/12.2.1/libgcc_eh.a 277492 d7e1d04598174e6e4537f216c6210d9da2290410bde1965f93cfbe5e9e8869bc 12.2.1_git20220924-r10 gcc
+/usr/lib/libc.a 10736078 259706496f807d80f50c55262ff173adbb4faabfac5d61f834b6a09187944bee 1.2.4-r2 musl
+/usr/lib/libcrypto.a 29432942 d975c25d86031e29d35b0548175d9a0543d15ae6111687062fbefb727a3b862b 3.1.4-r0 openssl
+/usr/lib/libjansson.a 103682 4b6b8c767c67ee92981ecae247b4ebbf61319f72d141ba9f25f92d693af83eb7 2.14-r3 jansson
+/usr/lib/libpcre.a 419756 dd65a035caba7392d5fde91fa7063ea655f4e6e97fb7a5d182f6533183ffc71a 8.45-r3 pcre
+/usr/lib/libssl.a 5529956 2fa5eaa0bd3703428033af8d4ab9432d50d8304f1b070f759ebb18af6138cfd7 3.1.4-r0 openssl
+/usr/lib/libssp_nonshared.a 3550 7769b1bf1de871aa26d4c8e6b28f76c03642e144e686a9bc945dae00e4ec6627 1.2.4-r2 musl
