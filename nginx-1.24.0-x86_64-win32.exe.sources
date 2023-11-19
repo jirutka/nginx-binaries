@@ -1,6 +1,6 @@
 https://github.com/nginx/nginx/archive/release-1.24.0/nginx-1.24.0.tar.gz 1124067 c3fa8604fd40a13653fbeb67c99bf342751c6d08c442a566a527e18df47f7114 1.24.0 nginx
 https://github.com/myfreeer/nginx-build-msys2/archive/1.22.0/nginx-build-msys2-1.22.0.tar.gz 9748 cbfdc06a0839eb8ce4a3e193da572ba34df0923259c1a68d441cad7d9d076a7d 1.22.0 nginx-build-msys2
-https://github.com/vision5/ngx_devel_kit/archive/v0.3.2/ngx_devel_kit-0.3.2.tar.gz 66551 aa961eafb8317e0eb8da37eb6e2c9ff42267edd18b56947384e719b85188f58b 0.3.2 ngx_devel_kit
+https://github.com/vision5/ngx_devel_kit/archive/v0.3.3/ngx_devel_kit-0.3.3.tar.gz 66561 faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b 0.3.3 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.35/headers-more-nginx-module-0.35.tar.gz 29216 1a216be253bbd5bf751d572ac2f93bdb61fbc2d78078d26c1335f4637cf2360a 0.35 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
