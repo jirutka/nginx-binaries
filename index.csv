@@ -340,7 +340,7 @@ njs,0.8.1,,x86_64,linux,njs-0.8.1-x86_64-linux,2023-10-08T01:44:18Z,4862088,sha1
 njs,0.8.2,,aarch64,linux,njs-0.8.2-aarch64-linux,2023-11-12T01:48:03Z,3991072,sha1:1d819be0e9335ce0ec61e3dd8f158c1b83b3c206
 njs,0.8.2,debug,aarch64,linux,njs-0.8.2-debug-aarch64-linux,2023-11-12T01:48:04Z,16510408,sha1:7298ac32124fad64e43332ca82acab72edea9a74
 njs,0.8.2,debug,ppc64le,linux,njs-0.8.2-debug-ppc64le-linux,2023-11-12T01:48:04Z,16062232,sha1:d69b1b87013af32ac2f0337dcb48d6d8f09bacea
-njs,0.8.2,debug,x86_64,darwin,njs-0.8.2-debug-x86_64-darwin,2023-11-19T01:37:15Z,5340912,sha1:70a6cebff1af46a65ee229b7d81c47d92a3b0e1e
+njs,0.8.2,debug,x86_64,darwin,njs-0.8.2-debug-x86_64-darwin,2023-12-03T01:36:15Z,5339728,sha1:96acfe87256b437b827412452d8c581f9e5d35ca
 njs,0.8.2,debug,x86_64,linux,njs-0.8.2-debug-x86_64-linux,2023-11-12T01:48:06Z,16949264,sha1:f470964a7c5606432417fb9682445783baa23ee3
 njs,0.8.2,,ppc64le,linux,njs-0.8.2-ppc64le-linux,2023-11-12T01:48:06Z,4515872,sha1:75e827eca05b20aa04d1cdfb31b6bdf7381c4688
 njs,0.8.2,,x86_64,darwin,njs-0.8.2-x86_64-darwin,2023-11-19T01:37:16Z,4638728,sha1:9fc2ad4d5932ac6267adda3aab7ca933afa7de96

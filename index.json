@@ -7109,11 +7109,11 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.8.2-debug-x86_64-darwin",
-      "date": "2023-11-19T01:37:15Z",
-      "size": 5340912,
-      "checksum": "sha1:70a6cebff1af46a65ee229b7d81c47d92a3b0e1e",
+      "date": "2023-12-03T01:36:15Z",
+      "size": 5339728,
+      "checksum": "sha1:96acfe87256b437b827412452d8c581f9e5d35ca",
       "bundledLibs": {
-        "openssl": "3.1.4",
+        "openssl": "3.1.2",
         "pcre": "8.45",
         "zlib": "1.3"
       }
