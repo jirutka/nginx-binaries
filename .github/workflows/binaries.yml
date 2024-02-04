@@ -282,7 +282,7 @@ jobs:
 
       - name: Download and extract libraries
         shell: msys2 {0}
-        run: ./master/scripts/fetch-sources 'openssl@1.1.x[a-z]' 'pcre@8.x' 'madler/zlib@v1.2.x'
+        run: ./master/scripts/fetch-sources 'openssl@3.1.x' 'pcre@8.x' 'madler/zlib@v1.2.x'
 
       - name: Apply patches
         shell: msys2 {0}
