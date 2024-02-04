@@ -272,7 +272,7 @@ pass:[<s>armv7</s>] footnote:armv7[]
 *Linux* binary is statically linked with https://www.musl-libc.org[musl libc], jansson, openssl (3.x), pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 It’s compiled with debug mode, threads and aio.
 
-*macOS* binary is statically linked with jansson, openssl@1.1, pcre and zlib from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with jansson, openssl@3, pcre and zlib from https://brew.sh[Homebrew].
 It’s compiled with debug mode, threads and aio.
 
 *Windows* binary is statically linked with latest openssl 3.1.x, pcre 8.x and zlib 1.2.x built from sources.
