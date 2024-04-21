@@ -1,12 +1,12 @@
 https://github.com/nginx/nginx/archive/release-1.22.1/nginx-1.22.1.tar.gz 1117346 d5031d02c28dc53838b8ceebf6a198eb1332c31809b5d7672eb43c365e7cf0b7 1.22.1 nginx
 https://github.com/nginx/njs/archive/0.7.12/njs-0.7.12.tar.gz 662554 7a75a39022dfb58dbf461053903a07cc48dd4942f7d82a46601819c1b0077687 0.7.12 njs
-https://github.com/kjdev/nginx-auth-jwt/archive/0.6.0/nginx-auth-jwt-0.6.0.tar.gz 70135 e261d896ed59628cbf8e8990ae468b89410834a67766d9e0b7fa35f705f33d8a 0.6.0 nginx-auth-jwt
-https://github.com/kjdev/nginx-keyval/archive/0.2.0/nginx-keyval-0.2.0.tar.gz 21418 7964ca93a1a4170a379caa7ad5dc8440d90d209e76675fe453176a80ae41a6f3 0.2.0 nginx-keyval
+https://github.com/kjdev/nginx-auth-jwt/archive/0.7.0/nginx-auth-jwt-0.7.0.tar.gz 73898 4f14335ec6c5e7ce5b7607abd430dd025a35fd8758e9c4e9ade313f71f5c3f72 0.7.0 nginx-auth-jwt
+https://github.com/kjdev/nginx-keyval/archive/0.3.0/nginx-keyval-0.3.0.tar.gz 24150 c4e5d2a03ead32cfccb9f04f01a8cdf664f5deca3f677c13b1509bff832cf2c7 0.3.0 nginx-keyval
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.3/ngx_devel_kit-0.3.3.tar.gz 66561 faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b 0.3.3 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.37/headers-more-nginx-module-0.37.tar.gz 29433 cf6e169d6b350c06d0c730b0eaf4973394026ad40094cddd3b3a5b346577019d 0.37 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 /usr/local/opt/jansson/lib/libjansson.a 75672 5c3a7a0940a229667216541cf5b5f287a8bd7eb24a24086abc83f46fa78e73b5 2.14 jansson
 /usr/local/opt/openssl/lib/libcrypto.a 7596800 406ac0132fda942f99b15871ae5cd133bd5ac1e8fce41a8d82802e06e9fdaa84 3.2.1 openssl
-/usr/local/opt/openssl/lib/libssl.a 1247232 b70ac7e4d4e5fc516f880f46cf14c1a5892b97049f89c9fe0ed8db669b0bbe51 3.2.1 openssl
+/usr/local/opt/openssl/lib/libssl.a 1247392 6c964d63bd093bc4a57d8096db856b05247694a05fa5dc5d64ef4e4f2c09e0ce 3.2.1 openssl
 /usr/local/opt/zlib/lib/libz.a 102456 01c71b7825c30904f44b9e0bf66a9675825c365f3b707cd07b4bf4f7186b3a2a 1.3.1 zlib
