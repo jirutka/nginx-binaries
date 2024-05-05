@@ -58,7 +58,7 @@ jobs:
           - ppc64le
     steps:
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
@@ -90,8 +90,9 @@ jobs:
         shell: alpine.sh {0}
 
       - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
           path: artifact/*
 
   njs-x86_64-darwin:
@@ -109,7 +110,7 @@ jobs:
         run: brew install gsed jq libedit openssl@3 ncurses pcre zlib
 
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
@@ -134,8 +135,9 @@ jobs:
         run: ./master/scripts/build-njs
 
       - name: Upload njs binary to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-darwin
           path: artifact/*
 
   nginx-multi-linux:
@@ -158,7 +160,7 @@ jobs:
             NJS_VERSION: 0.8.x
     steps:
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
@@ -193,8 +195,9 @@ jobs:
         shell: alpine.sh {0}
 
       - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
           path: artifact/*
 
   nginx-x86_64-darwin:
@@ -216,7 +219,7 @@ jobs:
         run: brew install gsed jansson jq openssl@3 pcre zlib
 
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
@@ -243,8 +246,9 @@ jobs:
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
           path: artifact/*
 
   nginx-x86_64-win32:
@@ -264,7 +268,7 @@ jobs:
           install: base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-jq
 
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
@@ -307,8 +311,9 @@ jobs:
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-win32
           path: artifact/*
 
   upload:
@@ -328,18 +333,21 @@ jobs:
         run: apk add -U git nodejs tree
 
       - name: Checkout master branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: master
 
       - name: Checkout binaries branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: binaries
           path: binaries
 
       - name: Download and unpack all workflow run artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
+        with:
+          path: artifact
+          merge-multiple: true
 
       - name: List unpacked artifact files
         run: ls -lah artifact/
