@@ -234,10 +234,11 @@ Suffix `.exe` is used for Windows binaries only.
 1.19.x (EOL) footnote:[The first available nginx version in branch 1.19.x is 1.19.5.] +
 1.20.x (EOL) +
 1.21.x (EOL) +
-1.22.x (old stable) +
+1.22.x (EOL) +
 1.23.x (EOL) +
-1.24.x (stable) +
-1.25.x (mainline)
+1.24.x (old stable) +
+1.25.x (mainline) +
+1.26.x (stable)
 
 .3+| _default_
 | Linux
