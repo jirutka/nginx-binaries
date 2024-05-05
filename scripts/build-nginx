@@ -66,6 +66,16 @@ configure() {
 		--without-http_grpc_module \
 		--without-http_memcached_module \
 		"$@"
+
+	# Don't load openssl.cnf unless the OPENSSL_CONF env. variable is
+	# explicitly set. This is to avoid SSL error on Fedora due to some
+	# incompatible settings in /etc/ssl/openssl.cnf (see #17).
+	cat >> objs/ngx_auto_config.h <<-EOF
+
+		#ifndef NGX_OPENSSL_NO_CONFIG
+		#define NGX_OPENSSL_NO_CONFIG  1
+		#endif
+	EOF
 }
 
 

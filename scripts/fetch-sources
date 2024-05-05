@@ -111,6 +111,7 @@ for item in "$@"; do
 
 	case "$name-$ver" in
 		nginx/njs-0.7.12) patch --batch -d "$dir" -p1 < master/patches/njs-0.7.12-fix-module-build.patch;;
+		nginx/nginx-1.24.*) patch --batch -d "$dir" -p1 < master/patches/nginx-1.24.x-avoid-using-openssl-config.patch;;
 	esac
 
 	echo "$url $size $hash $ver ${name#*/}" | tee -a .SOURCES

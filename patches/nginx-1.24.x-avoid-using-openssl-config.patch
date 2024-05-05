@@ -1,0 +1,79 @@
+Patch-Source: https://github.com/nginx/nginx/commit/bdea5b703ff6f6fcf98ac8dd4e1e9e5c9ad05017 (backported)
+--
+From bdea5b703ff6f6fcf98ac8dd4e1e9e5c9ad05017 Mon Sep 17 00:00:00 2001
+From: Maxim Dounin <mdounin@mdounin.ru>
+Date: Wed, 21 Jun 2023 01:29:53 +0300
+Subject: [PATCH] SSL: avoid using OpenSSL config in build directory (ticket
+ #2404).
+
+With this change, the NGX_OPENSSL_NO_CONFIG macro is defined when nginx
+is asked to build OpenSSL itself.  And with this macro automatic loading
+of OpenSSL configuration (from the build directory) is prevented unless
+the OPENSSL_CONF environment variable is explicitly set.
+
+Note that not loading configuration is broken in OpenSSL 1.1.1 and 1.1.1a
+(fixed in OpenSSL 1.1.1b, see https://github.com/openssl/openssl/issues/7350).
+If nginx is used to compile these OpenSSL versions, configuring nginx with
+NGX_OPENSSL_NO_CONFIG explicitly set to 0 might be used as a workaround.
+---
+ auto/lib/openssl/conf         |  2 ++
+ src/event/ngx_event_openssl.c | 22 +++++++++++++++++++++-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/auto/lib/openssl/conf b/auto/lib/openssl/conf
+index 4fb52df7f..e2ed45d39 100644
+--- a/auto/lib/openssl/conf
++++ b/auto/lib/openssl/conf
+@@ -11,6 +11,8 @@ if [ $OPENSSL != NONE ]; then
+             have=NGX_OPENSSL . auto/have
+             have=NGX_SSL . auto/have
+
++            have=NGX_OPENSSL_NO_CONFIG . auto/have
++
+             CFLAGS="$CFLAGS -DNO_SYS_TYPES_H"
+
+             CORE_INCS="$CORE_INCS $OPENSSL/openssl/include"
+diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
+index 104e8daf7..100d5908e 100644
+--- a/src/event/ngx_event_openssl.c
++++ b/src/event/ngx_event_openssl.c
+@@ -145,7 +145,19 @@ ngx_ssl_init(ngx_log_t *log)
+ {
+ #if OPENSSL_VERSION_NUMBER >= 0x10100003L
+
+-    if (OPENSSL_init_ssl(OPENSSL_INIT_LOAD_CONFIG, NULL) == 0) {
++    uint64_t                opts;
++
++    opts = OPENSSL_INIT_LOAD_CONFIG;
++
++#if (NGX_OPENSSL_NO_CONFIG)
++
++    if (getenv("OPENSSL_CONF") == NULL) {
++        opts = OPENSSL_INIT_NO_LOAD_CONFIG;
++    }
++
++#endif
++
++    if (OPENSSL_init_ssl(opts, NULL) == 0) {
+         ngx_ssl_error(NGX_LOG_ALERT, log, 0, "OPENSSL_init_ssl() failed");
+         return NGX_ERROR;
+     }
+@@ -159,6 +171,14 @@ ngx_ssl_init(ngx_log_t *log)
+
+ #else
+
++#if (NGX_OPENSSL_NO_CONFIG)
++
++    if (getenv("OPENSSL_CONF") == NULL) {
++        OPENSSL_no_config();
++    }
++
++#endif
++
+     OPENSSL_config(NULL);
+
+     SSL_library_init();
+--
+2.43.0
+
+
