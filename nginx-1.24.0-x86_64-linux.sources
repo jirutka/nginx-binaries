@@ -1,5 +1,5 @@
 https://github.com/nginx/nginx/archive/release-1.24.0/nginx-1.24.0.tar.gz 1124067 c3fa8604fd40a13653fbeb67c99bf342751c6d08c442a566a527e18df47f7114 1.24.0 nginx
-https://github.com/nginx/njs/archive/0.8.4/njs-0.8.4.tar.gz 743910 fe197e254204c15e9f1df0acf375add57be3416901ec8d7b87319dccb490f90d 0.8.4 njs
+https://github.com/nginx/njs/archive/0.8.5/njs-0.8.5.tar.gz 844437 b5e38e1424d84e48c6ca1592a336bf1d110b8f27ff1d5ef492c6d312ea003491 0.8.5 njs
 https://github.com/kjdev/nginx-auth-jwt/archive/0.7.0/nginx-auth-jwt-0.7.0.tar.gz 73898 4f14335ec6c5e7ce5b7607abd430dd025a35fd8758e9c4e9ade313f71f5c3f72 0.7.0 nginx-auth-jwt
 https://github.com/kjdev/nginx-keyval/archive/0.3.0/nginx-keyval-0.3.0.tar.gz 24150 c4e5d2a03ead32cfccb9f04f01a8cdf664f5deca3f677c13b1509bff832cf2c7 0.3.0 nginx-keyval
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.3/ngx_devel_kit-0.3.3.tar.gz 66561 faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b 0.3.3 ngx_devel_kit
@@ -9,8 +9,8 @@ https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-
 /usr/lib/gcc/x86_64-alpine-linux-musl/12.2.1/libgcc.a 3122660 86d4afbb238f141d6afc5a1fe13e62b79eda82c1296b703e10a9c638833d09eb 12.2.1_git20220924-r10 gcc
 /usr/lib/gcc/x86_64-alpine-linux-musl/12.2.1/libgcc_eh.a 259412 9998b193b223a15e3e4e0cc08af0b39076603e010e31a28decaa50205c7db2ac 12.2.1_git20220924-r10 gcc
 /usr/lib/libc.a 9136990 27933fb25c13300fceeccdf2df204580bb9ee863a0d2647e7cf93d2880ff2979 1.2.4-r2 musl
-/usr/lib/libcrypto.a 23731738 17f8dfcf1631936937747660c297e8205427a124e008ad867d0977cdb3358cc7 3.1.5-r0 openssl
+/usr/lib/libcrypto.a 23751866 d8c34d27dfa36b6e1bf380bfcb41f39b7dd44527f647f409e022e35f2278f937 3.1.6-r0 openssl
 /usr/lib/libjansson.a 95242 141f169611e3822be3d5ae60a0c8545536316500826a676b7f8745d5f6780c09 2.14-r3 jansson
 /usr/lib/libpcre.a 481980 64236103f5d7245a45377e4513a58baf57fc04d6c7e1bea493dcd699e5f1b886 8.45-r3 pcre
-/usr/lib/libssl.a 4003980 32190d2fa8db73337e8fcc69a408b2741e0dfc544d173111a2a4dced52d10a3f 3.1.5-r0 openssl
+/usr/lib/libssl.a 4009234 2a38dda9ded97a79008c8ebd3748f19649ab5a9ae46c68dbabf00541aad647f3 3.1.6-r0 openssl
 /usr/lib/libssp_nonshared.a 3350 91a525c44d2b52eecebacf68d37b253fc880534cfa43db4222e046e458872778 1.2.4-r2 musl
