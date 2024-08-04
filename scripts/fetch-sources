@@ -80,9 +80,9 @@ for item in "$@"; do
 
 	case "$name" in
 		openssl)
-			base_url='https://www.openssl.org/source'
-			ver=$(scrape_latest_version "$base_url/" "openssl-($ver_regex)\." 'openssl')
-			url="$base_url/$name-$ver.tar.gz"
+			tag=$(github_latest_version_tag openssl/openssl 'openssl-([0-9]+\.)+[0-9]+')
+			ver=$(echo "$tag" | grep -o '[0-9].*')
+			url="https://github.com/openssl/openssl/releases/download/$tag/${name#*/}-$ver.tar.gz"
 		;;
 		pcre)
 			base_url='https://sourceforge.net/projects/pcre'
