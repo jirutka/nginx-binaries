@@ -2861,9 +2861,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.24.0-x86_64-win32.exe",
-      "date": "2024-10-27T00:47:53Z",
-      "size": 4387840,
-      "checksum": "sha1:a12486e4e7e5d505d669c597b50f5b772a1e96a0",
+      "date": "2024-11-17T00:49:27Z",
+      "size": 4389376,
+      "checksum": "sha1:63ea460f7049024dc5d4bd8f4af11fb2e298799c",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.3",
         "echo-nginx-module": "0.63",
@@ -2872,9 +2872,9 @@
         "openssl": "3.4.0",
         "pcre": "8.45",
         "zlib": "1.3.1",
-        "mingw-w64-x86_64-gcc": "14.1.0-3",
-        "mingw-w64-x86_64-crt-git": "12.0.0.r81.g90abf784a-1",
-        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r81.g90abf784a-1"
+        "mingw-w64-x86_64-gcc": "14.2.0-2",
+        "mingw-w64-x86_64-crt-git": "12.0.0.r387.gcf5c50cce-1",
+        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r387.gcf5c50cce-1"
       }
     },
     {
@@ -3607,9 +3607,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.25.5-x86_64-win32.exe",
-      "date": "2024-10-27T00:47:53Z",
-      "size": 4383232,
-      "checksum": "sha1:2db02abb49dd85e095816e84d423961b669111cc",
+      "date": "2024-11-17T00:49:27Z",
+      "size": 4385792,
+      "checksum": "sha1:0990707fccebd8b0f767ff92fa379c6643a4b146",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.3",
         "echo-nginx-module": "0.63",
@@ -3618,9 +3618,9 @@
         "openssl": "3.4.0",
         "pcre": "8.45",
         "zlib": "1.3.1",
-        "mingw-w64-x86_64-gcc": "14.1.0-3",
-        "mingw-w64-x86_64-crt-git": "12.0.0.r81.g90abf784a-1",
-        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r81.g90abf784a-1"
+        "mingw-w64-x86_64-gcc": "14.2.0-2",
+        "mingw-w64-x86_64-crt-git": "12.0.0.r387.gcf5c50cce-1",
+        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r387.gcf5c50cce-1"
       }
     },
     {
@@ -3961,9 +3961,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.26.2-x86_64-win32.exe",
-      "date": "2024-10-27T00:47:53Z",
-      "size": 4383232,
-      "checksum": "sha1:fb56f749632192257e84692097231733109cd87b",
+      "date": "2024-11-17T00:49:27Z",
+      "size": 4385792,
+      "checksum": "sha1:9e57d604e6c4c6870283efb4f3b32a7530b405b2",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.3",
         "echo-nginx-module": "0.63",
@@ -3972,9 +3972,9 @@
         "openssl": "3.4.0",
         "pcre": "8.45",
         "zlib": "1.3.1",
-        "mingw-w64-x86_64-gcc": "14.1.0-3",
-        "mingw-w64-x86_64-crt-git": "12.0.0.r81.g90abf784a-1",
-        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r81.g90abf784a-1"
+        "mingw-w64-x86_64-gcc": "14.2.0-2",
+        "mingw-w64-x86_64-crt-git": "12.0.0.r387.gcf5c50cce-1",
+        "mingw-w64-x86_64-winpthreads-git": "12.0.0.r387.gcf5c50cce-1"
       }
     },
     {
