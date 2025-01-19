@@ -1,5 +1,5 @@
 https://github.com/nginx/nginx/archive/release-1.26.2/nginx-1.26.2.tar.gz 1239639 b22485ac7fa10dbfb410e0cda2e091d0d28d7634895a05cce4b26243a9ca95d5 1.26.2 nginx
-https://github.com/nginx/njs/archive/0.8.8/njs-0.8.8.tar.gz 887735 356386c8133590a4d1d3a529694821d4d1a00b6f7575eeb454a698bec823477b 0.8.8 njs
+https://github.com/nginx/njs/archive/0.8.9/njs-0.8.9.tar.gz 900847 918accac7ec252baac1146e49fdc0f5c101c66ef3b9ceba7ce1b59be704acebf 0.8.9 njs
 https://github.com/kjdev/nginx-auth-jwt/archive/0.9.0/nginx-auth-jwt-0.9.0.tar.gz 75474 d7c72634261a053afaacc2cb762eccf9ce4c462ca738ad0c4809eb964ddf3c0c 0.9.0 nginx-auth-jwt
 https://github.com/kjdev/nginx-keyval/archive/0.3.0/nginx-keyval-0.3.0.tar.gz 24150 c4e5d2a03ead32cfccb9f04f01a8cdf664f5deca3f677c13b1509bff832cf2c7 0.3.0 nginx-keyval
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.3/ngx_devel_kit-0.3.3.tar.gz 66561 faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b 0.3.3 ngx_devel_kit
