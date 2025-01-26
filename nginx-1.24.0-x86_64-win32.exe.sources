@@ -2,7 +2,7 @@ https://github.com/nginx/nginx/archive/release-1.24.0/nginx-1.24.0.tar.gz 112406
 https://github.com/myfreeer/nginx-build-msys2/archive/1.22.0/nginx-build-msys2-1.22.0.tar.gz 9748 cbfdc06a0839eb8ce4a3e193da572ba34df0923259c1a68d441cad7d9d076a7d 1.22.0 nginx-build-msys2
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.3/ngx_devel_kit-0.3.3.tar.gz 66561 faa2fcd5168b10764d35081356511d5f84db5c526a1aa4b6add2db94b6853b2b 0.3.3 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
-https://github.com/openresty/headers-more-nginx-module/archive/v0.37/headers-more-nginx-module-0.37.tar.gz 29433 cf6e169d6b350c06d0c730b0eaf4973394026ad40094cddd3b3a5b346577019d 0.37 headers-more-nginx-module
+https://github.com/openresty/headers-more-nginx-module/archive/v0.38/headers-more-nginx-module-0.38.tar.gz 29472 febf7271c0c3de69adbd02c1e98ee43e91a60eeb6b27abfb77b5b206fda5215a 0.38 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 https://github.com/openssl/openssl/releases/download/openssl-3.4.0/openssl-3.4.0.tar.gz 18320899 e15dda82fe2fe8139dc2ac21a36d4ca01d5313c75f99f46c4e8a27709b7294bf 3.4.0 openssl
 https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz 2096552 4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09 8.45 pcre
