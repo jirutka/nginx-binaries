@@ -1,0 +1,17 @@
+https://github.com/nginx/nginx/archive/release-1.28.0/nginx-1.28.0.tar.gz 1261839 c6e2d307b6ba41080136bbea1ebf0cb6836e20e06655d0550e31ad070bc5eecd 1.28.0 nginx
+https://github.com/nginx/njs/archive/0.9.0/njs-0.9.0.tar.gz 942562 7b0446f0b3e0b63b57883e0464d883f0ac4eab82ec7746599d37563dc6808203 0.9.0 njs
+https://github.com/kjdev/nginx-auth-jwt/archive/0.9.0/nginx-auth-jwt-0.9.0.tar.gz 75474 d7c72634261a053afaacc2cb762eccf9ce4c462ca738ad0c4809eb964ddf3c0c 0.9.0 nginx-auth-jwt
+https://github.com/kjdev/nginx-keyval/archive/0.3.0/nginx-keyval-0.3.0.tar.gz 24150 c4e5d2a03ead32cfccb9f04f01a8cdf664f5deca3f677c13b1509bff832cf2c7 0.3.0 nginx-keyval
+https://github.com/vision5/ngx_devel_kit/archive/v0.3.4/ngx_devel_kit-0.3.4.tar.gz 66474 14a28063294f645d457b1eb10e3c23bbba44398f1c5f021421b58b6f8ab31662 0.3.4 ngx_devel_kit
+https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
+https://github.com/openresty/headers-more-nginx-module/archive/v0.38/headers-more-nginx-module-0.38.tar.gz 29472 febf7271c0c3de69adbd02c1e98ee43e91a60eeb6b27abfb77b5b206fda5215a 0.38 headers-more-nginx-module
+https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
+/usr/lib/gcc/powerpc64le-alpine-linux-musl/14.2.0/libgcc.a 281652 3154d782f75cfd4a85dbb1889ede3ea70b42c0678679181eeaa31ad7e477fc84 14.2.0-r4 gcc
+/usr/lib/gcc/powerpc64le-alpine-linux-musl/14.2.0/libgcc_eh.a 415812 b7d25f03c6f1daf0c93269bc76cb855f12cd074df3f6ba50875f47742962750d 14.2.0-r4 gcc
+/usr/lib/libc.a 10746620 2ed7116cd34b3cf00ba49670ea0bcfb8b3dc26325505df453121cdcddf7c3ff3 1.2.5-r9 musl
+/usr/lib/libcrypto.a 30770750 2dbd586b58156080e96ae22c1cf40324251ef5be186084184a6b7ee9902e364a 3.3.3-r0 openssl
+/usr/lib/libjansson.a 121194 27b8491c5eb8f06afcfb0ad8185dbe514a89019a454243da8d569135ff310dd2 2.14-r4 jansson
+/usr/lib/libpcre.a 523972 a505e071df77a0fa368010c3dcea2e72ef05a6489103a34711b7bbb773ac0886 8.45-r3 pcre
+/usr/lib/libssl.a 9136500 11625981f428fd10f74fe06aed880b2441c303cbde1bb2d238b543c040d3ceb1 3.3.3-r0 openssl
+/usr/lib/libssp_nonshared.a 3318 e1ff518c1484c4123b565d345b853c98c078d5b160aadc1e3a49f329be5e9a92 1.2.5-r9 musl
+/usr/lib/libz.a 149132 74e7b8e5854da9494e1a1a81df90b9919c9dbe1645ee11e2ca8fcbadf33720b5 1.3.1-r2 zlib
