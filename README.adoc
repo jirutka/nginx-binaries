@@ -278,7 +278,7 @@ It’s compiled with debug mode, threads and aio.
 *macOS* binary is statically linked with jansson, openssl@3, pcre and zlib from https://brew.sh[Homebrew].
 It’s compiled with debug mode, threads and aio.
 
-*Windows* binary is statically linked with latest openssl 3.3.x, pcre 8.x and zlib 1.3.x built from sources.
+*Windows* binary is statically linked with latest openssl 3.x, pcre 8.x and zlib 1.3.x built from sources.
 It’s compiled with debug mode and patches from https://github.com/myfreeer/nginx-build-msys2[nginx-build-msys2] made by https://github.com/myfreeer[@myfreeer].
 
 
