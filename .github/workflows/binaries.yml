@@ -15,7 +15,7 @@ on:
     - cron:  '0 0 * * 0'  # run each Sunday
 
 env:
-  ALPINE_BRANCH: v3.18
+  ALPINE_BRANCH: v3.21
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   JOBS: 3
   CFLAGS: -Os -fomit-frame-pointer -pipe
@@ -327,7 +327,7 @@ jobs:
     if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     container:
-      image: docker://alpine:3.18
+      image: docker://alpine:3.21
     steps:
       - name: Install dependencies
         run: apk add -U git nodejs tree
