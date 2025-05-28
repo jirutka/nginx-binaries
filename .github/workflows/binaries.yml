@@ -146,9 +146,9 @@ jobs:
     strategy:
       matrix:
         NGINX_VERSION:
-          - 1.24.x
-          - 1.25.x
           - 1.26.x
+          - 1.27.x
+          - 1.28.x
         ARCH:
           - x86_64
           - aarch64
@@ -156,7 +156,7 @@ jobs:
         include:
           - NJS_VERSION: 0.x.x
           # Pin older njs version for old stable nginx.
-          - NGINX_VERSION: 1.24.x
+          - NGINX_VERSION: 1.26.x
             NJS_VERSION: 0.8.x
     steps:
       - name: Checkout master branch
@@ -206,13 +206,13 @@ jobs:
     strategy:
       matrix:
         NGINX_VERSION:
-          - 1.24.x
-          - 1.25.x
           - 1.26.x
+          - 1.27.x
+          - 1.28.x
         include:
           - NJS_VERSION: 0.x.x
           # Pin older njs version for old nginx.
-          - NGINX_VERSION: 1.24.x
+          - NGINX_VERSION: 1.26.x
             NJS_VERSION: 0.8.x
     steps:
       - name: Install dependencies
@@ -257,9 +257,9 @@ jobs:
     strategy:
       matrix:
         NGINX_VERSION:
-          - 1.24.x
-          - 1.25.x
           - 1.26.x
+          - 1.27.x
+          - 1.28.x
     steps:
       - name: Setup MSYS2 and install packages
         uses: msys2/setup-msys2@v2
