@@ -1,0 +1,10 @@
+https://github.com/nginx/njs/archive/0.9.3/njs-0.9.3.tar.gz 930867 a1ad089a52ebd295489443faea3089d12df414f5da624446d6c2bf7d99ec36cb 0.9.3 njs
+/usr/lib/gcc/powerpc64le-alpine-linux-musl/14.2.0/libgcc.a 281652 3154d782f75cfd4a85dbb1889ede3ea70b42c0678679181eeaa31ad7e477fc84 14.2.0-r4 gcc
+/usr/lib/gcc/powerpc64le-alpine-linux-musl/14.2.0/libgcc_eh.a 415812 b7d25f03c6f1daf0c93269bc76cb855f12cd074df3f6ba50875f47742962750d 14.2.0-r4 gcc
+/usr/lib/libc.a 10746620 2ed7116cd34b3cf00ba49670ea0bcfb8b3dc26325505df453121cdcddf7c3ff3 1.2.5-r9 musl
+/usr/lib/libcrypto.a 30789828 83ba727e108044104225977d464b261cd375fbe837dcedda58f72ba3312cb129 3.3.5-r0 openssl
+/usr/lib/libedit.a 415482 84ae4e1c1ca767661b9fb4b69655802e1001c8f8cb5cced4c8e22b9228052078 20240808.3.1-r0 libedit
+/usr/lib/libncursesw.a 932718 b43053505c174d6056fafa6a15d0eee2099add92a1249d9b27d52a6934c88a36 6.5_p20241006-r3 ncurses
+/usr/lib/libpcre.a 523972 a505e071df77a0fa368010c3dcea2e72ef05a6489103a34711b7bbb773ac0886 8.45-r3 pcre
+/usr/lib/libssp_nonshared.a 3318 e1ff518c1484c4123b565d345b853c98c078d5b160aadc1e3a49f329be5e9a92 1.2.5-r9 musl
+/usr/lib/libz.a 149132 74e7b8e5854da9494e1a1a81df90b9919c9dbe1645ee11e2ca8fcbadf33720b5 1.3.1-r2 zlib
