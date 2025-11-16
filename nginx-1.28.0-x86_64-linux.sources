@@ -3,7 +3,7 @@ https://github.com/nginx/njs/archive/0.9.4/njs-0.9.4.tar.gz 939082 7b3a9f14b0f09
 https://github.com/kjdev/nginx-auth-jwt/archive/0.9.0/nginx-auth-jwt-0.9.0.tar.gz 75474 d7c72634261a053afaacc2cb762eccf9ce4c462ca738ad0c4809eb964ddf3c0c 0.9.0 nginx-auth-jwt
 https://github.com/kjdev/nginx-keyval/archive/0.3.0/nginx-keyval-0.3.0.tar.gz 24150 c4e5d2a03ead32cfccb9f04f01a8cdf664f5deca3f677c13b1509bff832cf2c7 0.3.0 nginx-keyval
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.4/ngx_devel_kit-0.3.4.tar.gz 66474 14a28063294f645d457b1eb10e3c23bbba44398f1c5f021421b58b6f8ab31662 0.3.4 ngx_devel_kit
-https://github.com/openresty/echo-nginx-module/archive/v0.63/echo-nginx-module-0.63.tar.gz 53421 8af374d29592ef95baee53c91959c7b04927f11304c318a94f0ee140760515a4 0.63 echo-nginx-module
+https://github.com/openresty/echo-nginx-module/archive/v0.64/echo-nginx-module-0.64.tar.gz 53549 6f43f56d7e7e8526716bbda06b300f0119912eede47b3a48bb948252a1fb38c8 0.64 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.39/headers-more-nginx-module-0.39.tar.gz 29616 dde68d3fa2a9fc7f52e436d2edc53c6d703dcd911283965d889102d3a877c778 0.39 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
 /usr/lib/gcc/x86_64-alpine-linux-musl/14.2.0/libgcc.a 3285436 d1bbcb4ac2fc9c966e40d2f4c4c9597dd30bb6746edbd1e9166acba192ab2bdc 14.2.0-r4 gcc
