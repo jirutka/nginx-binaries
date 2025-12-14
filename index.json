@@ -4082,9 +4082,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.26.3-x86_64-win32.exe",
-      "date": "2025-11-16T00:58:43Z",
+      "date": "2025-12-14T01:00:16Z",
       "size": 4795392,
-      "checksum": "sha1:111171b835559cb0df4175d2c894a6f68440ecbc",
+      "checksum": "sha1:9b8a147cd3348e8f2017953853f1ba30d395a16b",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.4",
         "echo-nginx-module": "0.64",
@@ -4094,8 +4094,8 @@
         "pcre": "8.45",
         "zlib": "1.3.1",
         "mingw-w64-x86_64-gcc": "15.2.0-8",
-        "mingw-w64-x86_64-crt-git": "13.0.0.r124.g2717de84e-1",
-        "mingw-w64-x86_64-winpthreads": "13.0.0.r124.g2717de84e-1"
+        "mingw-w64-x86_64-crt-git": "13.0.0.r354.g40ab95d18-1",
+        "mingw-w64-x86_64-winpthreads": "13.0.0.r354.g40ab95d18-1"
       }
     },
     {
@@ -4203,9 +4203,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.27.5-x86_64-win32.exe",
-      "date": "2025-11-16T00:58:43Z",
-      "size": 4812288,
-      "checksum": "sha1:616a599888adccf9b12fa78d086d09bef2aaf423",
+      "date": "2025-12-14T01:00:16Z",
+      "size": 4812800,
+      "checksum": "sha1:4f6b9aa6ebc8aeaf30cbd5804d7ac482551159ed",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.4",
         "echo-nginx-module": "0.64",
@@ -4215,8 +4215,8 @@
         "pcre": "8.45",
         "zlib": "1.3.1",
         "mingw-w64-x86_64-gcc": "15.2.0-8",
-        "mingw-w64-x86_64-crt-git": "13.0.0.r124.g2717de84e-1",
-        "mingw-w64-x86_64-winpthreads": "13.0.0.r124.g2717de84e-1"
+        "mingw-w64-x86_64-crt-git": "13.0.0.r354.g40ab95d18-1",
+        "mingw-w64-x86_64-winpthreads": "13.0.0.r354.g40ab95d18-1"
       }
     },
     {
@@ -4324,9 +4324,9 @@
       "arch": "x86_64",
       "os": "win32",
       "filename": "nginx-1.28.0-x86_64-win32.exe",
-      "date": "2025-11-16T00:58:43Z",
-      "size": 4812288,
-      "checksum": "sha1:3e0717c4b7da9c669ab46f9f518001bbadd85fc6",
+      "date": "2025-12-14T01:00:16Z",
+      "size": 4812800,
+      "checksum": "sha1:6f7fc0fbd882553ff98b82c4470a9229096187bb",
       "bundledLibs": {
         "ngx_devel_kit": "0.3.4",
         "echo-nginx-module": "0.64",
@@ -4336,8 +4336,8 @@
         "pcre": "8.45",
         "zlib": "1.3.1",
         "mingw-w64-x86_64-gcc": "15.2.0-8",
-        "mingw-w64-x86_64-crt-git": "13.0.0.r124.g2717de84e-1",
-        "mingw-w64-x86_64-winpthreads": "13.0.0.r124.g2717de84e-1"
+        "mingw-w64-x86_64-crt-git": "13.0.0.r354.g40ab95d18-1",
+        "mingw-w64-x86_64-winpthreads": "13.0.0.r354.g40ab95d18-1"
       }
     },
     {
