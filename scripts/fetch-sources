@@ -85,7 +85,7 @@ for item in "$@"; do
 
 	case "$name" in
 		openssl)
-			tag=$(github_latest_version_tag openssl/openssl 'openssl-([0-9]+\.)+[0-9]+')
+			tag=$(github_latest_version_tag openssl/openssl "openssl-$ver_regex")
 			ver=$(echo "$tag" | grep -o '[0-9].*')
 			url="https://github.com/openssl/openssl/releases/download/$tag/${name#*/}-$ver.tar.gz"
 		;;
