@@ -276,10 +276,6 @@ jobs:
         shell: msys2 {0}
         run: ./master/scripts/fetch-sources -d . nginx/nginx@release-${{ matrix.NGINX_VERSION }}
 
-      - name: Download and extract nginx MSYS2 patches
-        shell: msys2 {0}
-        run: ./master/scripts/fetch-sources -d msys2 "myfreeer/nginx-build-msys2@1.22.0"
-
       - name: Download and extract nginx modules
         shell: msys2 {0}
         run: ./master/scripts/fetch-sources $NGINX_MODULES_WIN32
@@ -287,19 +283,6 @@ jobs:
       - name: Download and extract libraries
         shell: msys2 {0}
         run: ./master/scripts/fetch-sources 'openssl@3.3.x' 'pcre@8.x' 'madler/zlib@v1.3.x'
-
-      - name: Apply patches
-        shell: msys2 {0}
-        run: |
-          case "${{ matrix.NGINX_VERSION }}" in
-            1.2[0-2].x)
-              for i in msys2/nginx-*.patch; do
-                patch -p1 < $i
-              done
-            ;;
-            # Other patches are not needed since 1.23.4.
-            *) patch -p1 < msys2/nginx-0007-logs-write-access-log-to-stderr.patch;;
-          esac
 
       - name: Build nginx
         shell: msys2 {0}

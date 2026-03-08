@@ -10,6 +10,11 @@ fi
 
 . "$(dirname "$0")"/common.sh
 
+HOST_OS=$(uname -s | tr '[A-Z]' '[a-z]')
+case "$HOST_OS" in
+	mingw*) HOST_OS='win32';;
+esac
+
 
 version_mask_to_regex() {
 	echo "$1" | sed 's/\./\\./g;s/x/[0-9]+/g'
@@ -113,6 +118,10 @@ for item in "$@"; do
 		nginx/njs-0.7.12) patch --batch -d "$dir" -p1 < master/patches/njs-0.7.12-fix-module-build.patch;;
 		nginx/nginx-1.24.*) patch --batch -d "$dir" -p1 < master/patches/nginx-1.24.x-avoid-using-openssl-config.patch;;
 	esac
+
+	if [ "$name" = 'nginx/nginx' ] && [ "$HOST_OS" = 'win32' ]; then
+		patch --batch -d "$dir" -p1 < master/patches/nginx-1.x.x-logs-write-access-log-to-stderr.patch
+	fi
 
 	echo "$url $size $hash $ver ${name#*/}" | tee -a .SOURCES
 done
