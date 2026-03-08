@@ -1,5 +1,6 @@
 {
   "extension": ["ts"],
   "spec": ["src/**/*.test.ts", "integration-tests/**/*.test.ts"],
-  "require": "ts-node/register"
+  "require": "ts-node/register",
+  "loader": "ts-node/esm"
 }
