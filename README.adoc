@@ -339,6 +339,6 @@ nginx binaries include the latest version of the third-party modules available a
 
 *Linux* binary is statically linked with https://www.musl-libc.org[musl libc], libedit, openssl (3.x), ncurses, pcre and zlib from https://alpinelinux.org[Alpine Linux] {alpine-branch}.
 
-*macOS* binary is statically linked with libedit, openssl@1.1, ncurses, pcre and zlib from https://brew.sh[Homebrew].
+*macOS* binary is statically linked with libedit, openssl@3, ncurses, pcre and zlib from https://brew.sh[Homebrew].
 
 endif::npm-readme[]
