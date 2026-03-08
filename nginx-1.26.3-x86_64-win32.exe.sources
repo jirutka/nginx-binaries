@@ -1,12 +1,11 @@
 https://github.com/nginx/nginx/archive/release-1.26.3/nginx-1.26.3.tar.gz 1241164 c96dd84f2a133b56bc13d200f00db604af29c4f14b21b8e017589da92a26b2e7 1.26.3 nginx
-https://github.com/myfreeer/nginx-build-msys2/archive/1.22.0/nginx-build-msys2-1.22.0.tar.gz 9748 cbfdc06a0839eb8ce4a3e193da572ba34df0923259c1a68d441cad7d9d076a7d 1.22.0 nginx-build-msys2
 https://github.com/vision5/ngx_devel_kit/archive/v0.3.4/ngx_devel_kit-0.3.4.tar.gz 66474 14a28063294f645d457b1eb10e3c23bbba44398f1c5f021421b58b6f8ab31662 0.3.4 ngx_devel_kit
 https://github.com/openresty/echo-nginx-module/archive/v0.64/echo-nginx-module-0.64.tar.gz 53549 6f43f56d7e7e8526716bbda06b300f0119912eede47b3a48bb948252a1fb38c8 0.64 echo-nginx-module
 https://github.com/openresty/headers-more-nginx-module/archive/v0.39/headers-more-nginx-module-0.39.tar.gz 29616 dde68d3fa2a9fc7f52e436d2edc53c6d703dcd911283965d889102d3a877c778 0.39 headers-more-nginx-module
 https://github.com/openresty/set-misc-nginx-module/archive/v0.33/set-misc-nginx-module-0.33.tar.gz 30084 cd5e2cc834bcfa30149e7511f2b5a2183baf0b70dc091af717a89a64e44a2985 0.33 set-misc-nginx-module
-https://github.com/openssl/openssl/releases/download/openssl-3.6.0/openssl-3.6.0.tar.gz 54974351 b6a5f44b7eb69e3fa35dbf15524405b44837a481d43d81daddde3ff21fcbb8e9 3.6.0 openssl
+https://github.com/openssl/openssl/releases/download/openssl-3.5.5/openssl-3.5.5.tar.gz 53104821 b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89 3.5.5 openssl
 https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.gz 2096552 4e6ce03e0336e8b4a3d6c2b70b1c5e18590a5673a98186da90d4f33c23defc09 8.45 pcre
-https://github.com/madler/zlib/archive/v1.3.1/zlib-1.3.1.tar.gz 1572744 17e88863f3600672ab49182f217281b6fc4d3c762bde361935e436a95214d05c 1.3.1 zlib
+https://github.com/madler/zlib/archive/v1.3.2/zlib-1.3.2.tar.gz 1566911 b99a0b86c0ba9360ec7e78c4f1e43b1cbdf1e6936c8fa0f6835c0cd694a495a1 1.3.2 zlib
 D:/a/_temp/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/libgcc.a 3026432 e7f9d9d90c3181ced57675ce53e3132ebeca3a8d37d01b1ab2a1f462240e2779 15.2.0-8 mingw-w64-x86_64-gcc
 D:/a/_temp/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/libgcc_eh.a 11744 68f06dc96f76bb1f4513a41ca72389532de9fe81a0a2d94361179a95fedd3f42 15.2.0-8 mingw-w64-x86_64-gcc
 D:/a/_temp/msys64/mingw64/lib/libadvapi32.a 694266 a2fc9ba2bb1473c12f60f3f07bcf80d4ec3c275fa1ba6078cbc75ddf9c258e9e 13.0.0.r354.g40ab95d18-1 mingw-w64-x86_64-crt-git

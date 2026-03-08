@@ -1,0 +1,4 @@
+https://github.com/nginx/njs/archive/0.9.6/njs-0.9.6.tar.gz 953437 713e931d1ffcd337f6304dc55e512dcf2099ba4cc3a996c9ea14f22d5d9cdd79 0.9.6 njs
+/usr/local/opt/openssl/lib/libcrypto.a 8779032 8a8ec0b1c68a00fc1d9bbd6ac56d81c8557ea0c49eb03d849dd7c61b2c59eaaa 3.6.1 openssl
+/usr/local/opt/pcre/lib/libpcre.a 471608 f67502d412ad0d94213de236bda59c9645ab31c89e47838d5295b5bae83fbc05 8.45 pcre
+/usr/local/opt/zlib/lib/libz.a 104120 8dc6b3c3390264150f9bb312f2909691c4feb00e794851dc1b61b40b6803b8fa 1.3.2 zlib
