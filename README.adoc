@@ -250,7 +250,8 @@ ppc64le +
 pass:[<s>armv7</s>] footnote:armv7[As of January 2023, binaries for armv7 are no longer built -- gcc runs out of memory when building njs using the QEMU emulator. If you want support for armv7, let me know in issues.]
 
 | macOS
-| x86_64
+| arm64 footnote:[Nginx for macOS has been built for arm64 (Apple silicon) since version 1.25.5.] +
+x86_64
 
 | Windows
 | x86_64 (x64)
@@ -266,7 +267,8 @@ ppc64le +
 pass:[<s>armv7</s>] footnote:armv7[]
 
 | macOS
-| x86_64
+| arm64 footnote:[njs for macOS has been built for arm64 (Apple silicon) since version 0.8.4.] +
+x86_64
 |===
 
 

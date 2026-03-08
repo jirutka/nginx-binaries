@@ -95,16 +95,26 @@ jobs:
           name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-linux
           path: artifact/*
 
-  njs-x86_64-darwin:
-    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-darwin
-    runs-on: macos-latest
+  njs-darwin:
+    name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-darwin
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
+        ARCH:
+          - arm64
+          - x86_64
         NJS_VERSION:
           - 0.x.x
         VARIANT:
           - '-debug'
           - ''
+        include:
+          - ARCH: arm64
+            PREFIX: /opt/homebrew
+            runs-on: macos-latest
+          - ARCH: x86_64
+            PREFIX: /usr/local
+            runs-on: macos-26-intel
     steps:
       - name: Install dependencies
         run: brew install gsed jq libedit openssl@3 ncurses pcre zlib
@@ -121,23 +131,23 @@ jobs:
       # we have to remove them to give it no other option than using static.
       - name: Remove dylibs
         run: |
-          rm /opt/homebrew/opt/libedit/lib/*.dylib
-          rm /opt/homebrew/opt/openssl/lib/*.dylib
-          rm /opt/homebrew/opt/ncurses/lib/*.dylib
-          rm /opt/homebrew/opt/pcre/lib/*.dylib
-          rm /opt/homebrew/opt/zlib/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/libedit/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/openssl/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/ncurses/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/pcre/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/zlib/lib/*.dylib
 
       - name: Build njs
         env:
           VARIANT: ${{ matrix.VARIANT }}
-          CFLAGS: ${{ env.CFLAGS }} -I/opt/homebrew/opt/libedit/include -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/ncurses/include -I/opt/homebrew/opt/pcre/include -I/opt/homebrew/opt/zlib/include
-          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/opt/homebrew/opt/libedit/lib -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/ncurses/lib -L/opt/homebrew/opt/pcre/lib -L/opt/homebrew/opt/zlib/lib
+          CFLAGS: ${{ env.CFLAGS }} -I${{ matrix.PREFIX }}/opt/libedit/include -I${{ matrix.PREFIX }}/opt/openssl/include -I${{ matrix.PREFIX }}/opt/ncurses/include -I${{ matrix.PREFIX }}/opt/pcre/include -I${{ matrix.PREFIX }}/opt/zlib/include
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L${{ matrix.PREFIX }}/opt/libedit/lib -L${{ matrix.PREFIX }}/opt/openssl/lib -L${{ matrix.PREFIX }}/opt/ncurses/lib -L${{ matrix.PREFIX }}/opt/pcre/lib -L${{ matrix.PREFIX }}/opt/zlib/lib
         run: ./master/scripts/build-njs
 
       - name: Upload njs binary to artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-x86_64-darwin
+          name: njs-${{ matrix.NJS_VERSION }}${{ matrix.VARIANT }}-${{ matrix.ARCH }}-darwin
           path: artifact/*
 
   nginx-multi-linux:
@@ -200,16 +210,25 @@ jobs:
           name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-linux
           path: artifact/*
 
-  nginx-x86_64-darwin:
-    name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
-    runs-on: macos-latest
+  nginx-darwin:
+    name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-darwin
+    runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
+        ARCH:
+          - arm64
+          - x86_64
         NGINX_VERSION:
           - 1.26.x
           - 1.27.x
           - 1.28.x
         include:
+          - ARCH: arm64
+            PREFIX: /opt/homebrew
+            runs-on: macos-latest
+          - ARCH: x86_64
+            PREFIX: /usr/local
+            runs-on: macos-26-intel
           - NJS_VERSION: 0.x.x
           # Pin older njs version for old nginx.
           - NGINX_VERSION: 1.26.x
@@ -233,22 +252,22 @@ jobs:
       # we have to remove them to give it no other option than using static.
       - name: Remove dylibs
         run: |
-          rm /opt/homebrew/opt/jansson/lib/*.dylib
-          rm /opt/homebrew/opt/openssl/lib/*.dylib
-          rm /opt/homebrew/opt/pcre/lib/*.dylib
-          rm /opt/homebrew/opt/zlib/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/jansson/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/openssl/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/pcre/lib/*.dylib
+          rm ${{ matrix.PREFIX }}/opt/zlib/lib/*.dylib
 
       - name: Build nginx
         env:
           NGINX_MODULES: nginx/njs ${{ env.NGINX_MODULES }}
-          CFLAGS: ${{ env.CFLAGS }} -I/opt/homebrew/opt/jansson/include -I/opt/homebrew/opt/openssl/include -I/opt/homebrew/opt/pcre/include -I/opt/homebrew/opt/zlib/include
-          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L/opt/homebrew/opt/jansson/lib -L/opt/homebrew/opt/openssl/lib -L/opt/homebrew/opt/pcre/lib -L/opt/homebrew/opt/zlib/lib
+          CFLAGS: ${{ env.CFLAGS }} -I${{ matrix.PREFIX }}/opt/jansson/include -I${{ matrix.PREFIX }}/opt/openssl/include -I${{ matrix.PREFIX }}/opt/pcre/include -I${{ matrix.PREFIX }}/opt/zlib/include
+          LDFLAGS: ${{ env.DARWIN_LDFLAGS }} -L${{ matrix.PREFIX }}/opt/jansson/lib -L${{ matrix.PREFIX }}/opt/openssl/lib -L${{ matrix.PREFIX }}/opt/pcre/lib -L${{ matrix.PREFIX }}/opt/zlib/lib
         run: ./master/scripts/build-nginx
 
       - name: Upload nginx binary to artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: nginx-${{ matrix.NGINX_VERSION }}-x86_64-darwin
+          name: nginx-${{ matrix.NGINX_VERSION }}-${{ matrix.ARCH }}-darwin
           path: artifact/*
 
   nginx-x86_64-win32:
@@ -303,9 +322,9 @@ jobs:
     name: Upload binaries
     needs:
       - njs-multi-linux
-      - njs-x86_64-darwin
+      - njs-darwin
       - nginx-multi-linux
-      - nginx-x86_64-darwin
+      - nginx-darwin
       - nginx-x86_64-win32
     if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
