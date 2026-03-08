@@ -65,6 +65,12 @@ configure() {
 		--without-http_scgi_module \
 		--without-http_grpc_module \
 		--without-http_memcached_module \
+		--with-stream \
+		--with-stream_ssl_module \
+		--with-stream_realip_module \
+		--with-stream_ssl_preread_module \
+		--without-stream_geo_module \
+		--without-stream_split_clients_module \
 		"$@"
 
 	# Don't load openssl.cnf unless the OPENSSL_CONF env. variable is

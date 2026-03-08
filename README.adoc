@@ -314,10 +314,22 @@ It’s compiled with debug mode.
 * {nginx-docs-uri}/http/ngx_http_upstream_zone_module.html[ngx_http_upstream_zone_module]
 * {nginx-docs-uri}/http/ngx_http_userid_module.html[ngx_http_userid_module]
 * {nginx-docs-uri}/http/ngx_http_v2_module.html[ngx_http_v2_module]
+* {nginx-docs-uri}/stream/ngx_stream_access_module.html[ngx_stream_access_module] (since March 2026 footnote:stream[Stream modules are enabled since 1.26.3, 1.28.2, and 1.29.5 (March 2026).])
+* {nginx-docs-uri}/stream/ngx_stream_core_module.html[ngx_stream_core_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_limit_conn_module.html[ngx_stream_limit_conn_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_map_module.html[ngx_stream_map_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_pass_module.html[ngx_stream_pass_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_realip_module.html[ngx_stream_realip_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_return_module.html[ngx_stream_return_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_set_module.html[ngx_stream_set_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_ssl_module.html[ngx_stream_ssl_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_ssl_preread_module.html[ngx_stream_ssl_preread_module] (since March 2026 footnote:stream[])
+* {nginx-docs-uri}/stream/ngx_stream_upstream_module.html[ngx_stream_upstream_module] (since March 2026 footnote:stream[])
 
 *Extra Modules:* footnote:[Modules that are provided by NGINX but released separately.]
 
-* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module] (except Windows footnote:[njs is not supported on Windows, see https://github.com/nginx/njs/issues/320[nginx/njs#320]])
+* {nginx-docs-uri}/http/ngx_http_js_module.html[ngx_http_js_module] (except Windows footnote:njs-win32[njs is not supported on Windows, see https://github.com/nginx/njs/issues/320[nginx/njs#320]])
+* {nginx-docs-uri}/stream/ngx_stream_js_module.html[ngx_stream_js_module] (since March 2026 footnote:stream[]; except Windows footnote:njs-win32[])
 
 Since nginx 1.22.0, the stable and mainline versions of nginx include the latest version of njs available at the time of building.
 The _old stable_ versions of nginx include the latest minor (i.e. x.**Y**.z) version of njs released prior to the release of a new stable nginx (and the latest patch version available at the time of building).
