@@ -1,3 +1,4 @@
+import * as OS from 'node:os'
 
 const mapping = {
   arm: 'armv7',
@@ -7,6 +8,12 @@ const mapping = {
 } as Record<string, string>
 
 /**
- * Normalizes the given architecture name to an Alpine architecture name.
+ * Normalizes the given architecture name to an Alpine architecture name or
+ * macOS architecture name.
  */
-export const normalizeArch = (arch: string): string => mapping[arch] || arch
+export function normalizeArch (arch: string): string {
+  if (arch === 'arm64' && OS.platform() === 'darwin') {
+    return arch
+  }
+  return mapping[arch] || arch
+}

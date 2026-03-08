@@ -9,8 +9,7 @@ import { bindAll, replaceProperty } from './internal/utils'
 
 
 const defaultQuery: Omit<Required<Query>, 'version'> = {
-  // macOS (darwin) on ARM can run x86_64 binaries.
-  arch: OS.platform() === 'darwin' ? 'x86_64' : normalizeArch(OS.arch()) as any,
+  arch: normalizeArch(OS.arch()) as any,
   os: OS.platform() as any,
   variant: '',
 }

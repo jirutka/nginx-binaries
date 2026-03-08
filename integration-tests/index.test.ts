@@ -14,8 +14,7 @@ import { getCacheDir } from '../src/internal/cacheDir'
 
 const fixtureRepoPath = `${__dirname}/fixtures/repo`
 const hostOs = OS.platform()
-// macOS (darwin) on ARM can run x86_64 binaries.
-const hostArch = hostOs === 'darwin' ? 'x86_64' : normalizeArch(OS.arch())
+const hostArch = normalizeArch(OS.arch())
 
 const server = createStaticServer(fixtureRepoPath)
 
