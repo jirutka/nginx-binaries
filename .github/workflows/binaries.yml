@@ -157,8 +157,8 @@ jobs:
       matrix:
         NGINX_VERSION:
           - 1.26.x
-          - 1.27.x
           - 1.28.x
+          - 1.29.x
         ARCH:
           - x86_64
           - aarch64
@@ -168,6 +168,8 @@ jobs:
           # Pin older njs version for old stable nginx.
           - NGINX_VERSION: 1.26.x
             NJS_VERSION: 0.8.x
+          - NGINX_VERSION: 1.28.x
+            NJS_VERSION: 0.9.x
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v4
@@ -220,8 +222,8 @@ jobs:
           - x86_64
         NGINX_VERSION:
           - 1.26.x
-          - 1.27.x
           - 1.28.x
+          - 1.29.x
         include:
           - ARCH: arm64
             PREFIX: /opt/homebrew
@@ -233,6 +235,8 @@ jobs:
           # Pin older njs version for old nginx.
           - NGINX_VERSION: 1.26.x
             NJS_VERSION: 0.8.x
+          - NGINX_VERSION: 1.28.x
+            NJS_VERSION: 0.9.x
     steps:
       - name: Install dependencies
         run: brew install gsed jansson jq openssl@3 pcre zlib
@@ -277,8 +281,8 @@ jobs:
       matrix:
         NGINX_VERSION:
           - 1.26.x
-          - 1.27.x
           - 1.28.x
+          - 1.29.x
     steps:
       - name: Setup MSYS2 and install packages
         uses: msys2/setup-msys2@v2
