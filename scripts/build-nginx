@@ -109,7 +109,7 @@ case "$HOST_OS" in
 			--with-openssl="$openssl_dir" \
 			--with-pcre="$pcre_dir" \
 			--with-zlib="$zlib_dir" \
-			--with-openssl-opt='no-asm no-quic no-tests -D_WIN32_WINNT=0x0501' \
+			--with-openssl-opt='no-apps no-asm no-docs no-legacy no-quic no-shared no-tests -D_WIN32_WINNT=0x0501' \
 			$module_flags
 	;;
 esac
