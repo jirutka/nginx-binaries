@@ -7,4 +7,4 @@ https://github.com/nginx/njs/archive/0.9.6/njs-0.9.6.tar.gz 953437 713e931d1ffcd
 /usr/lib/libncursesw.a 799558 313528649fcd52096b9af08ce321d0d728268c642875a6144fd657c8988d84fc 6.5_p20241006-r3 ncurses
 /usr/lib/libpcre.a 415764 061c2895460aed92f8f9c46e0ea91adfc10e1938b113cace8a02c24ab9092b7b 8.45-r3 pcre
 /usr/lib/libssp_nonshared.a 3550 d9cf4ac230b1fd98a7954ef211f11fb37b259a6ec34d6fb4840bb447abb73ef5 1.2.5-r11 musl
-/usr/lib/libz.a 128396 5ba296d6d69128b375220afe085db64287ad3085b7776a0a9a801e50c5fcaa6f 1.3.1-r2 zlib
+/usr/lib/libz.a 130086 fe225c489b44d1da4374264e8f78ec8bdd6d3953be00ee886d44b51a6a2560e7 1.3.2-r0 zlib
