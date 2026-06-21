@@ -94,6 +94,12 @@ for item in "$@"; do
 			ver=$(scrape_latest_version "$base_url/rss?path=/pcre" "pcre-($ver_regex)\." 'pcre')
 			url="$base_url/files/$name/$ver/$name-$ver.tar.gz"
 		;;
+		# This repo uses git submodules, so we cannot use the archive tarball.
+		kjdev/nginx-auth-jwt)
+			tag=$(github_latest_version_tag "$name" "$ver_regex")
+			ver=$(echo "$tag" | grep -o '[0-9].*')
+			url="https://github.com/$name/releases/download/$tag/nginx-auth-jwt-$ver-full.tar.gz"
+		;;
 		*)
 			tag=$(github_latest_version_tag "$name" "$ver_regex")
 			ver=$(echo "$tag" | grep -o '[0-9].*')
@@ -102,7 +108,7 @@ for item in "$@"; do
 	esac
 
 	filename=$(basename "$url")
-	dir=${DEST_DIR:-${filename%.tar*}}
+	dir=${DEST_DIR:-"${name#*/}-$ver"}
 
 	echo "Downloading $url" >&2
 	curl -L --retry 3 -o "$filename" "$url"
