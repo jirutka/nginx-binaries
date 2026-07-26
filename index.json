@@ -4707,9 +4707,9 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.28.3-x86_64-darwin",
-      "date": "2026-07-19T01:15:09Z",
-      "size": 6826600,
-      "checksum": "sha1:f2cb2d6e554cc593e48ae41f43e73bd60c0665db",
+      "date": "2026-07-26T01:18:25Z",
+      "size": 6830984,
+      "checksum": "sha1:694137723181ed0eeaa74ef84df6fc8d86e77670",
       "bundledLibs": {
         "njs": "0.9.9",
         "nginx-auth-jwt": "0.14.2",
@@ -4718,8 +4718,8 @@
         "echo-nginx-module": "0.65",
         "headers-more-nginx-module": "0.40",
         "set-misc-nginx-module": "0.34",
-        "jansson": "2.15.0",
-        "openssl": "3.6.2",
+        "jansson": "2.15.1",
+        "openssl": "3.6.3",
         "zlib": "1.3.2"
       }
     },
@@ -5571,9 +5571,9 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.30.4-x86_64-darwin",
-      "date": "2026-07-19T01:15:09Z",
-      "size": 6881064,
-      "checksum": "sha1:d0f9260ddae785a27ed71c6f972f63fa0b582ae1",
+      "date": "2026-07-26T01:18:25Z",
+      "size": 6885424,
+      "checksum": "sha1:4bb6b5ae911fd164ef92011171593d88a222aae3",
       "bundledLibs": {
         "njs": "0.9.9",
         "nginx-auth-jwt": "0.14.2",
@@ -5582,8 +5582,8 @@
         "echo-nginx-module": "0.65",
         "headers-more-nginx-module": "0.40",
         "set-misc-nginx-module": "0.34",
-        "jansson": "2.15.0",
-        "openssl": "3.6.2",
+        "jansson": "2.15.1",
+        "openssl": "3.6.3",
         "zlib": "1.3.2"
       }
     },
@@ -5859,9 +5859,9 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "nginx-1.31.3-x86_64-darwin",
-      "date": "2026-07-19T01:15:09Z",
-      "size": 6897752,
-      "checksum": "sha1:bf20f758d7d5b315d2830e7aee4e3b8ccfc378f5",
+      "date": "2026-07-26T01:18:25Z",
+      "size": 6902112,
+      "checksum": "sha1:1e85338c243228719afafa18811df1147c073449",
       "bundledLibs": {
         "njs": "0.9.9",
         "nginx-auth-jwt": "0.14.2",
@@ -5870,8 +5870,8 @@
         "echo-nginx-module": "0.65",
         "headers-more-nginx-module": "0.40",
         "set-misc-nginx-module": "0.34",
-        "jansson": "2.15.0",
-        "openssl": "3.6.2",
+        "jansson": "2.15.1",
+        "openssl": "3.6.3",
         "zlib": "1.3.2"
       }
     },
@@ -12081,11 +12081,11 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.9.9-debug-x86_64-darwin",
-      "date": "2026-06-21T13:23:21Z",
-      "size": 6092744,
-      "checksum": "sha1:2bb8073d347cecc006ed6ecf0cb716497887acd1",
+      "date": "2026-07-26T01:18:25Z",
+      "size": 6093032,
+      "checksum": "sha1:1d41840b070958ff8c165c48608f57bbf8930887",
       "bundledLibs": {
-        "openssl": "3.6.2",
+        "openssl": "3.6.3",
         "pcre": "8.45",
         "zlib": "1.3.2"
       }
@@ -12137,11 +12137,11 @@
       "arch": "x86_64",
       "os": "darwin",
       "filename": "njs-0.9.9-x86_64-darwin",
-      "date": "2026-06-21T13:23:21Z",
-      "size": 5249640,
-      "checksum": "sha1:491102cf54363da3273c47493218980bb7e67e7d",
+      "date": "2026-07-26T01:18:25Z",
+      "size": 5249720,
+      "checksum": "sha1:25d863f47ae30c944679e5becf80ab94c3f705a2",
       "bundledLibs": {
-        "openssl": "3.6.2",
+        "openssl": "3.6.3",
         "pcre": "8.45",
         "zlib": "1.3.2"
       }
